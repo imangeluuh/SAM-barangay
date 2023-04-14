@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lexend', sans-serif;
+}
+
+body{
+    background-color:  #1F7A8C;
+}
+
+.login-form {
+    background-color: #BFDBF7;
+    width: 600px;
+    height: 550px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.sam-title, .forgot-password, .login-button, .sign-up, .tnc {
+    color: #053C5E;
+}
+
+.sam-title {
+    font-size: 4.5rem;
+    text-shadow: 0px 3px 5px #0000005e;
+}
+
+.mamamayan-login {
+    color: #1F7A8C;
+    font-size: 2.5rem;
+    margin-top: -20px;
+}
+
+.login-button {
+    background-color: #053C5E;
+    width: 120px;
+    font-size: 1.5rem;
+}
+
+input {
+    height: 35px;
+}
+input[type=submit] {
+    height: 45px;
+}
+
+#email, #password {
+    box-shadow: 0px 2px 5px #0000005e;
+}
+
+.create-account, .sign-up {
+    font-size: 1.1rem;
+}
+

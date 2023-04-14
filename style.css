@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lexend', sans-serif;;
+}
+
+.left-container, .resident-button {
+    background-color: #053C5E;
+}
+
+.encourage-text {
+    color: #BFDBF7;
+    font-size: 1.5rem;
+}
+
+.sam-help {
+    font-size: 4vw;
+}
+
+.services-box {
+    background-color: #053C5E;
+}
+
+.chat-sam {
+    color: #053C5E;
+}
+
+.officials-button {
+    background-color: #A31621;
+}
+
+.resident-button, .officials-button, .user-type {
+    width: 23vw;
+}
+
+.services-box, .resident-button, .officials-button {
+    box-shadow: 0px 3px 5px #0000005e;
+}
+
+@media screen and (min-width: 992px) {
+    body {
+        overflow: hidden;
+    }
+}

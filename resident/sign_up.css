@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lexend', sans-serif;
+}
+
+body{
+    background-color:  #1F7A8C;
+}
+
+.signup-form {
+    background-color: #BFDBF7;
+    width: 600px;
+    height: 600px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.description, .mamamayan-signup, .bdate-label {
+    color: #1F7A8C;
+}
+
+.description {
+    font-size: 1.1rem;
+}
+
+.sam-title, .login-button, .sign-in, .tnc {
+    color: #053C5E;
+}
+
+.sam-title {
+    text-shadow: 0px 3px 3px #0000005e;
+    font-size: 2rem;
+}
+
+.mamamayan-signup {
+    font-size: 1.6rem;
+    margin-top: -10px;
+}
+
+.login-button {
+    background-color: #053C5E;
+    width: 120px;
+    font-size: 1rem;
+}
+
+.bdate-label {
+    font-size: 1.2rem;
+}
+
+input {
+    height: 25px;
+}
+
+#f-name, #md-name, #l-name, #email, #password, #birthdate {
+    box-shadow: 0px 2px 4px #0000005e;
+}
+
+.login-account, .sign-in {
+    font-size: 1.1rem;
+}
+
