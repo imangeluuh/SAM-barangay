@@ -59,10 +59,10 @@
                     <p class="fs-4 chat-sam mt-4 p-0">I am a...</p>
                 </div>
                 <div class="row fs-4 p-1 rounded-1 m-2 resident-button">
-                    <a href="m_login.html" class="d-flex text-decoration-none text-light justify-content-center px-2">Mamamayan / Resident</a>
+                    <a href="./resident/m_login.php" class="d-flex text-decoration-none text-light justify-content-center px-2">Mamamayan / Resident</a>
                 </div>
                 <div class="row text-light fs-4 p-1 rounded-1 m-2 officials-button">
-                    <a href="a_login.html" class="d-flex text-decoration-none text-light justify-content-center">Barangay Official</a>
+                    <a href="./employee/a_login.php" class="d-flex text-decoration-none text-light justify-content-center">Barangay Employee</a>
                 </div>
             </div>
         </div>

@@ -15,6 +15,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <?php
+    include('../dbconfig.php');
+
+    if(isset($_POST['sign-up'])){
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $rpassword = $_POST['rpassword'];
+        $role_id = 3;
+        $hash = password_hash($password, PASSWORD_BCRYPT);
+        $res_firstname = $_POST['f-name'];
+        $res_middlename = $_POST['md-name'];
+        $res_lastname = $_POST['l-name'];
+        $birthdate = $_POST['birthdate'];
+        $address = $_POST['address'];
+        if($password == $rpassword) {
+            // Call the stored procedure
+            $stmt = $conn->prepare("CALL SP_ADD_RESIDENT(?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param('ssisssss', $email, $hash, $role_id, $res_firstname, $res_middlename, $res_lastname, $birthdate, $address);
+            $stmt->execute();
+
+            // Check for errors
+            if ($stmt->errno) {
+                die('Failed to call stored procedure: ' . $stmt->error);
+            } else {
+                // lipat sa login. display if session status = success
+                // echo "<script>alert('Your account has been created successfully!');</script>";
+                header("Location:m_login.php"); 
+                exit();
+            }
+            // Close the statement and the connection
+            $stmt->close();
+            $conn->close();
+        }
+    }
+
+    ?>
     <div class="signup-form rounded-4">
         <div class="row d-flex justify-content-center">
             <span class=" mt-5 d-flex justify-content-center fw-light description">To chat with SAM, you need to make an account first. Fill up</span>
@@ -37,13 +73,18 @@
                     </div>
                     <!-- Email field -->
                     <div class="form-outline row mb-3">
-                        <input type="text" name="email" id="email" class="form-control-md border-0 rounded-1" placeholder="E-mail" required="required">
+                        <input type="email" name="email" id="email" class="form-control-md border-0 rounded-1" placeholder="E-mail" required="required">
                     </div>
+                    <!-- Birthdate field -->
                     <div class="d-flex">
                         <label for="birthdate" class="bdate-label">Birthdate</label>
                         <div class="form-outline col-4 mb-3 ms-3">
                             <input type="date" name="birthdate" id="birthdate" class="form-control border-0 rounded-1" required="required">
                         </div>
+                    </div>
+                    <!-- Address field -->
+                    <div class="form-outline row mb-3">
+                        <input type="text" name="address" id="address" class="form-control-md border-0 rounded-1" placeholder="Address" required="required">
                     </div>
                     <!-- Password field -->
                     <div class="form-outline row mb-3">
@@ -58,12 +99,12 @@
                     </div> -->
                     <!-- Submit button -->
                     <div class="text-center row justify-content-end mb-4">
-                        <input type="submit" value="Sign-up" name="login" class="login-button border-0 rounded-3 fw-light text-light p-0">
+                        <input type="submit" value="Sign-up" name="sign-up" class="login-button border-0 rounded-3 fw-light text-light p-0">
                     </div>
                 </form>
                 <div class="container p-0 mb-4">
                     <span class="fw-light login-account p-0">Already have an account?</span>
-                    <a href="" class="text-decoration-none p-0 sign-in">Sign-in</a>
+                    <a href="./m_login.php" class="text-decoration-none p-0 sign-in">Sign-in</a>
                 </div>
                 <div class="container d-flex justify-content-center">
                     <a href="" class="text-decoration-none tnc">Terms and Conditions</a>

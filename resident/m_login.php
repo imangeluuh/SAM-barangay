@@ -15,6 +15,51 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <?php
+    include('../dbconfig.php');
+
+    if(isset($_POST['login'])){
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $hash = password_hash($password, PASSWORD_BCRYPT);
+
+
+        // Call the stored procedure
+        $stmt = $conn->prepare("CALL SP_FIND_LOGIN(?)");
+
+        // bind the input parameters to the prepared statement
+        $stmt->bind_param('s', $email);
+
+        // bind the input parameters to the prepared statement
+        $stmt->execute();
+
+        // retrieve the result set from the executed statement
+        $result = $stmt->get_result();  
+
+        // fetch the row from the result set
+        $row = $result->fetch_assoc();
+
+        $rowcount = mysqli_num_rows($result);
+
+        if($rowcount == 0) {
+            echo "<script>alert('The email you entered isn't connected to an account.')</script>";
+        } else {
+            if(password_verify($password, $row['password'])) {
+                // $userData = array('email' => $row['email']
+                //                     , 'password' => $row['password']);
+                // $_SESSION['userData'] = $userData;
+                header("Location: ../admin.html");
+                exit();
+            } else {
+                echo "<script>alert('The password you’ve entered is incorrect.')</script>";
+            }
+        }
+        $stmt->close();
+        $conn->close();
+
+    }
+
+    ?>
     <div class="login-form rounded-4">
         <div class="row d-flex justify-content-center">
             <h1 class="fw-bold d-flex justify-content-center sam-title mt-5 p-0">SAM</h1>
@@ -39,7 +84,7 @@
                 </form>
                 <div class="container p-0 mb-3">
                     <span class="fw-light create-account  p-0">Don't have an account?</span>
-                    <a href="" class="text-decoration-none p-0 sign-up">Sign-up</a>
+                    <a href="./sign_up.php" class="text-decoration-none p-0 sign-up">Sign-up</a>
                 </div>
                 <div class="container d-flex justify-content-center">
                     <a href="" class="text-decoration-none tnc">Terms and Conditions</a>

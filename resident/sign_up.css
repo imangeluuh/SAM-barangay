@@ -56,7 +56,7 @@ input {
     height: 25px;
 }
 
-#f-name, #md-name, #l-name, #email, #password, #birthdate {
+#f-name, #md-name, #l-name, #email, #password, #rpassword, #birthdate, #address {
     box-shadow: 0px 2px 4px #0000005e;
 }
 
