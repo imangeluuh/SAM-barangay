@@ -16,13 +16,23 @@
 </head>
 <body>
     <?php
+        // Start session 
+        // If a session is not already started, start a new session
+        if(!session_id()){
+            session_start(); 
+        } 
+
+        // Include the database configuration file
         include('../dbconfig.php');
 
+        // Check if the login form has been submitted
         if(isset($_POST['login'])){
+            // Get the input data
             $email = $_POST['work-email'];
             $password = $_POST['password'];
-            $hash = password_hash($password, PASSWORD_BCRYPT);
 
+            // Hash the password using bcrypt algorithm
+            $hash = password_hash($password, PASSWORD_BCRYPT);
 
             // Call the stored procedure
             $stmt = $conn->prepare("CALL SP_FIND_LOGIN(?)");
@@ -30,7 +40,7 @@
             // bind the input parameters to the prepared statement
             $stmt->bind_param('s', $email);
 
-            // bind the input parameters to the prepared statement
+            // Execute the prepared statement
             $stmt->execute();
 
             // retrieve the result set from the executed statement
@@ -39,15 +49,43 @@
             // fetch the row from the result set
             $row = $result->fetch_assoc();
 
+            // If no rows are returned, display an error message
             $rowcount = mysqli_num_rows($result);
 
             if($rowcount == 0) {
                 echo "<script>alert('The email you entered isn\'t connected to an account.')</script>";
             } else {
+                 // If a row is returned, verify the password entered by the user with the hashed password stored in the database
                 if(password_verify($password, $row['password'])) {
-                    // $userData = array('email' => $row['email']
-                    //                     , 'password' => $row['password']);
-                    // $_SESSION['userData'] = $userData;
+                    // If the password is correct, create an array containing the user's email and hashed password
+                    $userData = array('email' => $row['email']
+                                        , 'password' => $row['password']);
+
+                    // Fetch any remaining result sets
+                    while($conn->next_result()) {
+                        $conn->store_result();
+                    }
+
+                    // Call the stored procedure to retrieve user information from the database
+                    $stmt = $conn->prepare("CALL SP_GET_EMP_INFO(?)");
+
+                    // bind the input parameters to the prepared statement
+                    $stmt->bind_param('s', $email);
+
+                    // Execute the prepared statement
+                    $stmt->execute();
+
+                    // retrieve the result set from the executed statement
+                    $result = $stmt->get_result();  
+
+                    // fetch the row from the result set
+                    $row = $result->fetch_assoc();
+
+                    $userData = array('employee_id' => $row['employee_id']
+                                        , 'emp_firstname' => $row['emp_firstname']
+                                        , 'emp_lastname' => $row['emp_lastname']);
+
+                    $_SESSION['userData'] = $userData;
                     header("Location: ./emp_homepage.php");
                     exit();
                 } else {

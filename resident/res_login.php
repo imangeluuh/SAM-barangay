@@ -27,7 +27,7 @@
 
     // Check if the login form has been submitted
     if(isset($_POST['login'])){
-        // Check if the login form has been submitted
+        // Get the input data
         $email = $_POST['email'];
         $password = $_POST['password'];
 
