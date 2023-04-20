@@ -9,15 +9,20 @@ body {
     background-color: #BFDBF7;
 }
 
-.login-form {
-    width: 450px;
-    height: 450px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+.main-container {
+    max-width: 500px; 
+    width: 60vw;
+    min-width: 280px;
+    height: 100vh;
 }
+
+.login-form {
+    max-width: 500px; 
+    width: 60vw;
+    min-width: 280px;
+    height: auto;
+}
+
 .sam-title {
     color: #1F7A8C;
     font-size: 4.5rem;

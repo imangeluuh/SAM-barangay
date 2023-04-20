@@ -1,0 +1,54 @@
+
+#side_nav {
+    background: #053C5E;
+    /* white-space: nowrap; */
+    position: fixed;
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 100vh;
+    transition: all 0.3s;
+    z-index: 1;
+}
+
+.h-color {
+    color: white;
+}
+
+.sidebar .active {
+    background-color: rgba(255, 255, 255, 0.699);
+    border-radius: 8px;
+}
+
+.sidebar .active a, .sidebar .active a:hover {
+    color: black;
+}
+
+.sidebar li a {
+    color: #fff;
+}
+
+.sam-logo {
+    width: 70px;
+}
+
+@media(max-width: 767px) {
+    #side_nav {
+        margin-left: -250px;
+        position: fixed;
+        min-height: 100vh;
+        z-index: 1;
+    }
+
+    #side_nav.active{
+        margin-left: 0;
+    }
+    
+}
+
+@media(min-width: 767px) {
+    .content {
+        margin-left: 250px;
+    }
+    
+}
+

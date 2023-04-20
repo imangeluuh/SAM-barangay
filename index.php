@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS link -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <!-- CSS link -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <!-- Google Fonts API link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,10 +59,10 @@
                     <p class="fs-4 chat-sam mt-4 p-0">I am a...</p>
                 </div>
                 <div class="row fs-4 p-1 rounded-1 m-2 resident-button">
-                    <a href="./resident/m_login.php" class="d-flex text-decoration-none text-light justify-content-center px-2">Mamamayan / Resident</a>
+                    <a href="./resident/res_login.php" class="d-flex text-decoration-none text-light justify-content-center px-2">Mamamayan / Resident</a>
                 </div>
                 <div class="row text-light fs-4 p-1 rounded-1 m-2 officials-button">
-                    <a href="./employee/a_login.php" class="d-flex text-decoration-none text-light justify-content-center">Barangay Employee</a>
+                    <a href="./employee/emp_login.php" class="d-flex text-decoration-none text-light justify-content-center">Barangay Employee</a>
                 </div>
             </div>
         </div>
