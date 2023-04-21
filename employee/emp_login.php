@@ -52,7 +52,7 @@
             // If no rows are returned, display an error message
             $rowcount = mysqli_num_rows($result);
 
-            if($rowcount == 0) {
+            if(!$rowcount || $row['role_id'] != 2) {
                 echo "<script>alert('The email you entered isn\'t connected to an account.')</script>";
             } else {
                  // If a row is returned, verify the password entered by the user with the hashed password stored in the database

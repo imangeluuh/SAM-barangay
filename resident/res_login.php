@@ -53,7 +53,7 @@
         $rowcount = mysqli_num_rows($result);
 
         // If no rows are returned, display an error message
-        if($rowcount == 0) {
+        if(!$rowcount || $row['role_id'] != 3) {
             echo "<script>alert('The email you entered isn\'t connected to an account.')</script>";
         } else {
             // If a row is returned, verify the password entered by the user with the hashed password stored in the database
@@ -123,7 +123,7 @@
                             <input type="password" name="password" id="password" class="form-control-md border-0 rounded-3 border-dark-subtle" placeholder="Password" autocomplete="off" required="required">
                         </div>
                         <div class="row">
-                            <a href="" class="text-end text-decoration-none forgot-password p-0 mb-3">Forgot Password</a>
+                            <a href="forgot_pass.php" class="text-end text-decoration-none forgot-password p-0 mb-3">Forgot Password</a>
                         </div>
                         <!-- Submit button -->
                         <div class="text-center row justify-content-end mb-4">
