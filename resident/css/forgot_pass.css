@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lexend', sans-serif;
+}
+
+body{
+    background-color:  #053C5E;
+}
+
+.main-container {
+    max-width: 600px; 
+    width: 60vw;
+    min-width: 280px;
+    height: 100vh;
+}
+
+.login-form {
+    background-color: #BFDBF7;
+    max-width: 600px; 
+    width: 60vw;
+    min-width: 280px;
+    height: auto;
+}
+
+.reset-button {
+    background-color: #A31621;
+}
+
+.submit-btn {
+    background-color: #1F7A8C;
+}
