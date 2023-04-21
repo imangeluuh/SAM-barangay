@@ -31,7 +31,7 @@
                             <a class="nav-link fs-5" href="#">Help</a>
                         </li> -->
                         <li class="nav-item mx-2">
-                            <a class="nav-link fs-5" href="#">Logout</a>
+                            <a class="nav-link fs-5" href="../index.php">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -41,7 +41,7 @@
         <div class="content row d-flex">
             <div class="col-md-6 d-flex flex-column justify-content-center alignt-items-center align-items-md-end pe-md-4">
                 <div class="d-flex flex-column align-items center">
-                    <p>Before we get started, What is your <br> preffered language?</p>
+                    <p>Before we get started, What is your <br> preferred language?</p>
                     <p class="fst-italic">Bago tayo magsimula, ano ang wika <br> na nais mong gamitin? </p>
                     <div class="d-flex flex-column align-items-center">
                         <a href="res_homepage.php">
