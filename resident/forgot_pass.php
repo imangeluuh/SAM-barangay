@@ -134,7 +134,7 @@
         // fetch the row from the result set
         $row = $result->fetch_assoc();
 
-        return (mysqli_num_rows($result));
+        return (mysqli_num_rows($result) && $row['role_id'] == 3 );
     }
 
     function save_password($password){
