@@ -29,7 +29,23 @@
         $res_lastname = $_POST['l-name'];
         $birthdate = $_POST['birthdate'];
         $address = $_POST['address'];
-        if($password == $rpassword) {
+
+        
+        // create a DateTime object from the birthdate string
+        $birthday = new DateTime($birthdate);
+
+        // get the current date
+        $today = new DateTime(date('m.d.y'));
+
+        // calculate the difference between the birthdate and the current date
+        $diff = $today->diff($birthday);
+
+        // get the age in years
+        $age = $diff->y;
+        
+        if ($age < 18){
+            echo "<script>alert('You must be at least 18 years old to create an account.');</script>";
+        } else if($password == $rpassword) {
             // Call the stored procedure
             $stmt = $conn->prepare("CALL SP_ADD_RESIDENT(?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->bind_param('ssisssss', $email, $hash, $role_id, $res_firstname, $res_middlename, $res_lastname, $birthdate, $address);
