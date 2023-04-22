@@ -11,7 +11,7 @@
     require "mail.php";
 
     $mode = "enter_email";
-    // Check if the login form has been submitted
+    
     if(isset($_GET['mode'])){
         $mode = $_GET['mode'];
     }
@@ -30,13 +30,18 @@
                 }
                 break;
             case 'enter_code':
-                $code = $_POST['code'];
+                $code =  $_POST['code'];
                 $result = is_code_correct($code);
 
                 if($result == "The code is correct") {
                     $_SESSION['forgot']['code'] = $code;
                     header("Location: forgot_pass.php?mode=enter_password");
                     die;
+                } else {
+                //     echo "<div class='alert alert-warning' role='alert'>
+                //     $result
+                //   </div>";
+                    echo "<script>alert('$result');</script>";
                 }
                 break;
             case 'enter_password':
@@ -64,7 +69,7 @@
 
     function send_email($email){
         global $conn;
-        $expire = time() + (60 * 1);
+        $expire = time() + (60 * 3);
         $code = rand(10000,99999);
         $email = addslashes($email);
 
@@ -100,17 +105,17 @@
         // retrieve the result set from the executed statement
         $result = $stmt->get_result();  
 
-        if($result) {
+        if($result) {   
             if(mysqli_num_rows($result)) {
                 // fetch the row from the result set
                 $row = $result->fetch_assoc();
                 if($row['expire'] > $expire) {
                     return "The code is correct";
                 } else {
-                    return "The code is expired";
+                    return "Sorry, the code you entered has expired. Please request a new code.";
                 }
             } else {
-                return "The code is incorrect";
+                return "The code you entered is incorrect. Please try again.";
             }
         }
         
