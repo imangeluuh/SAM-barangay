@@ -91,6 +91,7 @@
 
                 // Store the user data array in the $_SESSION variable for future use.
                 $_SESSION['userData'] = $userData;
+                $_SESSION['loggedin'] = true;
 
                 // redirect the user to 'res_language.php'
                 header("Location: ./res_language.php");

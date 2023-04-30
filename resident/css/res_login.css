@@ -59,3 +59,9 @@ input[type=submit] {
 .create-account, .sign-up {
     font-size: 1.1rem;
 }
+
+input[type="password"]::-webkit-inner-spin-button,
+input[type="password"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

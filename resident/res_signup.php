@@ -54,6 +54,7 @@
     
                 // Check for errors
                 if ($stmt->errno) {
+                    echo "<script>alert('An account with that email already exists. Please try another one.');</script>";
                     die('Failed to call stored procedure: ' . $stmt->error);
                 } else {
                     echo "<script>alert('Your account has been created successfully!'); window.location.href = 'res_login.php';</script>";
