@@ -15,6 +15,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <?php
+        // If a session is not already started, start a new session
+        if(!session_id()){
+            session_start(); 
+        } 
+
+        if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+            header("Location: ../index.php");
+            exit;
+        }
+
+        if(array_key_exists('en_button', $_POST)) {
+            $_SESSION['lang'] = 'en';
+        }
+        else if(array_key_exists('fil_button', $_POST)) {
+            $_SESSION['lang'] = 'fil';
+        } 
+
+        if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
+            session_start();
+            session_destroy();
+            header("Location: ../index.php");
+            exit();
+        }
+    ?>
     <div class="main-container overflow-hidden">
         <nav class="navbar navbar-expand-md navbar-light">
             <div class="container-fluid">
@@ -31,7 +56,7 @@
                             <a class="nav-link fs-5" href="#">Help</a>
                         </li> -->
                         <li class="nav-item mx-2">
-                            <a class="nav-link fs-5" href="../index.php">Logout</a>
+                            <a class="nav-link fs-5" href="?logout=true">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -43,15 +68,12 @@
                 <div class="d-flex flex-column align-items center">
                     <p>Before we get started, What is your <br> preferred language?</p>
                     <p class="fst-italic">Bago tayo magsimula, ano ang wika <br> na nais mong gamitin? </p>
-                    <div class="d-flex flex-column align-items-center">
-                        <a href="res_homepage.php">
-                          <button class="button">English</button>
-                        </a>
-                        
-                        <a href="res_homepage.php"> 
-                          <button class="button">Filipino</button>
-                        </a>
-                    </div>
+                    <form action="../language/lang_config.php" method="post">
+                        <div class="d-flex flex-column align-items-center">
+                            <input type="submit" name="en_button" value="English"class="button">
+                            <input type="submit" name="fil_button" value="Filipino" class="button">
+                        </div>
+                    </form>
                 </div>
             </div>
 
