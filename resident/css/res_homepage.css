@@ -5,8 +5,8 @@
     font-family: 'Lexend', sans-serif;;
 }
 
-body {
-    background-color: white;
+.content-wrapper {
+    background-color: #ffffff!important;
 }
 
 .content {
@@ -16,6 +16,11 @@ body {
 
 .homepage-content {
     margin-top: 70px;
+}
+
+.sam {
+    width: 10vw;
+    min-width: 150px;
 }
 
 .btn-container {
