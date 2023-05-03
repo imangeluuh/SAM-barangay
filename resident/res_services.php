@@ -25,6 +25,7 @@
 <body class="sidebar-mini layout-fixed layout-navbar-fixed hold-transition overflow-x-hidden">
     <div class="wrapper">
         <?php 
+            ob_start();
             // If a session is not already started, start a new session
             if(!session_id()){
                 session_start(); 
@@ -87,11 +88,24 @@
 
                                     // fetch the row from the result set
                                     while($row = $result->fetch_assoc()) { ?>
-                                        <td data-title="Date"><?php echo $row['date_requested']; ?></td>
-                                        <td data-title="Type"><?php echo 'Document'; ?></td>
-                                        <td data-title="Details"><?php echo $row['document_type']; ?></td>
-                                        <td data-title="Status"><?php echo $row['status']; ?></td>
-                                        <td data-title="Action"><a href="#" class="action text-decoration-none">Edit</a></td>
+                                        <tr>
+                                            <td data-title="Date"><?php echo $row['date_requested']; ?></td>
+                                            <td data-title="Type"><?php echo 'Document'; ?></td>
+                                            <td data-title="Details"><?php echo $row['document_type']; ?></td>
+                                            <td data-title="Status"><?php echo $row['status']; ?></td>
+                                            <td data-title="Action">
+                                                <form action="view_docs.php" method="post">
+                                                    <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">
+                                                    <input type="hidden" name="document_type" value="<?php echo $row['document_type']; ?>">
+                                                    <input type="hidden" name="date_requested" value="<?php echo $row['date_requested']; ?>">
+                                                    <input type="hidden" name="date_completed" value="<?php echo $row['date_completed']; ?>">
+                                                    <input type="hidden" name="status" value="<?php echo $row['status']; ?>">
+                                                    <input type="hidden" name="doc_id" value="<?php echo $row['doc_id']; ?>">
+                                                    <input type="submit" name="view"
+                                                            class="btn text-primary p-0" value="View" />
+                                                </form> 
+                                            </td>
+                                    </tr>
                                     <?php }
                                 } ?>
                         </tbody>
