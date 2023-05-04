@@ -13,14 +13,14 @@
     
 ?>
 
-<a href="javascript:history.back()" class="w-25 ms-4 d-flex align-items-center text-decoration-none text-secondary">
-            <i class="fa-solid fa-angle-left me-3"></i><?php echo $lang['go_back'] ?>
+<a href="javascript:history.back()" class="ms-4 d-flex align-items-center text-decoration-none text-secondary">
+    <i class="fa-solid fa-angle-left me-3"></i><?php echo $lang['go_back'] ?>
 </a><br>
 
 <?php
         if(isset($_GET['barangay-id'])) { ?>
         <span class="fs-4 ms-4">Barangay ID</span>
-        <form class="row g-3 mx-4 mt-2">
+        <form class="row g-3 mx-4 mt-2" method="post">
             <div class="col-md-6">
                 <label for="Name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" disabled

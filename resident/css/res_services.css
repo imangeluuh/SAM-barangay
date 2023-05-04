@@ -29,6 +29,10 @@ th {
     background-color: #BFDBF7!important;
 }
 
+a {
+    width: fit-content;
+}
+
 @media only screen and (max-width:800px) {
     #no-more-tables tbody,
     #no-more-tables tr,

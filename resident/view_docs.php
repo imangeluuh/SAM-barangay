@@ -112,8 +112,8 @@
                 <div class="container-fluid">
                     <div class="row d-flex justify-content-center">
                         <div class="col-lg-12 mx-5 mt-4">
-                            <a href="res_services.php" class="w-25 ms-4 d-flex align-items-center text-decoration-none text-secondary">
-                                        <i class="fa-solid fa-angle-left me-3"></i><?php echo $lang['go_back'] ?>
+                            <a href="res_services.php" class="ms-4 d-flex align-items-center text-decoration-none text-secondary">
+                                <i class="fa-solid fa-angle-left me-3"></i><?php echo $lang['go_back'] ?>
                             </a><br>
                             <?php
                                 if($_SESSION['docInfo']['document_type'] == 'Barangay ID') { 

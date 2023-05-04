@@ -123,8 +123,10 @@
                         <div class="form-outline row mb-3">
                             <input type="password" name="password" id="password" class="form-control-md border-0 rounded-3 border-dark-subtle" placeholder="Password" autocomplete="off" required="required">
                         </div>
-                        <div class="row">
-                            <a href="forgot_pass.php" class="text-end text-decoration-none forgot-password p-0 mb-3">Forgot Password</a>
+                        <div class="row justify-content-end mb-3">
+                            <div class="col-auto">
+                                <a href="forgot_pass.php" class="text-decoration-none forgot-password p-0 mb-3">Forgot Password</a>
+                            </div>
                         </div>
                         <!-- Submit button -->
                         <div class="text-center row justify-content-end mb-4">
