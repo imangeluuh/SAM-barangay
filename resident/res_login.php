@@ -82,12 +82,12 @@
                 // fetch the row from the result set
                 $row = $result->fetch_assoc();
 
-                $userData = array('resident_id' => $row['resident_id']
-                                    , 'res_firstname' => $row['res_firstname']
-                                    , 'res_middlename' => $row['res_middlename']
-                                    , 'res_lastname' => $row['res_lastname']
-                                    , 'birthdate' => $row['birthdate']
-                                    , 'address' => $row['address']);
+                $userData += ['resident_id' => $row['resident_id']
+                                , 'res_firstname' => $row['res_firstname']
+                                , 'res_middlename' => $row['res_middlename']
+                                , 'res_lastname' => $row['res_lastname']
+                                , 'birthdate' => $row['birthdate']
+                                , 'address' => $row['address']];
 
                 // Store the user data array in the $_SESSION variable for future use.
                 $_SESSION['userData'] = $userData;
