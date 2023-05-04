@@ -43,14 +43,14 @@
                         <div class="col-lg-12 p-0 mt-5">
                             <div class="first-container row mb-5">
                                 <div class="sam-img col-md-5 d-flex justify-content-center justify-content-md-end p-0">
-                                    <img src="../sam.png" alt="" class="sam pe-md-5">
+                                    <img src="../sam.png" alt="" class="sam me-md-3">
                                 </div>
-                                <div class="first-btn col-md-7 d-flex justify-content-center justify-content-md-start  pe-md-5">
-                                    <div class="d-flex flex-column justify-content-center align-items-center">
+                                <div class="first-btn col-md-7 d-flex justify-content-center justify-content-md-start ps-md-0">
+                                    <div class="d-flex flex-column justify-content-center align-items-center help-div">
                                         <span class="concern-txt"><?php echo $lang['q_concern'] ?></span>
-                                        <span class="help-txt"><?php echo $lang['can_help'] ?></span>
+                                        <span class="help-txt text-center"><?php echo $lang['can_help'] ?></span>
                                         <div class="btn-container d-flex justify-content-center align-items-center">
-                                            <a href="" class="sam-btn text-white fw-semibold text-decoration-none"><?php echo $lang['lead_to_sam'] ?></a>
+                                            <a href="sam_chatbot.php" class="sam-btn text-white fw-semibold text-decoration-none"><?php echo $lang['lead_to_sam'] ?></a>
                                         </div>
                                     </div>
                                 </div>
@@ -88,7 +88,7 @@
                                         <span class="fs-1 fw-semibold"><?php echo $lang['brgy_issues'] ?></span>
                                         <span class="fs-5 fw-semibold mb-2"><?php echo $lang['we_hear'] ?>.</span>
                                         <div class="btn-container d-flex justify-content-center align-items-center">
-                                            <a href="" class="sam-btn text-white fw-semibold text-decoration-none"><?php echo $lang['lead_to_sam'] ?></a>
+                                            <a href="sam_chatbot.php" class="sam-btn text-white fw-semibold text-decoration-none"><?php echo $lang['lead_to_sam'] ?></a>
                                         </div>
                                     </div>
                                 </div>
