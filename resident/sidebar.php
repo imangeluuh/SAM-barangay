@@ -45,13 +45,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link side ">
+                            <a href="" class="nav-link side  ">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Update Credentials</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link side">
+                            <a href="res_settings.php?change-password" class="nav-link side <?php if ($current_page == 'res_settings.php?change-password') { echo 'active'; } ?>">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Change Password</p>
                             </a>
