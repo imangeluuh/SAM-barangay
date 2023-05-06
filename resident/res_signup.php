@@ -25,7 +25,7 @@
         $role_id = 3;
         $hash = password_hash($password, PASSWORD_BCRYPT);
         $res_firstname = $_POST['f-name'];
-        $res_middlename = $_POST['md-name'];
+        $res_middlename = !empty($_POST['md-name']) ? $_POST['md-name'] : NULL;
         $res_lastname = $_POST['l-name'];
         $birthdate = $_POST['birthdate'];
         $address = $_POST['address'];
