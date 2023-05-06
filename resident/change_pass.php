@@ -15,54 +15,29 @@
         $npassword = $_POST['npassword'];
         $rpassword = $_POST['rpassword'];
         $email = $_SESSION['userData']['email'];
-
-        if($npassword !== $rpassword){
-            echo "<script>alert('Repeat password does not match.'); window.location.href = 'res_settings.php?change-password';</script>";
-            exit();
-          }else {
-
-                // Hash the password using bcrypt algorithm
-                //$hash = password_hash($password, PASSWORD_BCRYPT);
-                $hash2 = password_hash($npassword, PASSWORD_BCRYPT);
-
-                // Call the stored procedure to retrieve user login information from the database
-                // $stmt = $conn->prepare("CALL SP_FIND_LOGIN(?)");
-
-                // // bind the input parameters to the prepared statement
-                // $stmt->bind_param('s', $email);
-
-                // // Execute the prepared statement
-                // $stmt->execute();
-
-                // // retrieve the result set from the executed statement
-                // $result = $stmt->get_result();  
-
-                // // fetch the row from the result set
-                // $row = $result->fetch_assoc();
-
-                // // Execute the prepared statement
-                // $rowcount = mysqli_num_rows($result);
-            
-              if(password_verify($password, $_SESSION['userData']['password'])){
-
-                //$conn = mysqli_connect('localhost', 'root', '', 'sam_barangay');
-
+        $hash = password_hash($npassword, PASSWORD_BCRYPT);
+        
+        if(password_verify($password, $_SESSION['userData']['password'])){
+            if($password == $npassword){
+                echo "<script>alert('New password must be different from current password.'); window.location.href = 'res_settings.php?change-password';</script>";
+            } else if($npassword !== $rpassword){
+                echo "<script>alert('New password does not match.'); window.location.href = 'res_settings.php?change-password';</script>";
+            } else {
                 // Call the stored procedure to retrieve user login information from the database
                 $stmt = $conn->prepare("CALL SP_UPDATE_PASS(?, ?)");
 
                 // bind the input parameters to the prepared statement
-                $stmt->bind_param('ss', $email, $hash2);
+                $stmt->bind_param('ss', $email, $hash);
 
                 // Execute the prepared statement
                 $stmt->execute();
                 echo "<script>alert('Your password has been changed successfully!'); window.location.href = 'res_settings.php?change-password';</script>";
                 exit();
-              }else {
-                echo "<script>alert('Incorrect password.'); window.location.href = 'res_settings.php?change-password';</script>";
-                  exit();
-              }
-      
-          }
+            }
+        } else {
+            echo "<script>alert('Incorrect password.'); window.location.href = 'res_settings.php?change-password';</script>";
+            exit();
+        }
     }
 
     
