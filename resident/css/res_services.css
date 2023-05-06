@@ -33,6 +33,14 @@ a {
     width: fit-content;
 }
 
+.ui-state-default {
+    width: 2em!important;
+}
+
+input[type=radio]:disabled + label {
+    text-decoration: line-through!important;
+}
+
 @media only screen and (max-width:800px) {
     #no-more-tables tbody,
     #no-more-tables tr,
