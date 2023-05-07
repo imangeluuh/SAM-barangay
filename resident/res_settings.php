@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 </head>
 <body class="sidebar-mini layout-fixed layout-navbar-fixed hold-transition overflow-x-hidden">
     <div class="wrapper">
@@ -38,7 +38,7 @@
             require_once "../language/" . $_SESSION['lang'] . ".php";
             include('navbar.php');
             include('sidebar.php');
-            include('../dbconfig.php');
+            //include('../dbconfig.php');
 
         ?>
         <div class="content-wrapper">
@@ -46,7 +46,13 @@
                 <div class="container-fluid">
                     <div class="row p-0 ms-md-3 me-md-5 pe-md-5">
                         <div class="col-lg-12 mt-5">
-                            <?php include('change_pass.php'); ?>
+                            <?php 
+                                if(isset($_GET['change-password'])){
+                                    include('change_pass.php'); 
+                                } else if(isset($_GET['update-credentials'])){
+                                    include('ud_credential.php'); 
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>

@@ -45,7 +45,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link side  ">
+                            <a href="res_settings.php?update-credentials" class="nav-link side <?php if ($current_page == 'res_settings.php?update-credentials') { echo 'active'; } ?>">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Update Credentials</p>
                             </a>
@@ -61,7 +61,7 @@
                 <li class="nav-item user-panel pt-1">
                     <a href="#" class="nav-link side">
                         <i class="nav-icon fas fa-solid fa-comment"></i>
-                        <p>Report</p>
+                        <p>Feedback</p>
                     </a>
                 </li>
             </ul>
