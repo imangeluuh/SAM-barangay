@@ -1,4 +1,5 @@
 <?php
+    require_once "../language/" . $_SESSION['lang'] . ".php";
     $current_page = $_SERVER['PHP_SELF'];
     $current_page = basename(parse_url($_SERVER['PHP_SELF'], PHP_URL_PATH));
 ?>
@@ -14,7 +15,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4 shadow" style="background:#053c5e !important;">
     <a href="res_homepage.php" class="brand-link text-decoration-none" style="background:#053c5e !important;">
         <img src="../sam.png"  class="brand-image img-circle elevation-3" style="opacity: .9">
-        <span class="brand-text">Talk to SAM now!</span>
+        <span class="brand-text"><?php echo $lang['title'] ?></span>
     </a>
 
     <div class="sidebar">
@@ -35,7 +36,7 @@
                 <li class="nav-item user-panel pt-1">
                     <a href="res_services.php" class="nav-link side <?php if ($current_page == 'res_services.php') { echo 'active'; } ?>" id="services">
                         <i class="nav-icon fas fa-solid fa-file-pen ps-1"></i>
-                        <p>Services</p>
+                        <p><?php echo $lang['services'] ?></p>
                     </a>
                 </li>
                 <li class="nav-item user-panel pt-1 has-treeview">
@@ -47,13 +48,13 @@
                         <li class="nav-item">
                             <a href="res_settings.php?update-credentials" class="nav-link side <?php if ($current_page == 'res_settings.php?update-credentials') { echo 'active'; } ?>">
                                 <i class="nav-icon far fa-circle"></i>
-                                <p>Update Credentials</p>
+                                <p><?php echo $lang['edit_profile'] ?></p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="res_settings.php?change-password" class="nav-link side <?php if ($current_page == 'res_settings.php?change-password') { echo 'active'; } ?>">
                                 <i class="nav-icon far fa-circle"></i>
-                                <p>Change Password</p>
+                                <p><?php echo $lang['change_pass'] ?></p>
                             </a>
                         </li>
                     </ul>

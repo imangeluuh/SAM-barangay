@@ -6,6 +6,7 @@
     } 
     // Include the database configuration file
     include('../dbconfig.php');
+    require_once "../language/" . $_SESSION['lang'] . ".php";
 
     if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
         session_start();
@@ -37,10 +38,10 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link navb <?php if ($current_nav == 'res_about_us.php') { echo 'active'; } ?>" aria-current="page" href="res_about_us.php">About Us</a>
+                <a class="nav-link navb <?php if ($current_nav == 'res_about_us.php') { echo 'active'; } ?>" aria-current="page" href="res_about_us.php"><?php echo $lang['about_us'] ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link navb" href="#">Help</a>
+                <a class="nav-link navb" href="#"><?php echo $lang['help'] ?></a>
             </li>
             <div class="dropdown d-flex align-items-center ms-lg-3 me-lg-4">
                 <a href="#" class="p-0 d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">

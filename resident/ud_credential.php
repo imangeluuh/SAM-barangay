@@ -7,6 +7,7 @@
 
     // Include the database configuration file
     include('../dbconfig.php');
+    require_once "../language/" . $_SESSION['lang'] . ".php";
 
     // Check if the login form has been submitted
     if(isset($_POST['change'])){
@@ -63,20 +64,20 @@
     }
     
     ?>
-    <h1 class="fw-bold change-label">Edit Profile</h1>
+    <h1 class="fw-bold change-label"><?php echo $lang['edit_profile'] ?></h1>
     <div class="m-0 p-0">
-        <p class="desc">Click "Save Changes" button to successfuly update your profile information.</p>
+        <p class="desc"><?php echo $lang['save_instruction'] ?></p>
     </div>
     <form action="" method="post" class="pt-5 pe-md-5 me-md-5">
         <!-- First Name field -->
-        <div class="row justify-content-md-end pe-md-5 me-md-5">
+        <div class="field-div row justify-content-md-end pe-md-5 me-md-5">
             <div class="col-auto">
                 <!-- First Name field -->
                 <div class="row d-flex p-0">
-                    <div class="col-md-3 d-flex justify-content-md-end">
-                        <label class="p-0 fw-normal">First Name</label>
+                    <div class="col-md-4 d-flex justify-content-md-end">
+                        <label class="p-0"><?php echo $lang['first_name'] ?></label>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-8">
                         <div class="form-outline mb-3">
                             <input type="text" name="f-name" id="f-name" size="56" value="<?php echo $_SESSION['userData']['res_firstname']; ?>" class="form-control border-1 rounded-3" required="required">
                         </div>
@@ -84,10 +85,10 @@
                 </div>
                 <!-- Middle Name field -->
                 <div class="row d-flex p-0">
-                    <div class="col-md-3 d-flex justify-content-md-end">
-                        <label class="p-0 fw-normal">Middle Name</label>
+                    <div class="col-md-4 d-flex justify-content-md-end">
+                        <label class="p-0"><?php echo $lang['middle_name'] ?></label>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-8">
                         <div class="form-outline mb-3">
                             <input type="text" name="md-name" id="md-name" size="56" value="<?php echo $_SESSION['userData']['res_middlename'];?>" class="form-control border-1 rounded-3">
                         </div>
@@ -95,10 +96,10 @@
                 </div>
                 <!-- Last Name field -->
                 <div class="row d-flex p-0">    
-                    <div class="col-md-3 d-flex justify-content-md-end">
-                        <label class="p-0 fw-normal">Last Name</label>
+                    <div class="col-md-4 d-flex justify-content-md-end">
+                        <label class="p-0"><?php echo $lang['last_name'] ?></label>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-8">
                         <div class="form-outline mb-3">
                             <input type="text" name="l-name" id="l-name" size="56" value="<?php echo $_SESSION['userData']['res_lastname'];?>" class="form-control border-1 rounded-3" required="required">
                         </div>
@@ -106,8 +107,8 @@
                 </div>                    
                 <!-- Email and Birthday field -->
                 <div class="row d-flex p-0">    
-                    <div class="col-md-3 d-flex justify-content-md-end">
-                        <label class="p-0 fw-normal">Birthday</label>
+                    <div class="col-md-4 d-flex justify-content-md-end">
+                        <label class="p-0 text-end"><?php echo $lang['birthdate'] ?></label>
                     </div>
                     <div class="col-md-5">
                         <div class="form-outline mb-3">
@@ -116,10 +117,10 @@
                     </div>
                 </div>
                 <div class="row d-flex p-0">    
-                    <div class="col-md-3 d-flex justify-content-md-end">
-                        <label class="p-0 fw-normal">Email</label>
+                    <div class="col-md-4 d-flex justify-content-md-end">
+                        <label class="p-0">Email</label>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-8">
                         <div class="form-outline mb-3">
                             <input type="email" name="email" id="email" size="18" value="<?php echo $_SESSION['userData']['email'];?>" class="form-control border-1 rounded-3" required="required">
                         </div>
@@ -127,10 +128,10 @@
                 </div>
                 <!-- Address field -->
                 <div class="row d-flex p-0">
-                    <div class="col-md-3 d-flex justify-content-md-end">
-                        <label class="p-0 fw-normal">Address</label>
+                    <div class="col-md-4 d-flex justify-content-md-end">
+                        <label class="p-0"><?php echo $lang['address'] ?></label>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-8">
                         <div class="form-outline mb-3">
                             <input type="text" name="address" id="address" size="56" value="<?php echo $_SESSION['userData']['address'];?>" class="form-control border-1 rounded-3" required="required">
                         </div>
@@ -139,7 +140,7 @@
             </div>
         </div>
         <!-- Submit button -->
-        <div class="text-center d-flex justify-content-md-end pe-md-5 me-md-5 mt-2">
-            <input type="submit" value="Save Changes" name="change" class="save-button border-0 rounded-3 fw-light text-light p-0 me-md-2">
+        <div class="field-div text-center d-flex justify-content-md-end pe-md-5 me-md-5 mt-2">
+            <input type="submit" value="Save Changes" name="change" class="save-button border-0 rounded-3 fw-light text-light p-0 px-2 me-md-4">
         </div>
     </form>

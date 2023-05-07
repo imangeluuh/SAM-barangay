@@ -15,6 +15,7 @@
 		<tbody>
 			<?php 
 				include('../dbconfig.php');
+				require_once "../language/" . $_SESSION['lang'] . ".php";
 				if($conn->connect_error){
 					die('Failed to connect : '.$conn->connect_error);
 				} else {
@@ -51,7 +52,7 @@
 		$stmt_result2 = $stmt2->get_result(); 
 		$row = $stmt_result2->fetch_array(MYSQLI_NUM)
 ?>
-		<p><?php echo $row[0]; ?></p>
+		<p><?php echo $lang['sam_description']; ?></p>
 </div>
 
 <div class="link">    

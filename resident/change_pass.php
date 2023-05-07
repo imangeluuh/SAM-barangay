@@ -5,8 +5,9 @@
         session_start(); 
     } 
 
-        // Include the database configuration file
-        include('../dbconfig.php');
+    // Include the database configuration file
+    include('../dbconfig.php');
+    require_once "../language/" . $_SESSION['lang'] . ".php";
 
     // Check if the login form has been submitted
     if(isset($_POST['change'])){
@@ -42,17 +43,17 @@
 
     
     ?>
-    <h1 class="fw-bold change-label">Change Password</h1>
+    <h1 class="fw-bold change-label"><?php echo $lang['change_pass']?></h1>
     <div class="m-0 p-0">
-        <p class="desc" >We recommend to use a password you're not using in other platform.</p>
+        <p class="desc"><?php echo $lang['recommend_pass']?></p>
     </div>
     <form action="" method="post" class="pe-md-5 me-md-5 mt-5">
         <!-- Current Password field -->
-        <div class="row justify-content-md-end p-0 pe-md-5 me-md-5">
+        <div class="field-div row justify-content-md-end p-0 pe-md-5 me-md-5">
             <div class="col-auto">
                 <div class="row d-flex p-0">
                     <div class="col-md-6 d-flex justify-content-md-end">
-                        <label class="p-0">Current Password</label>
+                        <label class="p-0"><?php echo $lang['current_pass']?></label>
                     </div>
                     <div class="col-md-6">
                         <div class="form-outline mb-3">
@@ -63,7 +64,7 @@
                 <!-- New Password field -->
                 <div class="row d-flex p-0">
                     <div class="col-md-6 d-flex justify-content-md-end">
-                        <label class="p-0">New Password</label>
+                        <label class="p-0"><?php echo $lang['new_pass']?></label>
                     </div>
                     <div class="col-md-6">
                         <div class="form-outline mb-3">
@@ -74,7 +75,7 @@
                 <!-- Retype New Password field -->
                 <div class="row d-flex p-0">
                     <div class="col-md-6 d-flex justify-content-md-end">
-                        <label class="p-0">Re-type New Password</label>
+                        <label class="p-0"><?php echo $lang['repeat_pass']?></label>
                     </div>
                     <div class="col-md-6">
                         <div class="form-outline mb-3">
@@ -85,7 +86,7 @@
             </div>
         </div>
         <!-- Submit button -->
-        <div class="text-center d-flex justify-content-md-end pe-md-5 me-md-5 mt-2">
-            <input type="submit" value="Save Changes" name="change" class="save-button border-0 rounded-3 fw-light text-light p-0 me-md-2">
+        <div class="field-div text-center d-flex justify-content-md-end pe-md-5 me-md-5 mt-2">
+            <input type="submit" value="<?php echo $lang['save_changes']?>" name="change" class="save-button border-0 rounded-3 fw-light text-light p-0 px-2 me-md-4">
         </div>
     </form>

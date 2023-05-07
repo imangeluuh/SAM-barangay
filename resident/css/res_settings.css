@@ -20,8 +20,12 @@
 
 .save-button {
     background-color: #053C5E;
-    width: 120px;
+    width: fit-content;
     font-size: 1rem;
+}
+
+.field-div {
+    max-width: 850px;
 }
 
 input {
