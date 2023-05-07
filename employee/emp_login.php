@@ -81,11 +81,12 @@
                     // fetch the row from the result set
                     $row = $result->fetch_assoc();
 
-                    $userData = array('employee_id' => $row['employee_id']
+                    $userData += array('employee_id' => $row['employee_id']
                                         , 'emp_firstname' => $row['emp_firstname']
                                         , 'emp_lastname' => $row['emp_lastname']);
 
                     $_SESSION['userData'] = $userData;
+                    $_SESSION['loggedin'] = true;
                     header("Location: ./emp_homepage.php");
                     exit();
                 } else {
