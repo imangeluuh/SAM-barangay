@@ -38,10 +38,7 @@
                     header("Location: forgot_pass.php?mode=enter_password");
                     die;
                 } else {
-                //     echo "<div class='alert alert-warning' role='alert'>
-                //     $result
-                //   </div>";
-                    echo "<script>alert('$result');</script>";
+                    echo "<script>alert('$result'); window.location.href = 'forgot_pass.php?enter_email';</script>";
                 }
                 break;
             case 'enter_password':
