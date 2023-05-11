@@ -77,6 +77,7 @@
                                 <th>Type</th>
                                 <th>Details</th>
                                 <th>Status</th>
+                                <th>Schedule</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -93,6 +94,7 @@
                                             <td data-title="Type"><?php echo 'Document'; ?></td>
                                             <td data-title="Details"><?php echo $row['document_type']; ?></td>
                                             <td data-title="Status"><?php echo $row['status']; ?></td>
+                                            <td data-title="Status"><?php echo $row['schedule']; ?></td>
                                             <td data-title="Action">
                                                 <form action="view_docs.php" method="post">
                                                     <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">

@@ -12,6 +12,9 @@
     require_once "../language/" . $_SESSION['lang'] . ".php";
     
     if(isset($_POST['submit-brgy-id'])) {
+        $name = $_POST['name'];
+        $address = $_POST['address'];
+        $birthdate = $_POST['birthdate'];
         $birthplace = $_POST['birthplace'];
         $height = !empty($_POST['height']) ? $_POST['height'] : NULL;
         $weight = !empty($_POST['weight']) ? $_POST['weight'] : NULL;;
@@ -20,9 +23,9 @@
         $contact_name = $_POST['contact-name'];
         $contact_no = $_POST['contact-no'];
         $contact_address = $_POST['contact-address']; 
-        $stmt = $conn->prepare("CALL SP_ADD_BRGY_ID(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("CALL SP_ADD_BRGY_ID(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         // bind the input parameters to the prepared statement
-        $stmt->bind_param('sssddsssi', $birthplace, $status, $religion, $height, $weight, $contact_name, $contact_address, $contact_no, $_SESSION['userData']['resident_id']);
+        $stmt->bind_param('ssssssddsssi', $name, $address, $birthdate, $birthplace, $status, $religion, $height, $weight, $contact_name, $contact_address, $contact_no, $_SESSION['userData']['resident_id']);
         // Execute the prepared statement
         $stmt->execute();   
 
@@ -33,11 +36,13 @@
     }
 
     if(isset($_POST['submit-coi'])) {
+        $resName = $_POST['res-name'];
+        $resAge = $_POST['res-age']; 
         $background_info = $_POST['background-info'];
         $purpose = $_POST['purpose'];
-        $stmt = $conn->prepare("CALL SP_ADD_COI(?, ?, ?)");
+        $stmt = $conn->prepare("CALL SP_ADD_COI(?, ?, ?, ?, ?)");
         // bind the input parameters to the prepared statement
-        $stmt->bind_param('ssi', $background_info, $purpose, $_SESSION['userData']['resident_id']);
+        $stmt->bind_param('sissi', $resName, $resAge, $background_info, $purpose, $_SESSION['userData']['resident_id']);
         // Execute the prepared statement
         $stmt->execute();   
 
@@ -58,14 +63,24 @@
         <form class="row g-3 mx-4 mt-2" method="post">
             <div class="col-md-6">
                 <label for="Name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" disabled
+                <!-- Hidden input field to store the name value -->
+                <input type="hidden" class="form-control" name="name" id="name" 
+                    value="<?php echo $_SESSION['userData']['res_firstname'] . " ";
+                                if (!empty($_SESSION['userData']['res_middlename'])) { echo $_SESSION['userData']['res_middlename'][0] . '. ';}
+                                echo $_SESSION['userData']['res_lastname']?>">
+                <!-- Visible input field for display purposes -->
+                <input type="text" class="form-control" disabled
                     value="<?php echo $_SESSION['userData']['res_firstname'] . " ";
                                 if (!empty($_SESSION['userData']['res_middlename'])) { echo $_SESSION['userData']['res_middlename'][0] . '. ';}
                                 echo $_SESSION['userData']['res_lastname']?>">
             </div>
             <div class="col-md-3">
                 <label for="Birthdate" class="form-label">Birthdate</label>
-                <input type="date" class="form-control" id="birthdate" disabled
+                <!-- Hidden input field to store the name value -->
+                <input type="hidden" class="form-control" name="birthdate" id="birthdate" 
+                    value="<?php echo $_SESSION['userData']['birthdate'] ?>">
+                <!-- Visible input field for display purposes -->
+                <input type="date" class="form-control" name="birthdate" id="birthdate" disabled 
                     value="<?php echo $_SESSION['userData']['birthdate'] ?>">
             </div>
             <div class="col-md-3">
@@ -74,7 +89,10 @@
             </div>
             <div class="col-12">
                 <label for="Address" class="form-label">Address</label>
-                <input type="text" class="form-control" name="address" disabled value="<?php echo $_SESSION['userData']['address'] ?>">
+                <!-- Hidden input field to store the name value -->
+                <input type="hidden" class="form-control" name="address" id="address" value="<?php echo $_SESSION['userData']['address'] ?>">
+                <!-- Visible input field for display purposes -->
+                <input type="text" class="form-control"disabled value="<?php echo $_SESSION['userData']['address'] ?>">
             </div>
             <div class="col-md-3">
                 <label for="Height" class="form-label">Height</label>
@@ -86,26 +104,26 @@
             </div>
             <div class="col-md-3">
                 <label for="Status" class="form-label">Status</label>
-                <input type="text" class="form-control" name="status" id="status">
+                <input type="text" class="form-control" name="status" id="status" required>
             </div>
             <div class="col-md-3">
                 <label for="Religion" class="form-label">Religion</label>
-                <input type="text" class="form-control" name="religion" id="religion">
+                <input type="text" class="form-control" name="religion" id="religion" required>
             </div>
             <div class="col-12 mt-4">
                 <span class="text-danger fw-semibold">In case of emergency, please notify:</span>
             </div>
             <div class="col-md-6">
                 <label for="emergency-contact" class="form-label">Name</label>
-                <input type="text" class="form-control" name="contact-name" id="contact-name">
+                <input type="text" class="form-control" name="contact-name" id="contact-name" required>
             </div>
             <div class="col-md-6">
                 <label for="contact-telephone" class="form-label">Telephone</label>
-                <input type="text" class="form-control" name="contact-no" id="contact-no">
+                <input type="text" class="form-control" name="contact-no" id="contact-no" required>
             </div>
             <div class="col-12">
                 <label for="Address" class="form-label">Address</label>
-                <input type="text" class="form-control" name="contact-address" id="contact-address">
+                <input type="text" class="form-control" name="contact-address" id="contact-address" required>
             </div>
             <div class="col-12">
                 <button type="submit" name="submit-brgy-id" class="btn btn-primary">Submit</button>
@@ -116,7 +134,13 @@
         <form class="row g-3 mx-4 mt-2" method="post">
             <div class="col-md-6">
                 <label for="Name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" disabled
+                <!-- Hidden input field to store the name value -->
+                <input type="hidden" class="form-control" name="res-name" id="name" 
+                    value="<?php echo $_SESSION['userData']['res_firstname'] . " ";
+                                if (!empty($_SESSION['userData']['res_middlename'])) { echo $_SESSION['userData']['res_middlename'][0] . '. ';}
+                                echo $_SESSION['userData']['res_lastname']?>">
+                <!-- Visible input field for display purposes -->
+                <input type="text" class="form-control"disabled 
                     value="<?php echo $_SESSION['userData']['res_firstname'] . " ";
                                 if (!empty($_SESSION['userData']['res_middlename'])) { echo $_SESSION['userData']['res_middlename'][0] . '. ';}
                                 echo $_SESSION['userData']['res_lastname']?>">
@@ -136,7 +160,11 @@
             ?>
             <div class="col-md-2">
                 <label for="Age" class="form-label">Age</label>
-                <input type="text" class="form-control" id="age" disabled
+                <!-- Hidden input field to store the name value -->
+                <input type="hidden" class="form-control" name="res-age" id="age" 
+                    value="<?php echo $age ?>">
+                <!-- Visible input field for display purposes -->
+                <input type="text" class="form-control" disabled 
                     value="<?php echo $age ?>">
             </div>
             <div class="col-12">

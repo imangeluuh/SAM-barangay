@@ -201,15 +201,13 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="Name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name" disabled
-                                            value="<?php echo $_SESSION['userData']['res_firstname'] . " ";
-                                                        if (!empty($_SESSION['userData']['res_middlename'])) { echo $_SESSION['userData']['res_middlename'][0] . '. ';}
-                                                        echo $_SESSION['userData']['res_lastname']?>">
+                                        <input type="text" class="form-control" id="name" disabled required
+                                            value="<?php echo $row['res_name']?>">
                                     </div>
                                     <div class="col-md-3">
                                         <label for="Birthdate" class="form-label">Birthdate</label>
-                                        <input type="date" class="form-control" id="birthdate" disabled
-                                            value="<?php echo $_SESSION['userData']['birthdate'] ?>">
+                                        <input type="date" class="form-control" id="birthdate" disabled required
+                                            value="<?php echo $row['res_birthdate'] ?>">
                                     </div>
                                     <div class="col-md-3">
                                         <label for="Birthplace" class="form-label">Place of Birth</label>
@@ -218,7 +216,7 @@
                                     </div>
                                     <div class="col-12">
                                         <label for="Address" class="form-label">Address</label>
-                                        <input type="text" class="form-control" id="address" disabled value="<?php echo $_SESSION['userData']['address'] ?>">
+                                        <input type="text" class="form-control" id="address" disabled required value="<?php echo $row['res_address'] ?>">
                                     </div>
                                     <div class="col-md-3">
                                         <label for="Height" class="form-label">Height</label>
@@ -234,7 +232,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label for="Religion" class="form-label">Religion</label>
-                                        <input type="text" class="form-control editable" id="religion" name="religion" disabled value="<?php echo $row['res_religion']?>">
+                                        <input type="text" class="form-control editable" id="religion" name="religion" disabled required value="<?php echo $row['res_religion']?>">
                                     </div>
                                     <div class="col-12 mt-4">
                                         <span class="text-danger fw-semibold">In case of emergency, please notify:</span>
@@ -338,9 +336,7 @@
                                     <div class="col-md-6">
                                         <label for="Name" class="form-label">Name</label>
                                         <input type="text" class="form-control" id="name" disabled
-                                            value="<?php echo $_SESSION['userData']['res_firstname'] . " ";
-                                                        if (!empty($_SESSION['userData']['res_middlename'])) { echo $_SESSION['userData']['res_middlename'][0] . '. ';}
-                                                        echo $_SESSION['userData']['res_lastname']?>">
+                                            value="<?php echo $row['res_name']?>">
                                     </div>
                                     <?php
                                         // create a DateTime object from the birthdate string
@@ -355,7 +351,7 @@
                                     <div class="col-md-2">
                                         <label for="Age" class="form-label">Age</label>
                                         <input type="text" class="form-control" id="age" disabled
-                                            value="<?php echo $age ?>">
+                                            value="<?php echo $row['res_age'] ?>">
                                     </div>
                                     <div class="col-12">
                                         <label for="background-info" class="form-label">Background Info</label><br>
