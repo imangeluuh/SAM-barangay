@@ -7,9 +7,8 @@
 <style>
     .side.active {
         background-color: #144e73!important;
-        color: #ffffff;
+        color: #ffffff!important;
     }
-
 </style>
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4 shadow" style="background:#053c5e !important;">
@@ -44,15 +43,15 @@
                         <i class="nav-icon fas fa-solid fa-gear"></i>
                         <p>Settings<i class="right fas fa-angle-down"></i></p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview <?php if(isset($_GET['update-credentials']) || isset($_GET['change-password'])) {echo 'd-block'; } ?>">
                         <li class="nav-item">
-                            <a href="res_settings.php?update-credentials" class="nav-link side <?php if ($current_page == 'res_settings.php?update-credentials') { echo 'active'; } ?>">
+                            <a href="res_settings.php?update-credentials" class="nav-link side <?php if (isset($_GET['update-credentials']) ) { echo 'active'; } ?>">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p><?php echo $lang['edit_profile'] ?></p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="res_settings.php?change-password" class="nav-link side <?php if ($current_page == 'res_settings.php?change-password') { echo 'active'; } ?>">
+                            <a href="res_settings.php?change-password" class="nav-link side <?php if (isset($_GET['change-password'])) { echo 'active'; } ?>">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p><?php echo $lang['change_pass'] ?></p>
                             </a>
