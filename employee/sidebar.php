@@ -6,7 +6,7 @@
 <style>
     .side.active {
         background-color: #144e73!important;
-        color: #ffffff;
+        color: #ffffff!important;
     }
 
 </style>
@@ -32,11 +32,25 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item user-panel pt-1">
-                    <a href="" class="nav-link side" id="services">
+                <li class="nav-item user-panel pt-1 has-treeview">
+                    <a href="#" class="nav-link side">
                         <i class="nav-icon fas fa-solid fa-file-pen ps-1"></i>
-                        <p>Services</p>
+                        <p>Services<i class="right fas fa-angle-down"></i></p>
                     </a>
+                    <ul class="nav nav-treeview <?php if ($current_page == 'emp_doc_req.php') { echo 'd-block'; } ?>">
+                        <li class="nav-item">
+                            <a href="emp_doc_req.php" class="nav-link side <?php if ($current_page == 'emp_doc_req.php') { echo 'active'; } ?>">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Document Requests</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link side">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Concern Reports</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>

@@ -31,11 +31,13 @@
                 exit;
             }
 
+            $_SESSION['lang'] = 'en';
+
             include('navbar.php');
             include('sidebar.php');
         ?>
 
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="background-color: #ffffff!important">
             <div class="content p-0">
                 <div class="container-fluid">
                     <div class="row">
@@ -59,22 +61,5 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- AdminLTE JS link -->
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
-
-    <script>
-        $(".sidebar ul li").on('click', function(){
-            $(".sidebar ul li.active").removeClass('active');
-            $(this).addClass('active');
-        });
-
-        $('.open-btn').on('click', function(){
-            $('.sidebar').addClass('active');
-                
-        });
-
-        $('.close-btn').on('click', function(){
-            $('.sidebar').removeClass('active');
-                
-        });
-    </script>
 </body>
 </html>
