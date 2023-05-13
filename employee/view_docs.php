@@ -120,26 +120,6 @@
                 header("Location: view_docs.php");
                 exit();
             }
-
-            // Get all the dates that have at least one booking
-            $stmt = $conn->prepare("CALL SP_FULL_SLOT");
-            $stmt->execute();
-            
-            if($stmt) {
-                // Put the dates in an array to be used later
-                $full_slots = array();
-                $result = $stmt->get_result();  
-                while ($row = $result->fetch_assoc()) {
-                    $full_slots[] = $row['date'];
-                }
-
-                // Fetch any remaining result sets
-                while($conn->next_result()) {
-                    $conn->store_result();
-                }
-            }   
-
-            
         ?>
 
         <div class="content-wrapper">

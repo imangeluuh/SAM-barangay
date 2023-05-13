@@ -45,7 +45,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link side">
+                            <a href="emp_report_concern.php" class="nav-link side">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Concern Reports</p>
                             </a>
