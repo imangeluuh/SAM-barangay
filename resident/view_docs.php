@@ -111,6 +111,7 @@
                     $stmt->bind_param('is', $_SESSION['docInfo']['request_id'], $schedule);
                     // Execute the prepared statement
                     $stmt->execute();  
+                    $_SESSION['docInfo']['schedule'] = $schedule;
                 } else {
                     $background_info = trim($_POST['background-info']);
                     $purpose = trim($_POST['purpose']);

@@ -60,7 +60,7 @@
                             </a>
                         </div>
                         <div class="col-lg-2 mx-5 text-center">
-                            <a type="button" href="" class="btn btn-primary mt-5 border-0" style="padding:60px;border-radius:25px; width:230px; background:#004368;">
+                            <a type="button" href="res_concern_report.php" class="btn btn-primary mt-5 border-0" style="padding:60px;border-radius:25px; width:230px; background:#004368;">
                                 <h4 class="font-weight-bold">Report<br>Concern</h4>
                             </a>
                         </div>
@@ -68,14 +68,14 @@
                 </div>
             </div>
             <div class="wrapper p-5 mt-3">
-                <span class="fs-4 history">Transaction History</span>
+                <span class="fs-4 history">Document Request History</span>
                 <div class="table-responsive mt-3" id="no-more-tables">
-                    <table id="example" class="table table-hover" style="width:100%">
+                    <table id="doc_req" class="table table-hover" style="width:100%">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Date</th>
-                                <th>Type</th>
-                                <th>Details</th>
+                                <th>Document Type</th>
                                 <th>Status</th>
                                 <th>Schedule</th>
                                 <th>Action</th>
@@ -90,11 +90,11 @@
                                     // fetch the row from the result set
                                     while($row = $result->fetch_assoc()) { ?>
                                         <tr>
+                                            <td data-title="ID"><?php echo $row['request_id']; ?></td>
                                             <td data-title="Date"><?php echo $row['date_requested']; ?></td>
-                                            <td data-title="Type"><?php echo 'Document'; ?></td>
                                             <td data-title="Details"><?php echo $row['document_type']; ?></td>
                                             <td data-title="Status"><?php echo $row['status']; ?></td>
-                                            <td data-title="Status"><?php echo $row['schedule']; ?></td>
+                                            <td data-title="Schedule"><?php echo $row['schedule']; ?></td>
                                             <td data-title="Action">
                                                 <form action="view_docs.php" method="post">
                                                     <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">
@@ -104,6 +104,61 @@
                                                     <input type="hidden" name="status" value="<?php echo $row['status']; ?>">
                                                     <input type="hidden" name="doc_id" value="<?php echo $row['doc_id']; ?>">
                                                     <input type="hidden" name="schedule" value="<?php echo $row['schedule']; ?>">
+                                                    <input type="submit" name="view"
+                                                            class="btn text-primary p-0" value="View" />
+                                                </form> 
+                                            </td>
+                                    </tr>
+                                    <?php }
+                                } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="wrapper p-5 mt-3">
+                <span class="fs-4 history">Concern Report History</span>
+                <div class="table-responsive mt-3" id="no-more-tables">
+                    <table id="concern" class="table table-hover" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Report Type</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                // Fetch any remaining result sets
+                                while($conn->next_result()) {
+                                    $conn->store_result();
+                                }
+
+                                $stmt = $conn->prepare("CALL SP_GET_RES_REPORT(?)");
+
+                                // bind the input parameters to the prepared statement
+                                $stmt->bind_param('i', $_SESSION['userData']['resident_id']);
+                    
+                                // Execute the prepared statement
+                                $stmt->execute();
+
+                                if($stmt) {
+                                    // retrieve the result set from the executed statement
+                                    $result = $stmt->get_result();  
+
+                                    // fetch the row from the result set
+                                    while($row = $result->fetch_assoc()) { ?>
+                                        <tr>
+                                            <td data-title="ID"><?php echo $row['report_id']; ?></td>
+                                            <td data-title="Date"><?php echo $row['date_reported']; ?></td>
+                                            <td data-title="Details"><?php echo $row['report_type']; ?></td>
+                                            <td data-title="Status"><?php echo $row['status']; ?></td>
+                                            <td data-title="Action">
+                                                <form action="view_report.php" method="post">
+                                                    <input type="hidden" name="report_id" value="<?php echo $row['report_id']; ?>">
+                                                    <input type="hidden" name="image_name" value="<?php echo $row['image_name']; ?>">
+                                                    <input type="hidden" name="image" value="<?php echo htmlspecialchars($row['image']); ?>">
                                                     <input type="submit" name="view"
                                                             class="btn text-primary p-0" value="View" />
                                                 </form> 
@@ -129,7 +184,12 @@
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#example').DataTable();
+            $('#doc_req').DataTable({
+                "order": [[ 1, "desc"]],
+            });
+            $('#concern').DataTable({
+                "order": [[ 1, "desc"]],
+            });
         });
     </script>
 </body>

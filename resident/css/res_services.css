@@ -41,6 +41,11 @@ input[type=radio]:disabled + label {
     text-decoration: line-through!important;
 }
 
+input[type=file]{
+    width: 110px;
+    color:transparent;
+}
+
 @media only screen and (max-width:800px) {
     #no-more-tables tbody,
     #no-more-tables tr,
