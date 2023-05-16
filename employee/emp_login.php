@@ -102,7 +102,7 @@
         <div class="main-container d-flex align-items-center">
             <div class="login-form bg-light row d-flex justify-content-center rounded-4 p-0 m-0">
                 <h1 class="fw-bold d-flex justify-content-center sam-title mt-5 p-0">SAM</h1>
-                <h2 class="fw-semibold d-flex justify-content-center admin-login mb-5 p-0">Admin Login</h2>
+                <h2 class="fw-semibold d-flex justify-content-center admin-login mb-5 p-0">Employee Login</h2>
                 <div class="col-7 p-0">
                     <form action="" method="post">
                         <!-- Work Email field -->
