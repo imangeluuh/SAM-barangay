@@ -1,0 +1,14 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lexend', sans-serif;;
+}
+
+.content-wrapper {
+    background-color: #ffffff!important;
+}
+
+.label {
+    color: #053C5E;
+}
