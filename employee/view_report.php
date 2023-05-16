@@ -143,13 +143,13 @@
                                     </div>
                                     <div class="col-12">
                                         <label for="report-details" class="form-label">Narrative Report of Concern</label><br>
-                                        <textarea name="report-details" id="report-details" cols="135" rows="5" class="editable" disabled required><?php
+                                        <textarea name="report-details" id="report-details" cols="125" rows="5" class="editable" disabled required><?php
                                             echo $row['report_details'];
                                         ?></textarea>
                                     </div>
                                     <div class="col-12">
                                         <label for="report-loc" class="form-label">Location of Reported Concern</label><br>
-                                        <textarea name="report-loc" id="report-loc" cols="135" rows="2" class="editable" disabled required><?php
+                                        <textarea name="report-loc" id="report-loc" cols="125" rows="2" class="editable" disabled required><?php
                                             echo $row['report_loc'];
                                         ?></textarea>
                                     </div>

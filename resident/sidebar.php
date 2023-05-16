@@ -27,7 +27,7 @@
                     </a>
                 </li>
                 <li class="nav-item user-panel pt-1">
-                    <a href="#" class="nav-link side ">
+                    <a href="res_dashboard.php" class="nav-link side <?php if ($current_page == 'res_dashboard.php') { echo 'active'; } ?>">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
                     </a>

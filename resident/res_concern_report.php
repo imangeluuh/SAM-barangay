@@ -109,11 +109,11 @@
                                 </div>
                                 <div class="col-12">
                                     <label for="report-details" class="form-label">Narrative Report of Concern</label><br>
-                                    <textarea name="report-details" id="report-details" cols="135" rows="5" required="required"></textarea>
+                                    <textarea name="report-details" id="report-details" cols="125" rows="5" required="required"></textarea>
                                 </div>
                                 <div class="col-12">
                                     <label for="report-loc" class="form-label">Location of Reported Concern</label><br>
-                                    <textarea name="report-loc" id="report-loc" cols="135" rows="2" required="required"></textarea>
+                                    <textarea name="report-loc" id="report-loc" cols="125" rows="2" required="required"></textarea>
                                 </div>
                                 <div class="col-12">
                                     <div>
