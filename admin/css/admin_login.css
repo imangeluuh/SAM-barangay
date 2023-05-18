@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lexend', sans-serif;;
+}
+
+body {
+    background-color: #1f7a8c;
+}
+
+.main-container {
+    max-width: 500px; 
+    width: 60vw;
+    min-width: 280px;
+    height: 100vh;
+}
+
+.login-form {
+    max-width: 500px; 
+    width: 60vw;
+    min-width: 280px;
+    height: auto;
+    background-color: #bfdbf7!important;
+}
+
+.sam-title {
+    color: #053c5e;
+    font-size: 4.5rem;
+    text-shadow: 0px 3px 5px #0000005e;
+}
+
+.admin-login {
+    color: #1F7A8C;
+    font-size: 2.5rem;
+    margin-top: -20px;
+}
+
+.login-button {
+    background-color: #053C5E;
+    width: 60px;
+}
+
+#work-email, #password {
+    box-shadow: 0px 2px 5px #0000005e;
+}
+
+input {
+    height: 35px;
+}
