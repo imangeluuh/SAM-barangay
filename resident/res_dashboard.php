@@ -75,46 +75,36 @@
             }
         ?>
         <div class="content-wrapper">
-            <h3 class="mx-4 pt-4 ps-2">Dashboard</h3>
+            <h3 class="label mx-4 pt-4 ps-2">Dashboard</h3>
             <div class="row d-flex mx-4 pt-3">
-                <h4 class="label pb-1">Document Requests</h4>
                 <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-                    <div class=" col-12 small-box bg-info">
+                    <div class="col-12 small-box rounded-3 shadow bg-white">
                         <div class="inner">
-                            <h3><?php echo $totalPendingRequest ?></h3>
+                            <h3 class="fw-bold"><?php echo $totalPendingRequest ?></h3>
                             <p>Pending Requests</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>  
+                        </div> 
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-6 d-flex  align-items-stretch">
-                    <div class=" col-12 small-box bg-warning ">
+                <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
+                    <div class=" col-12 small-box rounded-3 shadow bg-white">
                         <div class="inner">
-                            <h3><?php echo $totalInProgressRequest ?></h3>
+                            <h3 class="fw-bold"><?php echo $totalInProgressRequest ?></h3>
                             <p>In Progress Requests</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-6  d-flex align-items-stretch">
-                    <div class=" col-12 small-box bg-success">
+                    <div class=" col-12 small-box rounded-3 shadow bg-white">
                         <div class="inner">
-                            <h3><?php echo $totalCompletedRequest ?></h3>
+                            <h3 class="fw-bold"><?php echo $totalCompletedRequest ?></h3>
                             <p>Completed Requests</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="card card-info">
-                        <div class="card-header">
-                            <h3 class="card-title">Document Requests</h3>
+                    <div class="card rounded-3 shadow">
+                        <div class="card-header d-flex justify-content-center">
+                            <h3 class="card-title fw-semibold">Document Requests</h3>
                         </div>
                         <div class="card-body ">
                             <canvas id="requestChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block;" height="500" class="request-chart"></canvas>
@@ -123,11 +113,10 @@
                 </div>
             </div>
             <div class="row d-flex mx-4 mt-3">
-                <h4 class="label pb-1">Concern Reports</h4>
                 <div class="col-lg-6">
-                    <div class="card card-info p-0">
-                        <div class="card-header">
-                            <h3 class="card-title">Concern Reports</h3>
+                    <div class="card rounded-3 shadow p-0">
+                        <div class="card-header d-flex justify-content-center">
+                            <h3 class="card-title fw-semibold">Concern Reports</h3>
                         </div>
                         <div class="card-body">
                             <canvas id="reportChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block;" height="500" class="report-chart"></canvas>
@@ -135,39 +124,29 @@
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
-                    <div class=" col-12 small-box bg-info">
+                    <div class=" col-12 small-box rounded-3 shadow bg-white">
                         <div class="inner">
                             <h3><?php echo $totalPendingReports ?></h3>
                             <p>Pending Reports</p>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>  
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-6 d-flex  align-items-stretch">
-                    <div class=" col-12 small-box bg-warning">
+                <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
+                    <div class=" col-12 small-box rounded-3 shadow bg-white">
                         <div class="inner">
                             <h3><?php echo $totalInProgressReports ?></h3>
                             <p>In Progress Reports</p>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
-                        </div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-6  d-flex align-items-stretch">
-                    <div class=" col-12 small-box bg-success">
+                <div class="col-lg-2 col-md-6 d-flex align-items-stretch">
+                    <div class=" col-12 small-box rounded-3 shadow bg-white">
                         <div class="inner">
                             <h3><?php echo $totalCompletedReports ?></h3>
                             <p>Completed Reports</p>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -198,7 +177,7 @@
                     {
                         label: "Document Requests",
                         data: requestData.data,
-                        backgroundColor: ['#17A2B8', '#FFC107', '#28A745']
+                        backgroundColor: ['#ff6384', '#ffcd56', '#4bc0c0']
                     }
                 ]
             }, 
@@ -217,7 +196,7 @@
                     {
                         label: "Concern Reports",
                         data: chartData.data,
-                        backgroundColor: ['#17A2B8', '#FFC107', '#28A745']
+                        backgroundColor: ['#ff6384', '#ffcd56', '#4bc0c0']
                     }
                 ]
             }, 
