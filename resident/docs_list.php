@@ -118,7 +118,7 @@
                 <input type="text" class="form-control" name="contact-name" id="contact-name" required>
             </div>
             <div class="col-md-6">
-                <label for="contact-telephone" class="form-label">Telephone</label>
+                <label for="contact-telephone" class="form-label">Contact Number</label>
                 <input type="text" class="form-control" name="contact-no" id="contact-no" required>
             </div>
             <div class="col-12">

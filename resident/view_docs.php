@@ -243,7 +243,7 @@
                                         <input type="text" class="form-control editable" id="contact-name" name="contact-name" required="required" disabled value="<?php echo $row['contact_name']?>">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="contact-telephone" class="form-label">Telephone</label>
+                                        <label for="contact-telephone" class="form-label">Contact Number</label>
                                         <input type="text" class="form-control editable" id="contact-no" name="contact-no" disabled required="required" value="<?php echo $row['contact_no']?>">
                                     </div>
                                     <div class="col-12">
