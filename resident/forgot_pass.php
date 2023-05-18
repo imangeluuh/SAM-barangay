@@ -8,7 +8,7 @@
     // Include the database configuration file
     include('../dbconfig.php');
 
-    require "mail.php";
+    require "../mail.php";
 
     $mode = "enter_email";
     

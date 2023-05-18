@@ -36,7 +36,7 @@
             include('navbar.php');
             include('sidebar.php');
             include('../dbconfig.php');
-            require "mail.php";
+            require "../mail.php";
 
             function generateRandomLetters() {
                 $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
