@@ -68,106 +68,112 @@
                 </div>
             </div>
             <div class="wrapper p-5 mt-3">
-                <span class="fs-4 history">Document Request History</span>
-                <div class="table-responsive mt-3" id="no-more-tables">
-                    <table id="doc_req" class="table table-hover" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Date</th>
-                                <th>Document Type</th>
-                                <th>Status</th>
-                                <th>Schedule</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                if($stmt) {
-                                    // retrieve the result set from the executed statement
-                                    $result = $stmt->get_result();  
-
-                                    // fetch the row from the result set
-                                    while($row = $result->fetch_assoc()) { ?>
-                                        <tr>
-                                            <td data-title="ID"><?php echo $row['request_id']; ?></td>
-                                            <td data-title="Date"><?php echo $row['date_requested']; ?></td>
-                                            <td data-title="Details"><?php echo $row['document_type']; ?></td>
-                                            <td data-title="Status"><?php echo $row['status']; ?></td>
-                                            <td data-title="Schedule"><?php echo $row['schedule']; ?></td>
-                                            <td data-title="Action">
-                                                <form action="view_docs.php" method="post">
-                                                    <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">
-                                                    <input type="hidden" name="document_type" value="<?php echo $row['document_type']; ?>">
-                                                    <input type="hidden" name="date_requested" value="<?php echo $row['date_requested']; ?>">
-                                                    <input type="hidden" name="date_completed" value="<?php echo $row['date_completed']; ?>">
-                                                    <input type="hidden" name="status" value="<?php echo $row['status']; ?>">
-                                                    <input type="hidden" name="doc_id" value="<?php echo $row['doc_id']; ?>">
-                                                    <input type="hidden" name="schedule" value="<?php echo $row['schedule']; ?>">
-                                                    <input type="submit" name="view"
-                                                            class="btn text-primary p-0" value="View" />
-                                                </form> 
-                                            </td>
+                <div class="card shadow">
+                    <div class="card-header request-header">
+                        <span class="fs-4 history">Document Request History</span>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="table-responsive mt-3" id="no-more-tables">
+                            <table id="doc_req" class="table table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Date</th>
+                                        <th>Document Type</th>
+                                        <th>Status</th>
+                                        <th>Schedule</th>
+                                        <th>Action</th>
                                     </tr>
-                                    <?php }
-                                } ?>
-                        </tbody>
-                    </table>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        if($stmt) {
+                                            // retrieve the result set from the executed statement
+                                            $result = $stmt->get_result();  
+                                            // fetch the row from the result set
+                                            while($row = $result->fetch_assoc()) { ?>
+                                                <tr>
+                                                    <td data-title="ID"><?php echo $row['request_id']; ?></td>
+                                                    <td data-title="Date"><?php echo $row['date_requested']; ?></td>
+                                                    <td data-title="Details"><?php echo $row['document_type']; ?></td>
+                                                    <td data-title="Status"><?php echo $row['status']; ?></td>
+                                                    <td data-title="Schedule"><?php echo $row['schedule']; ?></td>
+                                                    <td data-title="Action">
+                                                        <form action="view_docs.php" method="post">
+                                                            <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">
+                                                            <input type="hidden" name="document_type" value="<?php echo $row['document_type']; ?>">
+                                                            <input type="hidden" name="date_requested" value="<?php echo $row['date_requested']; ?>">
+                                                            <input type="hidden" name="date_completed" value="<?php echo $row['date_completed']; ?>">
+                                                            <input type="hidden" name="status" value="<?php echo $row['status']; ?>">
+                                                            <input type="hidden" name="doc_id" value="<?php echo $row['doc_id']; ?>">
+                                                            <input type="hidden" name="schedule" value="<?php echo $row['schedule']; ?>">
+                                                            <input type="submit" name="view"
+                                                                    class="btn text-primary p-0" value="View" />
+                                                        </form> 
+                                                    </td>
+                                            </tr>
+                                            <?php }
+                                        } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="wrapper p-5 mt-3">
-                <span class="fs-4 history">Concern Report History</span>
-                <div class="table-responsive mt-3" id="no-more-tables">
-                    <table id="concern" class="table table-hover" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Date</th>
-                                <th>Report Type</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                // Fetch any remaining result sets
-                                while($conn->next_result()) {
-                                    $conn->store_result();
-                                }
-
-                                $stmt = $conn->prepare("CALL SP_GET_RES_REPORT(?)");
-
-                                // bind the input parameters to the prepared statement
-                                $stmt->bind_param('i', $_SESSION['userData']['resident_id']);
-                    
-                                // Execute the prepared statement
-                                $stmt->execute();
-
-                                if($stmt) {
-                                    // retrieve the result set from the executed statement
-                                    $result = $stmt->get_result();  
-
-                                    // fetch the row from the result set
-                                    while($row = $result->fetch_assoc()) { ?>
-                                        <tr>
-                                            <td data-title="ID"><?php echo $row['report_id']; ?></td>
-                                            <td data-title="Date"><?php echo $row['date_reported']; ?></td>
-                                            <td data-title="Details"><?php echo $row['report_type']; ?></td>
-                                            <td data-title="Status"><?php echo $row['status']; ?></td>
-                                            <td data-title="Action">
-                                                <form action="view_report.php" method="post">
-                                                    <input type="hidden" name="report_id" value="<?php echo $row['report_id']; ?>">
-                                                    <input type="hidden" name="image_name" value="<?php echo $row['image_name']; ?>">
-                                                    <input type="hidden" name="image" value="<?php echo htmlspecialchars($row['image']); ?>">
-                                                    <input type="submit" name="view"
-                                                            class="btn text-primary p-0" value="View" />
-                                                </form> 
-                                            </td>
+            <div class="wrapper px-5">
+                <div class="card shadow">
+                    <div class="card-header concern-header">
+                        <span class="fs-4 text-white">Concern Report History</span>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="table-responsive mt-3" id="no-more-tables">
+                            <table id="concern" class="table table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Date</th>
+                                        <th>Report Type</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
-                                    <?php }
-                                } ?>
-                        </tbody>
-                    </table>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                        // Fetch any remaining result sets
+                                        while($conn->next_result()) {
+                                            $conn->store_result();
+                                        }
+                                        $stmt = $conn->prepare("CALL SP_GET_RES_REPORT(?)");
+                                        // bind the input parameters to the prepared statement
+                                        $stmt->bind_param('i', $_SESSION['userData']['resident_id']);                
+                                        // Execute the prepared statement
+                                        $stmt->execute();
+                                        if($stmt) {
+                                            // retrieve the result set from the executed statement
+                                            $result = $stmt->get_result();  
+                                            // fetch the row from the result set
+                                            while($row = $result->fetch_assoc()) { ?>
+                                                <tr>
+                                                    <td data-title="ID"><?php echo $row['report_id']; ?></td>
+                                                    <td data-title="Date"><?php echo $row['date_reported']; ?></td>
+                                                    <td data-title="Details"><?php echo $row['report_type']; ?></td>
+                                                    <td data-title="Status"><?php echo $row['status']; ?></td>
+                                                    <td data-title="Action">
+                                                        <form action="view_report.php" method="post">
+                                                            <input type="hidden" name="report_id" value="<?php echo $row['report_id']; ?>">
+                                                            <input type="hidden" name="image_name" value="<?php echo $row['image_name']; ?>">
+                                                            <input type="hidden" name="image" value="<?php echo htmlspecialchars($row['image']); ?>">
+                                                            <input type="submit" name="view"
+                                                                    class="btn text-primary p-0" value="View" />
+                                                        </form> 
+                                                    </td>
+                                            </tr>
+                                            <?php }
+                                        } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

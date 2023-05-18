@@ -21,12 +21,13 @@
 .form-select.form-select-sm {
     width: 60px!important;
 }
-.history {
-    color: #053C5E;
+
+.request-header {
+    background-color: #BFDBF7!important;
 }
 
-th {
-    background-color: #BFDBF7!important;
+.concern-header {
+    background-color: #1F7A8C!important;
 }
 
 a {

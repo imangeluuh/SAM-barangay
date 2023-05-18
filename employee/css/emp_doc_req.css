@@ -22,16 +22,20 @@
     width: 70px!important;
 }
 
-.history {
-    color: #053C5E;
-}
-
-th {
-    background-color: #BFDBF7!important;
-}
-
 a {
     width: fit-content;
+}
+
+.inprogress-header {
+    background-color: #ffcd56!important;
+}
+
+.pending-header {
+    background-color: #ff6384!important;
+}
+
+.completed-header {
+    background-color: #4bc0c0!important;
 }
 
 @media only screen and (max-width:800px) {

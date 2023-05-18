@@ -47,47 +47,52 @@
 
         <div class="content-wrapper" style="background-color: #ffffff!important">
             <div class="wrapper p-5 mt-3">
-                <span class="fs-4 history"> In Progress Concern Report</span>
-                <div class="table-responsive mt-3" id="no-more-tables">
-                    <table id="table1" class="table table-hover" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Date</th>
-                                <th>Report Type</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                            if($stmt) {
-                                // retrieve the result set from the executed statement
-                                $result = $stmt->get_result();  
-
-                                // fetch the row from the result set
-                                while($row = $result->fetch_assoc()) { ?>
-                                        <tr>
-                                            <td data-title="ID"><?php echo $row['report_id']; ?></td>
-                                            <td data-title="Date"><?php echo $row['date_reported']; ?></td>
-                                            <td data-title="Details"><?php echo $row['report_type']; ?></td>
-                                            <td data-title="Status"><?php echo $row['status']; ?></td>
-                                            <td data-title="Action">
-                                                <form action="view_report.php" method="post">
-                                                    <input type="hidden" name="report_id" value="<?php echo $row['report_id']; ?>">
-                                                    <input type="hidden" name="date_reported" value="<?php echo $row['date_reported']; ?>">
-                                                    <input type="hidden" name="image_name" value="<?php echo $row['image_name']; ?>">
-                                                    <input type="hidden" name="image" value="<?php echo htmlspecialchars($row['image']); ?>">
-                                                    <input type="hidden" name="resident_id" value="<?php echo $row['resident_id']; ?>">
-                                                    <input type="submit" name="view"
-                                                            class="btn text-primary p-0" value="View" />
-                                                </form> 
-                                            </td>
+                <div class="card shadow">
+                    <div class="card-header inprogress-header">
+                        <span class="fs-4 history"> In Progress Concern Report</span>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="table-responsive mt-3" id="no-more-tables">
+                            <table id="table1" class="table table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Date</th>
+                                        <th>Report Type</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
-                                    <?php }
-                                } ?>
-                        </tbody>
-                    </table>
+                                </thead>
+                                <tbody>
+                                <?php
+                                    if($stmt) {
+                                        // retrieve the result set from the executed statement
+                                        $result = $stmt->get_result();  
+                                        // fetch the row from the result set
+                                        while($row = $result->fetch_assoc()) { ?>
+                                                <tr>
+                                                    <td data-title="ID"><?php echo $row['report_id']; ?></td>
+                                                    <td data-title="Date"><?php echo $row['date_reported']; ?></td>
+                                                    <td data-title="Details"><?php echo $row['report_type']; ?></td>
+                                                    <td data-title="Status"><?php echo $row['status']; ?></td>
+                                                    <td data-title="Action">
+                                                        <form action="view_report.php" method="post">
+                                                            <input type="hidden" name="report_id" value="<?php echo $row['report_id']; ?>">
+                                                            <input type="hidden" name="date_reported" value="<?php echo $row['date_reported']; ?>">
+                                                            <input type="hidden" name="image_name" value="<?php echo $row['image_name']; ?>">
+                                                            <input type="hidden" name="image" value="<?php echo htmlspecialchars($row['image']); ?>">
+                                                            <input type="hidden" name="resident_id" value="<?php echo $row['resident_id']; ?>">
+                                                            <input type="submit" name="view"
+                                                                    class="btn text-primary p-0" value="View" />
+                                                        </form> 
+                                                    </td>
+                                            </tr>
+                                            <?php }
+                                        } ?>
+                                </tbody>
+                            </table>
+                        </div>      
+                    </div>
                 </div>
             </div>
             <?php
@@ -95,54 +100,57 @@
                 while($conn->next_result()) {
                     $conn->store_result();
                 }
-
                 $stmt = $conn->prepare("CALL SP_GET_PENDING_REPORT");
-
                 // Execute the prepared statement
                 $stmt->execute();
             ?>
-            <div class="wrapper p-5 mt-3">
-                <span class="fs-4 history">Pending Concern Report</span>
-                <div class="table-responsive mt-3" id="no-more-tables">
-                    <table id="table2" class="table table-hover" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Date</th>
-                                <th>Report Type</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                            if($stmt) {
-                                // retrieve the result set from the executed statement
-                                $result = $stmt->get_result();  
-
-                                // fetch the row from the result set
-                                while($row = $result->fetch_assoc()) { ?>
-                                        <tr>
-                                            <td data-title="ID"><?php echo $row['report_id']; ?></td>
-                                            <td data-title="Date"><?php echo $row['date_reported']; ?></td>
-                                            <td data-title="Details"><?php echo $row['report_type']; ?></td>
-                                            <td data-title="Status"><?php echo $row['status']; ?></td>
-                                            <td data-title="Action">
-                                                <form action="view_report.php" method="post">
-                                                    <input type="hidden" name="report_id" value="<?php echo $row['report_id']; ?>">
-                                                    <input type="hidden" name="date_reported" value="<?php echo $row['date_reported']; ?>">
-                                                    <input type="hidden" name="image_name" value="<?php echo $row['image_name']; ?>">
-                                                    <input type="hidden" name="image" value="<?php echo htmlspecialchars($row['image']); ?>">
-                                                    <input type="hidden" name="resident_id" value="<?php echo $row['resident_id']; ?>">
-                                                    <input type="submit" name="view"
-                                                            class="btn text-primary p-0" value="View" />
-                                                </form> 
-                                            </td>
+            <div class="wrapper px-5 ">
+                <div class="card shadow">
+                    <div class="card-header pending-header">
+                        <span class="fs-4 text-white">Pending Concern Report</span>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="table-responsive mt-3" id="no-more-tables">
+                            <table id="table2" class="table table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Date</th>
+                                        <th>Report Type</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
-                                    <?php }
-                                } ?>
-                        </tbody>
-                    </table>
+                                </thead>
+                                <tbody>
+                                <?php
+                                    if($stmt) {
+                                        // retrieve the result set from the executed statement
+                                        $result = $stmt->get_result();  
+                                        // fetch the row from the result set
+                                        while($row = $result->fetch_assoc()) { ?>
+                                                <tr>
+                                                    <td data-title="ID"><?php echo $row['report_id']; ?></td>
+                                                    <td data-title="Date"><?php echo $row['date_reported']; ?></td>
+                                                    <td data-title="Details"><?php echo $row['report_type']; ?></td>
+                                                    <td data-title="Status"><?php echo $row['status']; ?></td>
+                                                    <td data-title="Action">
+                                                        <form action="view_report.php" method="post">
+                                                            <input type="hidden" name="report_id" value="<?php echo $row['report_id']; ?>">
+                                                            <input type="hidden" name="date_reported" value="<?php echo $row['date_reported']; ?>">
+                                                            <input type="hidden" name="image_name" value="<?php echo $row['image_name']; ?>">
+                                                            <input type="hidden" name="image" value="<?php echo htmlspecialchars($row['image']); ?>">
+                                                            <input type="hidden" name="resident_id" value="<?php echo $row['resident_id']; ?>">
+                                                            <input type="submit" name="view"
+                                                                    class="btn text-primary p-0" value="View" />
+                                                        </form> 
+                                                    </td>
+                                            </tr>
+                                            <?php }
+                                        } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             <?php
@@ -150,54 +158,58 @@
                 while($conn->next_result()) {
                     $conn->store_result();
                 }
-
                 $stmt = $conn->prepare("CALL SP_GET_COMPLETE_REPORT");
-
                 // Execute the prepared statement
                 $stmt->execute();
             ?>
             <div class="wrapper p-5 mt-3">
-                <span class="fs-4 history">Complete Concern Report</span>
-                <div class="table-responsive mt-3" id="no-more-tables">
-                    <table id="table3" class="table table-hover" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Date</th>
-                                <th>Report Type</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                            if($stmt) {
-                                // retrieve the result set from the executed statement
-                                $result = $stmt->get_result();  
-
-                                // fetch the row from the result set
-                                while($row = $result->fetch_assoc()) { ?>
-                                        <tr>
-                                            <td data-title="ID"><?php echo $row['report_id']; ?></td>
-                                            <td data-title="Date"><?php echo $row['date_reported']; ?></td>
-                                            <td data-title="Details"><?php echo $row['report_type']; ?></td>
-                                            <td data-title="Status"><?php echo $row['status']; ?></td>
-                                            <td data-title="Action">
-                                                <form action="view_report.php" method="post">
-                                                    <input type="hidden" name="report_id" value="<?php echo $row['report_id']; ?>">
-                                                    <input type="hidden" name="date_reported" value="<?php echo $row['date_reported']; ?>">
-                                                    <input type="hidden" name="image_name" value="<?php echo $row['image_name']; ?>">
-                                                    <input type="hidden" name="image" value="<?php echo htmlspecialchars($row['image']); ?>">
-                                                    <input type="hidden" name="resident_id" value="<?php echo $row['resident_id']; ?>">
-                                                    <input type="submit" name="view"
-                                                            class="btn text-primary p-0" value="View" />
-                                                </form> 
-                                            </td>
+                <div class="card shadow">
+                    <div class="card-header completed-header">
+                        <span class="fs-4 text-white">Completed Concern Report</span>
+                    </div>
+                    <div class="card-body p-3">                
+                        <div class="table-responsive mt-3" id="no-more-tables">
+                            <table id="table3" class="table table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Date</th>
+                                        <th>Report Type</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
-                                    <?php }
-                                } ?>
-                        </tbody>
-                    </table>
+                                </thead>
+                                <tbody>
+                                <?php
+                                    if($stmt) {
+                                        // retrieve the result set from the executed statement
+                                        $result = $stmt->get_result();  
+
+                                        // fetch the row from the result set
+                                        while($row = $result->fetch_assoc()) { ?>
+                                                <tr>
+                                                    <td data-title="ID"><?php echo $row['report_id']; ?></td>
+                                                    <td data-title="Date"><?php echo $row['date_reported']; ?></td>
+                                                    <td data-title="Details"><?php echo $row['report_type']; ?></td>
+                                                    <td data-title="Status"><?php echo $row['status']; ?></td>
+                                                    <td data-title="Action">
+                                                        <form action="view_report.php" method="post">
+                                                            <input type="hidden" name="report_id" value="<?php echo $row['report_id']; ?>">
+                                                            <input type="hidden" name="date_reported" value="<?php echo $row['date_reported']; ?>">
+                                                            <input type="hidden" name="image_name" value="<?php echo $row['image_name']; ?>">
+                                                            <input type="hidden" name="image" value="<?php echo htmlspecialchars($row['image']); ?>">
+                                                            <input type="hidden" name="resident_id" value="<?php echo $row['resident_id']; ?>">
+                                                            <input type="submit" name="view"
+                                                                    class="btn text-primary p-0" value="View" />
+                                                        </form> 
+                                                    </td>
+                                            </tr>
+                                            <?php }
+                                        } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             
