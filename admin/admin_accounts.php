@@ -157,7 +157,7 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                    $stmt = $conn->prepare("CALL SP_GET_EMPLOYEE");
+                                    $stmt = $conn->prepare("CALL SP_GET_ALL_EMPLOYEE");
                                     // Execute the prepared statement
                                     $stmt->execute();
                                     if($stmt) {
@@ -259,7 +259,7 @@
                                         $conn->store_result();
                                     }
                     
-                                    $stmt = $conn->prepare("CALL SP_GET_RESIDENT");
+                                    $stmt = $conn->prepare("CALL SP_GET_ALL_RESIDENT");
                                     // Execute the prepared statement
                                     $stmt->execute();
                                     if($stmt) {

@@ -53,7 +53,7 @@
                 // Store the user data array in the $_SESSION variable for future use.
                 $_SESSION['reportInfo'] = $reportInfo;
 
-                    $stmt = $conn->prepare("CALL SP_GET_RESIDENT(?)");
+                $stmt = $conn->prepare("CALL SP_GET_RESIDENT(?)");
                 // bind the input parameters to the prepared statement
                 $stmt->bind_param('i', $_SESSION['reportInfo']['resident_id']);
                 // Execute the prepared statement
@@ -62,7 +62,6 @@
                 if($stmt) {
                     // retrieve the result set from the executed statement
                     $result = $stmt->get_result();  
-
                     // fetch the row from the result set
                     $row = $result->fetch_assoc();
                     $reportInfo += array('res_name' => $row['res_firstname'] . " " .  $row['res_lastname']
