@@ -63,7 +63,7 @@
                                 exit();
                             } else {
                                 $image = $_FILES['image']['tmp_name']; 
-                                $imgContent = !empty($_FILES["image"]["name"]) ? addslashes(file_get_contents($image)) : NULL; 
+                                $imgContent = !empty($_FILES["image"]["name"]) ? file_get_contents($image) : NULL; 
                         
                                 try {
                                     $stmt = $conn->prepare("CALL SP_ADD_REPORT(?, ?, ?, ?, ?, ?)");
@@ -115,11 +115,11 @@
                                     <label for="report-loc" class="form-label">Location of Reported Concern</label><br>
                                     <textarea name="report-loc" id="report-loc" cols="125" rows="2" required="required"></textarea>
                                 </div>
-                                <div class="col-12">
-                                    <div>
-                                        <label for="image" class="form-label">Upload Image of Concern</label><br>
-                                        <input type='file' name="image" id="image" class="editable" required onchange="pressed()">
-                                        <label id="fileLabel" class="fw-normal">No file chosen</label>
+                                <div class="col-md-6">
+                                    <label for="image" class="form-label">Upload Image of Concern</label><br>
+                                    <div class="d-flex">
+                                        <input type='file' name="image" id="image" class="form-control rounded-end-0" onchange="pressed()">
+                                        <label id="fileLabel" class="form-control fw-normal rounded-start-0">No file chosen</label>
                                     </div>
                                 </div>
                                 <div class="col-12">

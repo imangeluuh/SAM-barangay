@@ -60,15 +60,16 @@
 
                 $fileName = !empty($_FILES["image"]["name"]) ?  basename($_FILES["image"]["name"]) : $_SESSION['reportInfo']['image_name'];
                 $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
-                
+                    
                 // Allow certain file formats 
                 $allowTypes = array('jpg','png','jpeg','gif'); 
-                if(!in_array($fileType, $allowTypes)){ 
+                if($fileName != NULL && !in_array($fileType, $allowTypes)){ 
                     echo "<script>alert('Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'); window.location.href = 'view_report.php';</script>";
                     exit();
                 } else {
                     $image = $_FILES['image']['tmp_name']; 
-                    $imgContent = !empty($image)? addslashes(file_get_contents($image)) : $_SESSION['reportInfo']['image']; 
+                    $imgContent = !empty($_FILES["image"]["name"]) ? file_get_contents($image) : NULL; 
+                    
             
                     try {
                         $stmt = $conn->prepare("CALL SP_UPDATE_REPORT(?, ?, ?, ?, ?, ?)");
@@ -146,16 +147,11 @@
                                             echo $row['report_loc'];
                                         ?></textarea>
                                     </div>
-                                    <div class="col-12">
-                                        <div>
-                                            <label for="image" class="form-label">Upload Image of Concern</label><br>
-                                            <input type='file' name="image" id="image" class="editable" disabled required onchange="pressed()">
-                                            <label id="fileLabel" class="fw-normal"><?php $row['image_name'] ?></label>
-                                        </div>
-                                        <div class="img-box">
-                                        <?php //if ($row['image'] != NULL): ?>
-                                            <!-- <img src="data:image/<?php //echo pathinfo($row['image_name'], PATHINFO_EXTENSION) ?>;base64,<?php //echo base64_encode($row['image']) ?>" /> -->
-                                        <?php //endif; ?>
+                                    <div class="col-md-6">
+                                        <label for="image" class="form-label">Upload Image of Concern</label><br>
+                                        <div class="d-flex">
+                                            <input type='file' name="image" id="image" class="form-control rounded-end-0 editable" disabled onchange="pressed()">
+                                            <label id="fileLabel" class="form-control fw-normal rounded-start-0"><?php echo $row['image_name'] ?></label>
                                         </div>
                                     </div>
                                     <div class="col-12">
