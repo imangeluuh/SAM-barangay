@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Serbisyong Aagapay sa Mamayan</title>
     <!-- Bootstrap CSS link -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- CSS link -->
     <link rel="stylesheet" href="css/res_homepage.css">
     <!-- AdminLTE CSS link -->
@@ -43,9 +43,9 @@
                         <div class="col-lg-12 p-0 mt-5">
                             <div class="first-container row mb-5">
                                 <div class="sam-img col-md-5 d-flex justify-content-center justify-content-md-end p-0">
-                                    <img src="../sam.png" alt="" class="sam me-md-3">
+                                    <img src="../images/SAM.png" alt="" class="sam">
                                 </div>
-                                <div class="first-btn col-md-7 d-flex justify-content-center justify-content-md-start ps-md-0">
+                                <div class="first-btn col-md-7 d-flex justify-content-center justify-content-md-start ps-md-5 ">
                                     <div class="d-flex flex-column justify-content-center align-items-center help-div">
                                         <span class="concern-txt"><?php echo $lang['q_concern'] ?></span>
                                         <span class="help-txt text-center"><?php echo $lang['can_help'] ?></span>
@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                             <div class="third-container row">
-                                <div class="col-md-6 d-flex justify-content-center justify-content-md-end align-items-center">
+                                <div class="col-md-7 d-flex justify-content-center justify-content-md-end align-items-center">
                                     <div class="d-flex flex-column pe-md-5">
                                         <span class="fs-1 fw-semibold"><?php echo $lang['brgy_issues'] ?></span>
                                         <span class="fs-5 fw-semibold mb-2"><?php echo $lang['we_hear'] ?>.</span>
@@ -92,8 +92,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 d-flex justify-content-center justify-content-md-start align-items-center p-0">
-                                    <img src="dwtd.png" alt="" class="w-50">
+                                <div class="col-md-5 d-flex justify-content-center justify-content-md-start align-items-center p-0">
+                                    <img src="../images/SAM.png" alt="" class="sam">
                                 </div>
                             </div>
                         </div>
@@ -105,8 +105,7 @@
 
     
     <!-- Bootstrap JS link -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- AdminLTE JS link -->
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 </body>

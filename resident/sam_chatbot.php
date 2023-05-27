@@ -52,7 +52,7 @@
                         <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
                     </div>
                     <!-- /.direct-chat-infos -->
-                    <img class="direct-chat-img" src="../sam.png" alt="message user image">
+                    <img class="direct-chat-img" src="../images/SAM.png" alt="message user image">
                     <!-- /.direct-chat-img -->
                     <div class="direct-chat-text">
                         Hello!
