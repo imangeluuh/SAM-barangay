@@ -51,6 +51,38 @@
             exit();
         }
     }
+
+    if(isset($_POST['submit-clearance'])) {
+        $resName = $_POST['res-name'];
+        $purpose = $_POST['purpose']; 
+        $stmt = $conn->prepare("CALL SP_ADD_CLEARANCE(?, ?, ?)");
+        // bind the input parameters to the prepared statement
+        $stmt->bind_param('ssi', $resName, $purpose, $_SESSION['userData']['resident_id']);
+        // Execute the prepared statement
+        $stmt->execute();   
+
+        if ($stmt) {
+            echo "<script>alert('Thank you for submitting your request. Your request has been successfully received and is being processed.'); window.location.href = 'res_services.php';</script>";
+            exit();
+        }
+    }
+
+    if(isset($_POST['submit-permit'])) {
+        $businessOwner = $_POST['res-name'];
+        $businessName = $_POST['business-name']; 
+        $businessLine = $_POST['business-line']; 
+        $businessAddress = $_POST['business-address']; 
+        $stmt = $conn->prepare("CALL SP_ADD_PERMIT(?, ?, ?, ?, ?)");
+        // bind the input parameters to the prepared statement
+        $stmt->bind_param('ssssi', $businessOwner, $businessName, $businessLine, $businessAddress, $_SESSION['userData']['resident_id']);
+        // Execute the prepared statement
+        $stmt->execute();   
+
+        if ($stmt) {
+            echo "<script>alert('Thank you for submitting your request. Your request has been successfully received and is being processed.'); window.location.href = 'res_services.php';</script>";
+            exit();
+        }
+    }
 ?>
 
 <a href="javascript:history.back()" class="ms-4 d-flex align-items-center text-decoration-none text-secondary">
@@ -179,8 +211,62 @@
                 <button type="submit" name="submit-coi" class="btn btn-primary">Submit</button>
             </div>
         </form>
-
-    
+    <?php } else if(isset($_GET['barangay-clearance'])) { ?>
+        <span class="fs-4 ms-4">Barangay Clearance</span>
+        <form class="row g-3 mx-4 mt-2" method="post">
+            <div class="col-md-6 me-md-2">
+                <label for="Name" class="form-label">Name</label>
+                <!-- Hidden input field to store the name value -->
+                <input type="hidden" class="form-control" name="res-name" id="res-name" 
+                    value="<?php echo $_SESSION['userData']['res_firstname'] . " ";
+                                if (!empty($_SESSION['userData']['res_middlename'])) { echo $_SESSION['userData']['res_middlename'][0] . '. ';}
+                                echo $_SESSION['userData']['res_lastname']?>">
+                <!-- Visible input field for display purposes -->
+                <input type="text" class="form-control" disabled
+                    value="<?php echo $_SESSION['userData']['res_firstname'] . " ";
+                                if (!empty($_SESSION['userData']['res_middlename'])) { echo $_SESSION['userData']['res_middlename'][0] . '. ';}
+                                echo $_SESSION['userData']['res_lastname']?>">
+            </div>
+            <div class="col-md-6">
+                <label for="purpose" class="form-label">Purpose</label>
+                <input type="text" name="purpose" class="form-control">
+            </div>
+            <div class="col-12">
+                <button type="submit" name="submit-clearance" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    <?php } else if(isset($_GET['business-permit'])) { ?>
+        <span class="fs-4 ms-4">Business Permit</span>
+        <form class="row g-3 mx-4 mt-2" method="post">
+            <div class="col-md-6 me-md-2">
+                <label for="Name" class="form-label">Business Owner</label>
+                <!-- Hidden input field to store the name value -->
+                <input type="hidden" class="form-control" name="res-name" id="res-name" 
+                    value="<?php echo $_SESSION['userData']['res_firstname'] . " ";
+                                if (!empty($_SESSION['userData']['res_middlename'])) { echo $_SESSION['userData']['res_middlename'][0] . '. ';}
+                                echo $_SESSION['userData']['res_lastname']?>">
+                <!-- Visible input field for display purposes -->
+                <input type="text" class="form-control" disabled
+                    value="<?php echo $_SESSION['userData']['res_firstname'] . " ";
+                                if (!empty($_SESSION['userData']['res_middlename'])) { echo $_SESSION['userData']['res_middlename'][0] . '. ';}
+                                echo $_SESSION['userData']['res_lastname']?>">
+            </div>
+            <div class="col-md-6">
+                <label for="business-name" class="form-label">Business Name</label>
+                <input type="text" name="business-name" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label for="business-line" class="form-label">Business Line</label>
+                <input type="text" name="business-line" class="form-control">
+            </div>
+            <div class="col-12">
+                <label for="business-address" class="form-label">Business Adress</label>
+                <input type="text" name="business-address" class="form-control">
+            </div>
+            <div class="col-12">
+                <button type="submit" name="submit-permit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
     <?php } else { ?>
         <div class="list-group list-group-flush fs-5 w-50">
             <a href="res_doc_req.php?barangay-id" class="d-flex justify-content-between list-group-item list-group-item-action">
@@ -189,6 +275,14 @@
             </a>
             <a href="res_doc_req.php?certificate-of-indigency" class="d-flex justify-content-between list-group-item list-group-item-action">
                 Certificate of Indigency
+                <i class="fa-solid fa-angle-right"></i>
+            </a>
+            <a href="res_doc_req.php?barangay-clearance" class="d-flex justify-content-between list-group-item list-group-item-action">
+                Barangay Clearance
+                <i class="fa-solid fa-angle-right"></i>
+            </a>
+            <a href="res_doc_req.php?business-permit" class="d-flex justify-content-between list-group-item list-group-item-action">
+                Business Permit
                 <i class="fa-solid fa-angle-right"></i>
             </a>
         </div>

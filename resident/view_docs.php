@@ -131,6 +131,78 @@
                 exit();
             }
 
+            
+            if(isset($_POST['save_clearance'])) { 
+                // Fetch any remaining result sets
+                while($conn->next_result()) {
+                    $conn->store_result();
+                }
+
+                if(isset($_POST['datepicker']) && isset($_POST['time'])) {
+                    $date = DateTime::createFromFormat('m/d/Y', $_POST['datepicker']);
+                    $schedule = $date->format('Y-m-d') . " " . $_POST['time'];
+                    
+                    $stmt = $conn->prepare("CALL SP_UPDATE_REQUEST(?, ?)");
+                    // bind the input parameters to the prepared statement
+                    $stmt->bind_param('is', $_SESSION['docInfo']['request_id'], $schedule);
+                    // Execute the prepared statement
+                    $stmt->execute();  
+                    $_SESSION['docInfo']['schedule'] = $schedule;
+                } else {
+                    $background_info = trim($_POST['background-info']);
+                    $purpose = $_POST['purpose'];
+            
+                    $stmt = $conn->prepare("CALL SP_UPDATE_CLEARANCE(?, ?)");
+                    // bind the input parameters to the prepared statement
+                    $stmt->bind_param('is', $_SESSION['docInfo']['doc_id'], $purpose);
+                    // Execute the prepared statement
+                    $stmt->execute();  
+                }
+
+                // Close the prepared statement and database connection
+                $stmt->close();
+                $conn->close();
+                
+                header("Location: view_docs.php");
+                exit();
+            }
+
+            if(isset($_POST['save_permit'])) { 
+                // Fetch any remaining result sets
+                while($conn->next_result()) {
+                    $conn->store_result();
+                }
+
+                if(isset($_POST['datepicker']) && isset($_POST['time'])) {
+                    $date = DateTime::createFromFormat('m/d/Y', $_POST['datepicker']);
+                    $schedule = $date->format('Y-m-d') . " " . $_POST['time'];
+                    
+                    $stmt = $conn->prepare("CALL SP_UPDATE_REQUEST(?, ?)");
+                    // bind the input parameters to the prepared statement
+                    $stmt->bind_param('is', $_SESSION['docInfo']['request_id'], $schedule);
+                    // Execute the prepared statement
+                    $stmt->execute();  
+                    $_SESSION['docInfo']['schedule'] = $schedule;
+                } else {
+                    $businessName = $_POST['business-name']; 
+            $businessLine = $_POST['business-line']; 
+            $businessAddress = $_POST['business-address']; 
+            
+                    $stmt = $conn->prepare("CALL SP_UPDATE_PERMIT(?, ?, ?, ?)");
+                    // bind the input parameters to the prepared statement
+                    $stmt->bind_param('isss', $_SESSION['docInfo']['doc_id'], $businessName, $businessLine, $businessAddress);
+                    // Execute the prepared statement
+                    $stmt->execute();  
+                }
+
+                // Close the prepared statement and database connection
+                $stmt->close();
+                $conn->close();
+                
+                header("Location: view_docs.php");
+                exit();
+            }
+
             // Get all the dates that have at least one booking
             $stmt = $conn->prepare("CALL SP_FULL_SLOT");
             $stmt->execute();
@@ -421,6 +493,206 @@
                                     </div>
                                 <?php } 
                                 
+                            } else if($_SESSION['docInfo']['document_type']  == 'Barangay Clearance') { 
+                                $doc_id = $_SESSION['docInfo']['doc_id'];
+                                $stmt = $conn->prepare("CALL SP_GET_CLEARANCE(?)");
+
+                                // bind the input parameters to the prepared statement
+                                $stmt->bind_param('i', $doc_id);
+
+                                // Execute the prepared statement
+                                $stmt->execute();
+
+                                // retrieve the result set from the executed statement
+                                $result = $stmt->get_result();  
+
+                                // fetch the row from the result set
+                                $row = $result->fetch_assoc();
+                            ?>
+                                <span class="fs-4 ms-4">Barangay Clearance</span>
+                                <form class="row g-3 mx-4 mt-2" method="post" onSubmit="return confirm('Are you sure you want to save these changes?')">
+                                <div class="col-md-4">
+                                    <label for="date-requested" class="form-label">Date Requested</label><br>
+                                    <span><?php echo $_SESSION['docInfo']['date_requested'] ?></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="date-completed" class="form-label">Date Completed</label><br>
+                                    <span><?php echo $_SESSION['docInfo']['date_completed'] ?></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="date-completed" class="form-label">Status</label><br>
+                                    <span><?php echo $_SESSION['docInfo']['status'] ?></span>
+                                </div>
+                                    <div class="col-md-6 me-md-2 ">
+                                        <label for="Name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" disabled
+                                            value="<?php echo $row['res_name']?>">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="purpose" class="form-label">Purpose</label><br>
+                                        <input type="text" class="form-control editable" name="purpose" id="purpose" disabled
+                                            value="<?php echo $row['purpose']?>">
+                                    </div>
+                                    <?php if($_SESSION['docInfo']['status'] == 'Ready for pick-up') { ?>
+                                        <div class="col-12 mt-4">
+                                            <span class="fw-semibold">Appointment Information</span>
+                                        </div>
+                                        <!-- Datepicker -->
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control schedule" id="datepicker" name="datepicker" disabled required="required"
+                                                value="<?php if(!empty($_SESSION['docInfo']['schedule'])) {echo $_SESSION['docInfo']['schedule'];}?>" >
+                                            <div class="row option mt-4 d-none">
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="08:00:00"><label class="ms-1 fw-semibold">8:00AM - 9:00AM</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="09:00:00"><label class="ms-1 fw-semibold">9:00AM - 10:00AM</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="10:00:00"><label class="ms-1 fw-semibold">10:00AM - 11:00AM</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="11:00:00"><label class="ms-1 fw-semibold">11:00AM - 12:00PM</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="13:00:00"><label class="ms-1 fw-semibold">1:00PM - 2:00PM</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="14:00:00"><label class="ms-1 fw-semibold">2:00PM - 3:00PM</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="15:00:00"><label class="ms-1 fw-semibold">3:00PM - 4:00PM</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="16:00:00"><label class="ms-1 fw-semibold">4:00PM - 5:00PM</label>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    <?php } else if ($_SESSION['docInfo']['status'] == 'Claimed') { ?>
+                                        <div class="col-md-4 mt-4">
+                                            <label for="schedule" class="form-label">Schedule</label><br>
+                                            <span><?php echo $_SESSION['docInfo']['schedule']; ?></span>
+                                        </div>
+                                    <?php } ?> 
+                                    <div class="col-12">
+                                        <input type="submit" name="save_clearance" value="Save" class="btn btn-primary save-btn d-none">
+                                    </div>
+                                </form>
+                                <?php if($_SESSION['docInfo']['status'] == 'Pending') { ?>
+                                    <div class="ms-4 col-12">
+                                        <button class="btn btn-primary edit-btn">Edit</button>
+                                    </div>  
+                                <?php } else if($_SESSION['docInfo']['status'] == 'Ready for pick-up') { ?>
+                                    <div class="ms-4 col-12">
+                                        <button class="btn btn-primary appointment-btn mb-4">Set Appointment</button>
+                                    </div>
+                                <?php } 
+                                
+                            } else if($_SESSION['docInfo']['document_type']  == 'Business Permit') { 
+                                $doc_id = $_SESSION['docInfo']['doc_id'];
+                                $stmt = $conn->prepare("CALL SP_GET_PERMIT(?)");
+
+                                // bind the input parameters to the prepared statement
+                                $stmt->bind_param('i', $doc_id);
+
+                                // Execute the prepared statement
+                                $stmt->execute();
+
+                                // retrieve the result set from the executed statement
+                                $result = $stmt->get_result();  
+
+                                // fetch the row from the result set
+                                $row = $result->fetch_assoc();
+                            ?>
+                                <span class="fs-4 ms-4">Business Permit</span>
+                                <form class="row g-3 mx-4 mt-2" method="post" onSubmit="return confirm('Are you sure you want to save these changes?')">
+                                <div class="col-md-4">
+                                    <label for="date-requested" class="form-label">Date Requested</label><br>
+                                    <span><?php echo $_SESSION['docInfo']['date_requested'] ?></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="date-completed" class="form-label">Date Completed</label><br>
+                                    <span><?php echo $_SESSION['docInfo']['date_completed'] ?></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="date-completed" class="form-label">Status</label><br>
+                                    <span><?php echo $_SESSION['docInfo']['status'] ?></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Name" class="form-label">Business Owner</label>
+                                    <input type="text" class="form-control" disabled
+                                        value="<?php echo $row['business_owner']?>">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="business-name" class="form-label">Business Name</label>
+                                    <input type="text" name="business-name" class="form-control editable" disabled
+                                        value="<?php echo $row['business_name']?>" >
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="business-line" class="form-label">Business Line</label>
+                                    <input type="text" name="business-line" class="form-control editable" disabled
+                                        value="<?php echo $row['business_line']?>">
+                                </div>
+                                <div class="col-12">
+                                    <label for="business-address" class="form-label">Business Adress</label>
+                                    <input type="text" name="business-address" class="form-control editable" disabled
+                                        value="<?php echo $row['business_address']?>">
+                                </div>
+                                    <?php if($_SESSION['docInfo']['status'] == 'Ready for pick-up') { ?>
+                                        <div class="col-12 mt-4">
+                                            <span class="fw-semibold">Appointment Information</span>
+                                        </div>
+                                        <!-- Datepicker -->
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control schedule" id="datepicker" name="datepicker" disabled required="required"
+                                                value="<?php if(!empty($_SESSION['docInfo']['schedule'])) {echo $_SESSION['docInfo']['schedule'];}?>" >
+                                            <div class="row option mt-4 d-none">
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="08:00:00"><label class="ms-1 fw-semibold">8:00AM - 9:00AM</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="09:00:00"><label class="ms-1 fw-semibold">9:00AM - 10:00AM</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="10:00:00"><label class="ms-1 fw-semibold">10:00AM - 11:00AM</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="11:00:00"><label class="ms-1 fw-semibold">11:00AM - 12:00PM</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="13:00:00"><label class="ms-1 fw-semibold">1:00PM - 2:00PM</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="14:00:00"><label class="ms-1 fw-semibold">2:00PM - 3:00PM</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="15:00:00"><label class="ms-1 fw-semibold">3:00PM - 4:00PM</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="radio" name="time" value="16:00:00"><label class="ms-1 fw-semibold">4:00PM - 5:00PM</label>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    <?php } else if ($_SESSION['docInfo']['status'] == 'Claimed') { ?>
+                                        <div class="col-md-4 mt-4">
+                                            <label for="schedule" class="form-label">Schedule</label><br>
+                                            <span><?php echo $_SESSION['docInfo']['schedule']; ?></span>
+                                        </div>
+                                    <?php } ?> 
+                                    <div class="col-12">
+                                        <input type="submit" name="save_permit" value="Save" class="btn btn-primary save-btn d-none">
+                                    </div>
+                                </form>
+                                <?php if($_SESSION['docInfo']['status'] == 'Pending') { ?>
+                                    <div class="ms-4 col-12">
+                                        <button class="btn btn-primary edit-btn">Edit</button>
+                                    </div>  
+                                <?php } else if($_SESSION['docInfo']['status'] == 'Ready for pick-up') { ?>
+                                    <div class="ms-4 col-12">
+                                        <button class="btn btn-primary appointment-btn mb-4">Set Appointment</button>
+                                    </div>
+                                <?php } 
+                                
                             }
                             ?>
                         </div>
@@ -439,7 +711,7 @@
     
     <script>
         $(document).ready(function () {
-            $('.edit-btn.brgy-id').on('click', function(){
+            $('.edit-btn').on('click', function(){
                 $('input.editable').removeAttr('disabled');
                 $(this).addClass('d-none');
                 $('.save-btn').removeClass('d-none');

@@ -43,8 +43,14 @@ input[type=radio]:disabled + label {
 }
 
 input[type=file]{
-    width: 110px;
+    width: 133px;
     color:transparent;
+}
+
+#fileLabel {
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
 }
 
 @media only screen and (max-width:800px) {

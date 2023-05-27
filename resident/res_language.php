@@ -49,12 +49,6 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end pe-5" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0">
-                        <!-- <li class="nav-item mx-2">
-                            <a class="nav-link fs-5" aria-current="page" href="#">About Us</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link fs-5" href="#">Help</a>
-                        </li> -->
                         <li class="nav-item mx-2">
                             <a class="nav-link fs-5" href="?logout=true">Logout</a>
                         </li>
@@ -78,7 +72,7 @@
             </div>
 
             <div class="col-md-6 justify-content-center justify-content-md-start align-items-center">
-                <img src="../samsuit.png" alt="" class="w-50">
+                <img src="../images/SAM CHATBOT.png" alt="" class="w-50">
             </div>
             <a href="#" class="text-decoration-none text-center mt-5 fs-5 text-dark">Terms and Conditions</a>
         </div>
