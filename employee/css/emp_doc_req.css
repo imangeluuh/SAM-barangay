@@ -38,6 +38,11 @@ a {
     background-color: #4bc0c0!important;
 }
 
+.img-thumbnail {
+    width: 300px;
+    height: 300px;
+}
+
 @media only screen and (max-width:800px) {
     #no-more-tables tbody,
     #no-more-tables tr,

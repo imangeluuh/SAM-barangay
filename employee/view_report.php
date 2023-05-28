@@ -153,47 +153,53 @@
                                         ?></textarea>
                                     </div>
                                     <div class="col-12">
-                                        <div>
-                                            <label for="image" class="form-label">Upload Image of Concern</label><br>
-                                            <input type='file' name="image" id="image" class="editable" disabled required onchange="pressed()">
-                                            <label id="fileLabel" class="fw-normal"><?php $row['image_name'] ?></label>
-                                        </div>
+                                        <label for="image" class="form-label">Uploaded Image of Concern</label><br>
                                         <div class="img-box">
-                                        <?php //if ($row['image'] != NULL): ?>
-                                            <!-- <img src="data:image/<?php //echo pathinfo($row['image_name'], PATHINFO_EXTENSION) ?>;base64,<?php //echo base64_encode($row['image']) ?>" /> -->
-                                        <?php //endif; ?>
+                                        <?php if ($row['image'] != NULL): 
+                                            echo '<img src="data:image/jpeg;base64,'.base64_encode($row['image']).'" class="img-thumbnail"/>';
+                                        endif; ?>
                                         </div>
                                     </div>
                                     <?php if($row['status'] != 'Complete') { ?>
                                     <div class="col-12">
-                                            <button type="button" class="btn btn-primary mt-2 mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">Update Status</button>
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Status</h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="mb-3">
-                                                            <label for="select-status" class="col-form-label">Select Status</label>
-                                                            <select class="form-select" name="status" required>
-                                                                <option selected disabled value="">Select an option</option>
-                                                                <option value="In Progress">In Progress</option>
-                                                                <option value="Complete">Complete</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <input type="submit" name="update_report" value="Save" class="btn btn-primary save-btn">
-                                                    </div>
+                                        <button type="button" class="btn btn-primary mt-2 mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">Update Status</button>
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update Status</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label for="select-status" class="col-form-label">Select Status</label>
+                                                        <select class="form-select" name="status" required>
+                                                            <option selected disabled value="">Select an option</option>
+                                                            <option value="In Progress">In Progress</option>
+                                                            <option value="Complete">Complete</option>
+                                                        </select>
                                                     </div>
                                                 </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <input type="submit" name="update_report" value="Save" class="btn btn-primary save-btn">
+                                                </div>
+                                                </div>
                                             </div>
-                                        </div>   
+                                        </div>
+                                    </div>   
                                 <?php } ?>
-                                </form>
+                            </form>
+                            <!-- // popup modal -->
+                            <div class="modal fade" id="enlargedModal" tabindex="-1" role="dialog" aria-labelledby="enlargedModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-body">
+                                        <img src="" class="enlarged-image w-100" alt="Enlarged Image">
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -228,6 +234,12 @@
                     fileLabel.innerHTML = theSplit[theSplit.length-1];
                 }
             };
+
+            $('.img-thumbnail').on('click', function(){
+                var imgSrc = $(this).attr('src');
+                $('.enlarged-image').attr('src', imgSrc);
+                $('#enlargedModal').modal('show');
+            });
 
         });
     </script>

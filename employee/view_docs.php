@@ -57,12 +57,11 @@
                 $_SESSION['docInfo'] = $docInfo;
             }
 
-            if(isset($_POST['update_id'])) { 
+            if(isset($_POST['update'])) { 
                 // Fetch any remaining result sets
                 while($conn->next_result()) {
                     $conn->store_result();
                 }
-
                 $status = $_POST['status'];
                 $stmt = $conn->prepare("CALL SP_UPDATE_STATUS(?, ?, @p_date_completed)");
                 // bind the input parameters to the prepared statement
@@ -75,44 +74,17 @@
                 $_SESSION['docInfo']['status'] = $status;
                 $_SESSION['docInfo']['date_completed'] = $row['@p_date_completed'] == NULL ? 'N/A' : $row['@p_date_completed'];
                 
-                if($status == 'Ready for pick-up') {
+                // update date issude and expiry date
+                if($status == 'Ready for pick-up' && $_SESSION['docInfo']['document_type'] == 'Barangay ID') {
                     while($conn->next_result()) {
                         $conn->store_result();
-                    }
-
+                    }                    
                     $stmt = $conn->prepare("CALL SP_COMPLETE_BRGY_ID(?)");
                     // bind the input parameters to the prepared statement
                     $stmt->bind_param('i', $_SESSION['docInfo']['doc_id']);
                     // Execute the prepared statement
                     $stmt->execute();
-                }
-
-                // Close the prepared statement and database connection
-                $stmt->close();
-                $conn->close();
-                
-                header("Location: view_docs.php");
-                exit();
-            }
-        
-            if(isset($_POST['update_coi'])) { 
-                // Fetch any remaining result sets
-                while($conn->next_result()) {
-                    $conn->store_result();
-                }
-
-                $status = $_POST['status'];
-                $stmt = $conn->prepare("CALL SP_UPDATE_STATUS(?, ?, @p_date_completed)");
-                // bind the input parameters to the prepared statement
-                $stmt->bind_param('is', $_SESSION['docInfo']['request_id'], $status);
-                // Execute the prepared statement
-                $stmt->execute();
-                // Fetch the output parameter value
-                $result = $conn->query("SELECT @p_date_completed");
-                $row = $result->fetch_assoc();
-                $_SESSION['docInfo']['status'] = $status;
-                $_SESSION['docInfo']['date_completed'] = $row['@p_date_completed'] == NULL ? 'N/A' : $row['@p_date_completed'];
-
+                } 
                 // Close the prepared statement and database connection
                 $stmt->close();
                 $conn->close();
@@ -247,7 +219,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <input type="submit" name="update_id" value="Save" class="btn btn-primary save-btn">
+                                                        <input type="submit" name="update" value="Save" class="btn btn-primary save-btn">
                                                     </div>
                                                     </div>
                                                 </div>
@@ -334,7 +306,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <input type="submit" name="update_coi" value="Save" class="btn btn-primary save-btn">
+                                                        <input type="submit" name="update" value="Save" class="btn btn-primary save-btn">
                                                     </div>
                                                     </div>
                                                 </div>
@@ -343,6 +315,168 @@
                                         <?php } ?> 
                                 </form>
                                 
+                            <?php } else if($_SESSION['docInfo']['document_type']  == 'Barangay Clearance') { 
+                                $doc_id = $_SESSION['docInfo']['doc_id'];
+                                $stmt = $conn->prepare("CALL SP_GET_CLEARANCE(?)");
+
+                                // bind the input parameters to the prepared statement
+                                $stmt->bind_param('i', $doc_id);
+
+                                // Execute the prepared statement
+                                $stmt->execute();
+
+                                // retrieve the result set from the executed statement
+                                $result = $stmt->get_result();  
+
+                                // fetch the row from the result set
+                                $row = $result->fetch_assoc();
+                            ?>
+                                <span class="fs-4 ms-4">Barangay Clearance</span>
+                                <form class="row g-3 mx-4 mt-2" method="post" onSubmit="return confirm('Are you sure you want to save these changes?')">
+                                    <div class="col-md-4">
+                                        <label for="date-requested" class="form-label">Date Requested</label><br>
+                                        <span><?php echo $_SESSION['docInfo']['date_requested'] ?></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="date-completed" class="form-label">Date Completed</label><br>
+                                        <span><?php echo $_SESSION['docInfo']['date_completed'] ?></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="date-completed" class="form-label">Status</label><br>
+                                        <span><?php echo $_SESSION['docInfo']['status'] ?></span>
+                                    </div>
+                                    <div class="col-md-6 me-md-2 ">
+                                        <label for="Name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" disabled
+                                            value="<?php echo $row['res_name']?>">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="purpose" class="form-label">Purpose</label><br>
+                                        <input type="text" class="form-control editable" name="purpose" id="purpose" disabled
+                                            value="<?php echo $row['purpose']?>">
+                                    </div>
+                                    <?php if ($_SESSION['docInfo']['schedule'] != NULL) { ?>
+                                        <div class="col-md-4 mt-4">
+                                        <label for="schedule" class="form-label">Schedule</label><br>
+                                            <span><?php echo $_SESSION['docInfo']['schedule']; ?></span>
+                                        </div> 
+                                    <?php } else { ?>
+                                        <div class="col-12">
+                                            <button type="button" class="btn btn-primary mt-2 mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">Update Status</button>
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Status</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label for="select-status" class="col-form-label">Select Status</label>
+                                                            <select class="form-select" name="status" required>
+                                                                <option selected disabled value="">Select an option</option>
+                                                                <option value="In Progress">In Progress</option>
+                                                                <option value="Ready for pick-up">Ready for pick-up</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <input type="submit" name="update" value="Save" class="btn btn-primary save-btn">
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <?php } ?> 
+                                </form>
+                                    
+                                
+                            <?php } else if($_SESSION['docInfo']['document_type']  == 'Business Permit') { 
+                                $doc_id = $_SESSION['docInfo']['doc_id'];
+                                $stmt = $conn->prepare("CALL SP_GET_PERMIT(?)");
+
+                                // bind the input parameters to the prepared statement
+                                $stmt->bind_param('i', $doc_id);
+
+                                // Execute the prepared statement
+                                $stmt->execute();
+
+                                // retrieve the result set from the executed statement
+                                $result = $stmt->get_result();  
+
+                                // fetch the row from the result set
+                                $row = $result->fetch_assoc();
+                            ?>
+                                <span class="fs-4 ms-4">Business Permit</span>
+                                <form class="row g-3 mx-4 mt-2" method="post" onSubmit="return confirm('Are you sure you want to save these changes?')">
+                                    <div class="col-md-4">
+                                        <label for="date-requested" class="form-label">Date Requested</label><br>
+                                        <span><?php echo $_SESSION['docInfo']['date_requested'] ?></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="date-completed" class="form-label">Date Completed</label><br>
+                                        <span><?php echo $_SESSION['docInfo']['date_completed'] ?></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="date-completed" class="form-label">Status</label><br>
+                                        <span><?php echo $_SESSION['docInfo']['status'] ?></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="Name" class="form-label">Business Owner</label>
+                                        <input type="text" class="form-control" disabled
+                                            value="<?php echo $row['business_owner']?>">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="business-name" class="form-label">Business Name</label>
+                                        <input type="text" name="business-name" class="form-control editable" disabled
+                                            value="<?php echo $row['business_name']?>" >
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="business-line" class="form-label">Business Line</label>
+                                        <input type="text" name="business-line" class="form-control editable" disabled
+                                            value="<?php echo $row['business_line']?>">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="business-address" class="form-label">Business Adress</label>
+                                        <input type="text" name="business-address" class="form-control editable" disabled
+                                            value="<?php echo $row['business_address']?>">
+                                    </div>
+                                    <?php if ($_SESSION['docInfo']['schedule'] != NULL) { ?>
+                                        <div class="col-md-4 mt-4">
+                                        <label for="schedule" class="form-label">Schedule</label><br>
+                                            <span><?php echo $_SESSION['docInfo']['schedule']; ?></span>
+                                        </div> 
+                                    <?php } else { ?>
+                                        <div class="col-12">
+                                            <button type="button" class="btn btn-primary mt-2 mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">Update Status</button>
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Status</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label for="select-status" class="col-form-label">Select Status</label>
+                                                            <select class="form-select" name="status" required>
+                                                                <option selected disabled value="">Select an option</option>
+                                                                <option value="In Progress">In Progress</option>
+                                                                <option value="Ready for pick-up">Ready for pick-up</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <input type="submit" name="update" value="Save" class="btn btn-primary save-btn">
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <?php } ?> 
+                                </form>    
                             <?php }
                             ?>
                         </div>

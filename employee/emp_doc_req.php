@@ -47,7 +47,7 @@
 
         <div class="content-wrapper" style="background-color: #ffffff!important">
             <div class="wrapper p-5 mt-3">
-                <div class="card shadow mt-5">
+                <div class="card shadow">
                     <div class="card-header inprogress-header">
                         <span class="fs-4">In Progress Document Requests</span>
                     </div>
@@ -58,10 +58,8 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Date</th>
-                                        <th>Type</th>
-                                        <th>Details</th>
+                                        <th>Document Type</th>
                                         <th>Status</th>
-                                        <th>Schedule</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -75,10 +73,8 @@
                                                 <tr>
                                                     <td data-title="ID"><?php echo $row['request_id']; ?></td>
                                                     <td data-title="Date"><?php echo $row['date_requested']; ?></td>
-                                                    <td data-title="Type"><?php echo 'Document'; ?></td>
-                                                    <td data-title="Details"><?php echo $row['document_type']; ?></td>
+                                                    <td data-title="Document Type"><?php echo $row['document_type']; ?></td>
                                                     <td data-title="Status"><?php echo $row['status']; ?></td>
-                                                    <td data-title="Schedule"><?php echo $row['schedule']; ?></td>
                                                     <td data-title="Action">
                                                         <form action="view_docs.php" method="post">
                                                             <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">
@@ -124,10 +120,8 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Date</th>
-                                        <th>Type</th>
                                         <th>Details</th>
                                         <th>Status</th>
-                                        <th>Schedule</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -141,10 +135,8 @@
                                                 <tr>
                                                     <td data-title="ID"><?php echo $row['request_id']; ?></td>
                                                     <td data-title="Date"><?php echo $row['date_requested']; ?></td>
-                                                    <td data-title="Type"><?php echo 'Document'; ?></td>
-                                                    <td data-title="Details"><?php echo $row['document_type']; ?></td>
+                                                    <td data-title="Document Types"><?php echo $row['document_type']; ?></td>
                                                     <td data-title="Status"><?php echo $row['status']; ?></td>
-                                                    <td data-title="Schedule"><?php echo $row['schedule']; ?></td>
                                                     <td data-title="Action">
                                                         <form action="view_docs.php" method="post">
                                                             <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">
@@ -189,8 +181,8 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Date</th>
-                                        <th>Type</th>
+                                        <th>Date Requested</th>
+                                        <th>Date Completed</th>
                                         <th>Details</th>
                                         <th>Status</th>
                                         <th>Schedule</th>
@@ -207,9 +199,9 @@
                                             while($row = $result->fetch_assoc()) { ?>
                                                 <tr>
                                                     <td data-title="ID"><?php echo $row['request_id']; ?></td>
-                                                    <td data-title="Date"><?php echo $row['date_requested']; ?></td>
-                                                    <td data-title="Type"><?php echo 'Document'; ?></td>
-                                                    <td data-title="Details"><?php echo $row['document_type']; ?></td>
+                                                    <td data-title="Date Requested"><?php echo $row['date_requested']; ?></td>
+                                                    <td data-title="Date Completed"><?php echo $row['date_completed']; ?></td>
+                                                    <td data-title="Document Type"><?php echo $row['document_type']; ?></td>
                                                     <td data-title="Status"><?php echo $row['status']; ?></td>
                                                     <td data-title="Schedule"><?php echo $row['schedule']; ?></td>
                                                     <td data-title="Action">
@@ -256,7 +248,7 @@
             });
 
             $('#table3').DataTable({
-                "order": [[ 1, "desc"]],
+                "order": [[ 2, "desc"]],
             });
         });
     </script>
