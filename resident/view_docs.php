@@ -530,7 +530,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="purpose" class="form-label">Purpose</label><br>
-                                        <input type="text" class="form-control editable" name="purpose" id="purpose" disabled
+                                        <input type="text" class="form-control editable" name="purpose" id="purpose" disabled required
                                             value="<?php echo $row['purpose']?>">
                                     </div>
                                     <?php if($_SESSION['docInfo']['status'] == 'Ready for pick-up') { ?>
@@ -625,17 +625,17 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="business-name" class="form-label">Business Name</label>
-                                    <input type="text" name="business-name" class="form-control editable" disabled
+                                    <input type="text" name="business-name" class="form-control editable" disabled required
                                         value="<?php echo $row['business_name']?>" >
                                 </div>
                                 <div class="col-md-6">
                                     <label for="business-line" class="form-label">Business Line</label>
-                                    <input type="text" name="business-line" class="form-control editable" disabled
+                                    <input type="text" name="business-line" class="form-control editable" disabled required
                                         value="<?php echo $row['business_line']?>">
                                 </div>
                                 <div class="col-12">
                                     <label for="business-address" class="form-label">Business Adress</label>
-                                    <input type="text" name="business-address" class="form-control editable" disabled
+                                    <input type="text" name="business-address" class="form-control editable" disabled required
                                         value="<?php echo $row['business_address']?>">
                                 </div>
                                     <?php if($_SESSION['docInfo']['status'] == 'Ready for pick-up') { ?>

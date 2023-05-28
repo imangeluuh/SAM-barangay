@@ -229,7 +229,7 @@
             </div>
             <div class="col-md-6">
                 <label for="purpose" class="form-label">Purpose</label>
-                <input type="text" name="purpose" class="form-control">
+                <input type="text" name="purpose" class="form-control" required>
             </div>
             <div class="col-12">
                 <button type="submit" name="submit-clearance" class="btn btn-primary">Submit</button>
@@ -253,15 +253,15 @@
             </div>
             <div class="col-md-6">
                 <label for="business-name" class="form-label">Business Name</label>
-                <input type="text" name="business-name" class="form-control">
+                <input type="text" name="business-name" required class="form-control">
             </div>
             <div class="col-md-6">
                 <label for="business-line" class="form-label">Business Line</label>
-                <input type="text" name="business-line" class="form-control">
+                <input type="text" name="business-line" required class="form-control">
             </div>
             <div class="col-12">
                 <label for="business-address" class="form-label">Business Adress</label>
-                <input type="text" name="business-address" class="form-control">
+                <input type="text" name="business-address" required class="form-control">
             </div>
             <div class="col-12">
                 <button type="submit" name="submit-permit" class="btn btn-primary">Submit</button>
