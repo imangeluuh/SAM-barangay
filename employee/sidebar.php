@@ -52,6 +52,12 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item user-panel pt-1">
+                    <a href="emp_change_pass.php" class="nav-link side <?php if ($current_page == 'emp_change_pass.php') { echo 'active'; } ?>">
+                        <i class="nav-icon fas fa-solid fa-gear"></i>
+                        <p>Settings</p>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
