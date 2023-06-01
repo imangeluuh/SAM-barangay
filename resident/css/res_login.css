@@ -69,3 +69,11 @@ input[type="password"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.modal-body {
+    text-align: justify;
+}
+
+.tab {
+    text-indent: 50px;
+}

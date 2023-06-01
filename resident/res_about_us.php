@@ -44,10 +44,6 @@
                         <div class="col-lg-12 p-0 mt-2">
                             <?php
                                 include('../about_us.php');
-                                if (isset($_GET["tnc"])) {
-                                    echo '<style>.content .about-us { display: none; }</style>';
-                                    include("../t_and_c.php"); 
-                                }
                             ?>
                         </div>
                     </div>
