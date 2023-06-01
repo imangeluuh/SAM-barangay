@@ -33,7 +33,7 @@
             exit();
         } else {
             $image = $_FILES['image']['tmp_name']; 
-            $imgContent = $_FILES["image"]["name"]; 
+            $imgContent = file_get_contents($image);
             $stmt = $conn->prepare("CALL SP_ADD_BRGY_ID(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             // bind the input parameters to the prepared statement
             $stmt->bind_param('ssssssddssssi', $name, $address, $birthdate, $birthplace, $status, $religion, $height, $weight, $contact_name, $contact_address, $contact_no, $imgContent, $_SESSION['userData']['resident_id']);
@@ -49,26 +49,17 @@
     if(isset($_POST['submit-coi'])) {
         $resName = $_POST['res-name'];
         $resAge = $_POST['res-age']; 
-        $background_info = $_POST['background-info'];
+        $resAddress= $_POST['address'];
         $purpose = $_POST['purpose'];
-        $fileName = basename($_FILES["image"]["name"]); 
-        $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
         
-        // Allow certain file formats 
-        $allowTypes = array('jpg','png','jpeg','gif'); 
-        if($fileName != NULL && !in_array($fileType, $allowTypes)){ 
-            echo "<script>alert('Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.');</script>";
+        $stmt = $conn->prepare("CALL SP_ADD_COI(?, ?, ?, ?, ?)");
+        // bind the input parameters to the prepared statement
+        $stmt->bind_param('sissi', $resName, $resAge, $resAddress, $purpose, $_SESSION['userData']['resident_id']);
+        // Execute the prepared statement
+        $stmt->execute();   
+        if ($stmt) {
+            echo "<script>alert('Thank you for submitting your request. Your request has been successfully received and is being processed.'); window.location.href = 'res_services.php';</script>";
             exit();
-        } else {
-            $stmt = $conn->prepare("CALL SP_ADD_COI(?, ?, ?, ?, ?, ?)");
-            // bind the input parameters to the prepared statement
-            $stmt->bind_param('sisssi', $resName, $resAge, $background_info, $purpose, $imgContent, $_SESSION['userData']['resident_id']);
-            // Execute the prepared statement
-            $stmt->execute();   
-            if ($stmt) {
-                echo "<script>alert('Thank you for submitting your request. Your request has been successfully received and is being processed.'); window.location.href = 'res_services.php';</script>";
-                exit();
-            }
         }
     }
 
@@ -191,7 +182,7 @@
     <?php } else if(isset($_GET['certificate-of-indigency'])) { ?>
         <span class="fs-4 ms-4">Certificate of Indigency</span>
         <form class="row g-3 mx-4 mt-2" method="post" enctype="multipart/form-data">
-            <div class="col-md-6">
+            <div class="col-md-9">
                 <label for="Name" class="form-label">Name</label>
                 <!-- Hidden input field to store the name value -->
                 <input type="hidden" class="form-control" name="res-name" id="name" 
@@ -217,7 +208,7 @@
                 // get the age in years
                 $age = $diff->y;
             ?>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <label for="Age" class="form-label">Age</label>
                 <!-- Hidden input field to store the name value -->
                 <input type="hidden" class="form-control" name="res-age" id="age" 
@@ -227,19 +218,15 @@
                     value="<?php echo $age ?>">
             </div>
             <div class="col-12">
-                <label for="background-info" class="form-label">Background Info</label><br>
-                <textarea name="background-info" id="background-info" cols="100" rows="5" required="required"></textarea>
+                <label for="Address" class="form-label">Address</label>
+                <!-- Hidden input field to store the name value -->
+                <input type="hidden" class="form-control" name="address" id="address" value="<?php echo $_SESSION['userData']['address'] ?>">
+                <!-- Visible input field for display purposes -->
+                <input type="text" class="form-control"disabled value="<?php echo $_SESSION['userData']['address'] ?>">
             </div>
             <div class="col-12">
                 <label for="purpose" class="form-label">Purpose</label><br>
                 <textarea name="purpose" id="purpose" cols="100" rows="2" required="required"></textarea>
-            </div>
-            <div class="col-md-6">
-                <label for="image" class="form-label">Upload Image of Concern</label><br>
-                <div class="d-flex">
-                    <input type='file' name="image" id="image" class="form-control rounded-end-0" multiple onchange="pressed()">
-                    <label id="fileLabel" class="form-control fw-normal rounded-start-0">No file chosen</label>
-                </div>
             </div>
             <div class="col-12">
                 <button type="submit" name="submit-coi" class="btn btn-primary">Submit</button>

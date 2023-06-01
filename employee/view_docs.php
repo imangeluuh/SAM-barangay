@@ -192,6 +192,23 @@
                                         <label for="Address" class="form-label">Address</label>
                                         <input type="text" class="form-control editable" id="contact-address" name="contact-address" disabled required="required"  value="<?php echo $row['contact_address']?>">
                                     </div>
+                                    <div class="col-12">
+                                        <label for="image" class="form-label">Valid ID</label><br>
+                                        <div class="img-box">
+                                        <?php  echo '<img src="data:image/jpeg;base64,'.base64_encode($row['valid_id']).'" class="img-thumbnail"/>';
+                                        ?>
+                                        </div>
+                                    </div>
+                                    <!-- // popup modal -->
+                                    <div class="modal fade" id="enlargedModal" tabindex="-1" role="dialog" aria-labelledby="enlargedModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-body">
+                                                <img src="" class="enlarged-image w-100" alt="Enlarged Image">
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <?php if ($_SESSION['docInfo']['schedule'] != NULL) { ?>
                                         <div class="col-md-4 mt-4">
                                         <label for="schedule" class="form-label">Schedule</label><br>
@@ -268,10 +285,8 @@
                                             value="<?php echo $row['res_age'] ?>">
                                     </div>
                                     <div class="col-12">
-                                        <label for="background-info" class="form-label">Background Info</label><br>
-                                        <textarea class="editable" name="background-info" id="background-info" cols="100" rows="5" disabled required="required"><?php
-                                            echo $row['background_info']
-                                        ?></textarea>
+                                        <label for="Address" class="form-label">Address</label>
+                                        <input type="text" class="form-control" id="address" disabled required value="<?php echo $row['res_address'] ?>">
                                     </div>
                                     <div class="col-12">
                                         <label for="purpose" class="form-label">Purpose</label><br>

@@ -325,9 +325,8 @@
                                     <div class="col-12">
                                         <label for="image" class="form-label">Valid ID</label><br>
                                         <div class="img-box">
-                                        <?php if ($row['valid_id'] != NULL): 
-                                            echo '<img src="data:image/jpeg;base64,'.base64_encode($row['valid_id']).'" class="img-thumbnail"/>';
-                                        endif; ?>
+                                        <?php  echo '<img src="data:image/jpeg;base64,'.base64_encode($row['valid_id']).'" class="img-thumbnail"/>';
+                                        ?>
                                         </div>
                                     </div>
                                     <!-- // popup modal -->
@@ -445,10 +444,8 @@
                                             value="<?php echo $row['res_age'] ?>">
                                     </div>
                                     <div class="col-12">
-                                        <label for="background-info" class="form-label">Background Info</label><br>
-                                        <textarea class="editable" name="background-info" id="background-info" cols="100" rows="5" disabled required="required"><?php
-                                            echo $row['background_info']
-                                        ?></textarea>
+                                        <label for="Address" class="form-label">Address</label>
+                                        <input type="text" class="form-control" id="address" disabled required value="<?php echo $row['res_address'] ?>">
                                     </div>
                                     <div class="col-12">
                                         <label for="purpose" class="form-label">Purpose</label><br>
@@ -816,6 +813,11 @@
                     fileLabel.innerHTML = theSplit[theSplit.length-1];
                 }
             };
+            $('.img-thumbnail').on('click', function(){
+                var imgSrc = $(this).attr('src');
+                $('.enlarged-image').attr('src', imgSrc);
+                $('#enlargedModal').modal('show');
+            });
         });
     </script>
 </body>
