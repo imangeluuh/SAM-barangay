@@ -23,15 +23,26 @@
         $contact_name = $_POST['contact-name'];
         $contact_no = $_POST['contact-no'];
         $contact_address = $_POST['contact-address']; 
-        $stmt = $conn->prepare("CALL SP_ADD_BRGY_ID(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        // bind the input parameters to the prepared statement
-        $stmt->bind_param('ssssssddsssi', $name, $address, $birthdate, $birthplace, $status, $religion, $height, $weight, $contact_name, $contact_address, $contact_no, $_SESSION['userData']['resident_id']);
-        // Execute the prepared statement
-        $stmt->execute();   
-
-        if ($stmt) {
-            echo "<script>alert('Thank you for submitting your request. Your request has been successfully received and is being processed.'); window.location.href = 'res_services.php';</script>";
+        $fileName = basename($_FILES["image"]["name"]); 
+        $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
+        
+        // Allow certain file formats 
+        $allowTypes = array('jpg','png','jpeg'); 
+        if(!in_array($fileType, $allowTypes)){ 
+            echo "<script>alert('Sorry, only JPG, JPEG, & PNG files are allowed to upload.');</script>";
             exit();
+        } else {
+            $image = $_FILES['image']['tmp_name']; 
+            $imgContent = $_FILES["image"]["name"]; 
+            $stmt = $conn->prepare("CALL SP_ADD_BRGY_ID(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            // bind the input parameters to the prepared statement
+            $stmt->bind_param('ssssssddssssi', $name, $address, $birthdate, $birthplace, $status, $religion, $height, $weight, $contact_name, $contact_address, $contact_no, $imgContent, $_SESSION['userData']['resident_id']);
+            // Execute the prepared statement
+            $stmt->execute();   
+            if ($stmt) {
+                echo "<script>alert('Thank you for submitting your request. Your request has been successfully received and is being processed.'); window.location.href = 'res_services.php';</script>";
+                exit();
+            }
         }
     }
 
@@ -40,15 +51,24 @@
         $resAge = $_POST['res-age']; 
         $background_info = $_POST['background-info'];
         $purpose = $_POST['purpose'];
-        $stmt = $conn->prepare("CALL SP_ADD_COI(?, ?, ?, ?, ?)");
-        // bind the input parameters to the prepared statement
-        $stmt->bind_param('sissi', $resName, $resAge, $background_info, $purpose, $_SESSION['userData']['resident_id']);
-        // Execute the prepared statement
-        $stmt->execute();   
-
-        if ($stmt) {
-            echo "<script>alert('Thank you for submitting your request. Your request has been successfully received and is being processed.'); window.location.href = 'res_services.php';</script>";
+        $fileName = basename($_FILES["image"]["name"]); 
+        $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
+        
+        // Allow certain file formats 
+        $allowTypes = array('jpg','png','jpeg','gif'); 
+        if($fileName != NULL && !in_array($fileType, $allowTypes)){ 
+            echo "<script>alert('Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.');</script>";
             exit();
+        } else {
+            $stmt = $conn->prepare("CALL SP_ADD_COI(?, ?, ?, ?, ?, ?)");
+            // bind the input parameters to the prepared statement
+            $stmt->bind_param('sisssi', $resName, $resAge, $background_info, $purpose, $imgContent, $_SESSION['userData']['resident_id']);
+            // Execute the prepared statement
+            $stmt->execute();   
+            if ($stmt) {
+                echo "<script>alert('Thank you for submitting your request. Your request has been successfully received and is being processed.'); window.location.href = 'res_services.php';</script>";
+                exit();
+            }
         }
     }
 
@@ -92,7 +112,7 @@
 <?php
         if(isset($_GET['barangay-id'])) { ?>
         <span class="fs-4 ms-4">Barangay ID</span>
-        <form class="row g-3 mx-4 mt-2" method="post">
+        <form class="row g-3 mx-4 mt-2" method="post" enctype="multipart/form-data">
             <div class="col-md-6">
                 <label for="Name" class="form-label">Name</label>
                 <!-- Hidden input field to store the name value -->
@@ -157,13 +177,20 @@
                 <label for="Address" class="form-label">Address</label>
                 <input type="text" class="form-control" name="contact-address" id="contact-address" required>
             </div>
+            <div class="col-md-6">
+                <label for="image" class="form-label">Upload Valid ID</label><br>
+                <div class="d-flex">
+                    <input type='file' name="image" id="image" class="form-control rounded-end-0" required onchange="pressed()">
+                    <label id="fileLabel" class="form-control fw-normal rounded-start-0">No file chosen</label>
+                </div>
+            </div>
             <div class="col-12">
                 <button type="submit" name="submit-brgy-id" class="btn btn-primary">Submit</button>
             </div>
         </form>
     <?php } else if(isset($_GET['certificate-of-indigency'])) { ?>
         <span class="fs-4 ms-4">Certificate of Indigency</span>
-        <form class="row g-3 mx-4 mt-2" method="post">
+        <form class="row g-3 mx-4 mt-2" method="post" enctype="multipart/form-data">
             <div class="col-md-6">
                 <label for="Name" class="form-label">Name</label>
                 <!-- Hidden input field to store the name value -->
@@ -206,6 +233,13 @@
             <div class="col-12">
                 <label for="purpose" class="form-label">Purpose</label><br>
                 <textarea name="purpose" id="purpose" cols="100" rows="2" required="required"></textarea>
+            </div>
+            <div class="col-md-6">
+                <label for="image" class="form-label">Upload Image of Concern</label><br>
+                <div class="d-flex">
+                    <input type='file' name="image" id="image" class="form-control rounded-end-0" multiple onchange="pressed()">
+                    <label id="fileLabel" class="form-control fw-normal rounded-start-0">No file chosen</label>
+                </div>
             </div>
             <div class="col-12">
                 <button type="submit" name="submit-coi" class="btn btn-primary">Submit</button>
@@ -288,3 +322,18 @@
         </div>
     <?php }
 ?>
+
+<script>
+    window.pressed = function(){
+                var a = document.getElementById('image');
+                if(a.value == "")
+                {
+                    fileLabel.innerHTML = "No file chosen";
+                }
+                else
+                {
+                    var theSplit = a.value.split('\\');
+                    fileLabel.innerHTML = theSplit[theSplit.length-1];
+                }
+            };
+</script>

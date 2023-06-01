@@ -69,14 +69,10 @@
                     $_SESSION['reportInfo'] = $reportInfo;
                 }
             }
-            
-
-            
 
             while($conn->next_result()) {
                 $conn->store_result();
             }
-
             if(isset($_POST['update_report'])) {
                 $status = $_POST['status'];
                 
@@ -85,7 +81,6 @@
                 $stmt->bind_param('is', $_SESSION['reportInfo']['report_id'], $status);
                 // Execute the prepared statement
                 $stmt->execute();   
-
                 if ($stmt) {
                     echo "<script>alert('Updates have been successfully saved!');  window.location.href = 'view_report.php';</script>";
                     exit();
@@ -93,7 +88,6 @@
                 } 
             }
         ?>
-
         <div class="content-wrapper">
             <div class="content">
                 <div class="container-fluid">
@@ -142,13 +136,13 @@
                                     </div>
                                     <div class="col-12">
                                         <label for="report-details" class="form-label">Narrative Report of Concern</label><br>
-                                        <textarea name="report-details" id="report-details" cols="125" rows="5" class="editable" disabled required><?php
+                                        <textarea name="report-details" id="report-details" class="editable" disabled required><?php
                                             echo $row['report_details'];
                                         ?></textarea>
                                     </div>
                                     <div class="col-12">
                                         <label for="report-loc" class="form-label">Location of Reported Concern</label><br>
-                                        <textarea name="report-loc" id="report-loc" cols="125" rows="2" class="editable" disabled required><?php
+                                        <textarea name="report-loc" id="report-loc" class="editable" disabled required><?php
                                             echo $row['report_loc'];
                                         ?></textarea>
                                     </div>
@@ -176,7 +170,7 @@
                                                         <select class="form-select" name="status" required>
                                                             <option selected disabled value="">Select an option</option>
                                                             <option value="In Progress">In Progress</option>
-                                                            <option value="Complete">Complete</option>
+                                                            <option value="Resolved">Resolved</option>
                                                         </select>
                                                     </div>
                                                 </div>

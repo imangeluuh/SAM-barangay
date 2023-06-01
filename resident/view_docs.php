@@ -251,7 +251,7 @@
                             ?>
                                 <span class="fs-4 ms-4">Barangay ID</span>
                                 
-                                <form class="row g-3 mx-4 mt-2" action="" method="post" onSubmit="return confirm('Are you sure you want to save these changes?')">
+                                <form class="row g-3 mx-4 mt-2" method="post" senctype="multipart/form-data" onSubmit="return confirm('Are you sure you want to save these changes?')">
                                     <div class="col-md-4">
                                         <label for="date-requested" class="form-label">Date Requested</label><br>
                                         <span><?php echo $_SESSION['docInfo']['date_requested'] ?></span>
@@ -321,6 +321,24 @@
                                     <div class="col-12">
                                         <label for="Address" class="form-label">Address</label>
                                         <input type="text" class="form-control editable" id="contact-address" name="contact-address" disabled required="required"  value="<?php echo $row['contact_address']?>">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="image" class="form-label">Valid ID</label><br>
+                                        <div class="img-box">
+                                        <?php if ($row['valid_id'] != NULL): 
+                                            echo '<img src="data:image/jpeg;base64,'.base64_encode($row['valid_id']).'" class="img-thumbnail"/>';
+                                        endif; ?>
+                                        </div>
+                                    </div>
+                                    <!-- // popup modal -->
+                                    <div class="modal fade" id="enlargedModal" tabindex="-1" role="dialog" aria-labelledby="enlargedModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-body">
+                                                <img src="" class="enlarged-image w-100" alt="Enlarged Image">
+                                            </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <?php if($_SESSION['docInfo']['status'] == 'Ready for pick-up') { ?>
                                         <div class="col-12 mt-4">
@@ -786,6 +804,18 @@
                 updateRadioButtons(date);
                 $('.option').removeClass('d-none');
             });
+            window.pressed = function(){
+                var a = document.getElementById('image');
+                if(a.value == "")
+                {
+                    fileLabel.innerHTML = "No file chosen";
+                }
+                else
+                {
+                    var theSplit = a.value.split('\\');
+                    fileLabel.innerHTML = theSplit[theSplit.length-1];
+                }
+            };
         });
     </script>
 </body>

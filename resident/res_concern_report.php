@@ -90,7 +90,7 @@
                         </a><br>
 
                             <span class="fs-4 ms-4">Report Concern</span>
-                            <form class="row g-3 mx-4 mt-2" method="post" enctype="multipart/form-data">
+                            <form class="row g-3 px-md-4 mt-2" method="post" enctype="multipart/form-data">
                                 <div class="col-md-6">
                                     <label for="Name" class="form-label">Name</label>
                                     <input type="text" class="form-control" id="name" disabled
@@ -103,17 +103,17 @@
                                     <input type="text" class="form-control" id="address" disabled
                                         value="<?php echo $_SESSION['userData']['address']?>">
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-6">
                                     <label for="report-type" class="form-label">Report Type</label><br>
                                     <input type="text" class="form-control" name="report-type" id="report-type">
                                 </div>
                                 <div class="col-12">
                                     <label for="report-details" class="form-label">Narrative Report of Concern</label><br>
-                                    <textarea name="report-details" id="report-details" cols="125" rows="5" required="required"></textarea>
+                                    <textarea name="report-details" id="report-details" required="required"></textarea>
                                 </div>
                                 <div class="col-12">
                                     <label for="report-loc" class="form-label">Location of Reported Concern</label><br>
-                                    <textarea name="report-loc" id="report-loc" cols="125" rows="2" required="required"></textarea>
+                                    <textarea name="report-loc" id="report-loc" required="required"></textarea>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="image" class="form-label">Upload Image of Concern</label><br>

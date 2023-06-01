@@ -59,7 +59,6 @@
                                         <th>ID</th>
                                         <th>Date</th>
                                         <th>Report Type</th>
-                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -74,7 +73,6 @@
                                                     <td data-title="ID"><?php echo $row['report_id']; ?></td>
                                                     <td data-title="Date"><?php echo $row['date_reported']; ?></td>
                                                     <td data-title="Details"><?php echo $row['report_type']; ?></td>
-                                                    <td data-title="Status"><?php echo $row['status']; ?></td>
                                                     <td data-title="Action">
                                                         <form action="view_report.php" method="post">
                                                             <input type="hidden" name="report_id" value="<?php echo $row['report_id']; ?>">
@@ -117,7 +115,6 @@
                                         <th>ID</th>
                                         <th>Date</th>
                                         <th>Report Type</th>
-                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -132,7 +129,6 @@
                                                     <td data-title="ID"><?php echo $row['report_id']; ?></td>
                                                     <td data-title="Date"><?php echo $row['date_reported']; ?></td>
                                                     <td data-title="Details"><?php echo $row['report_type']; ?></td>
-                                                    <td data-title="Status"><?php echo $row['status']; ?></td>
                                                     <td data-title="Action">
                                                         <form action="view_report.php" method="post">
                                                             <input type="hidden" name="report_id" value="<?php echo $row['report_id']; ?>">
@@ -158,14 +154,14 @@
                 while($conn->next_result()) {
                     $conn->store_result();
                 }
-                $stmt = $conn->prepare("CALL SP_GET_COMPLETE_REPORT");
+                $stmt = $conn->prepare("CALL SP_GET_RESOLVED_REPORT");
                 // Execute the prepared statement
                 $stmt->execute();
             ?>
             <div class="wrapper p-5 mt-3">
                 <div class="card shadow">
                     <div class="card-header completed-header">
-                        <span class="fs-4 text-white">Completed Concern Report</span>
+                        <span class="fs-4 text-white">Resolved Concern Report</span>
                     </div>
                     <div class="card-body p-3">                
                         <div class="table-responsive mt-3" id="no-more-tables">
@@ -175,7 +171,6 @@
                                         <th>ID</th>
                                         <th>Date</th>
                                         <th>Report Type</th>
-                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -191,7 +186,6 @@
                                                     <td data-title="ID"><?php echo $row['report_id']; ?></td>
                                                     <td data-title="Date"><?php echo $row['date_reported']; ?></td>
                                                     <td data-title="Details"><?php echo $row['report_type']; ?></td>
-                                                    <td data-title="Status"><?php echo $row['status']; ?></td>
                                                     <td data-title="Action">
                                                         <form action="view_report.php" method="post">
                                                             <input type="hidden" name="report_id" value="<?php echo $row['report_id']; ?>">

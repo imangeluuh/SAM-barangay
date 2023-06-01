@@ -43,7 +43,9 @@ input[type=radio]:disabled + label {
 }
 
 input[type=file]{
-    width: 133px;
+    width: 115px;
+    min-width: 115px;
+    max-width: 115px;
     color:transparent;
 }
 
@@ -51,6 +53,10 @@ input[type=file]{
     white-space: nowrap; 
     overflow: hidden; 
     text-overflow: ellipsis;
+}
+
+textarea {
+    width: 100%;
 }
 
 @media only screen and (max-width:800px) {
