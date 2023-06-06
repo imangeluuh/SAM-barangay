@@ -117,11 +117,13 @@
                     <form action="" method="post">
                         <!-- Email field -->
                         <div class="form-outline row mb-3">
-                            <input type="text" name="email" id="email" class="form-control-md border-0 rounded-3 border-dark-subtle" placeholder="E-mail" required="required">
+                            <label for="email" class="email-label p-0">Email</label>
+                            <input type="text" name="email" id="email" class="form-control-md border-0 rounded-3 border-dark-subtle" placeholder="Enter your email address" required="required">
                         </div>
                         <!-- Password field -->
                         <div class="form-outline row mb-3">
-                            <input type="password" name="password" id="password" class="form-control-md border-0 rounded-3 border-dark-subtle" placeholder="Password" autocomplete="off" required="required">
+                            <label for="password" class="password-label p-0">Password</label>
+                            <input type="password" name="password" id="password" class="form-control-md border-0 rounded-3 border-dark-subtle" placeholder="Enter your password" autocomplete="off" required="required">
                         </div>
                         <div class="row justify-content-end mb-3">
                             <div class="col-auto">
