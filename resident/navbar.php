@@ -41,7 +41,7 @@
                 <a class="nav-link navb <?php if ($current_nav == 'res_about_us.php') { echo 'active'; } ?>" aria-current="page" href="res_about_us.php"><?php echo $lang['about_us'] ?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link navb" href="#"><?php echo $lang['help'] ?></a>
+                <a class="nav-link navb <?php if ($current_nav == 'res_help.php') { echo 'active'; } ?>" aria-current="page" href="res_help.php"><?php echo $lang['help'] ?></a>
             </li>
             <div class="dropdown d-flex align-items-center ms-lg-3 me-lg-4">
                 <a href="#" class="p-0 d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
