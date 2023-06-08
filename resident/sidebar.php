@@ -59,7 +59,7 @@
                     </ul>
                 </li>
                 <li class="nav-item user-panel pt-1">
-                    <a href="#" class="nav-link side">
+                    <a href="res_feedback.php" class="nav-link side <?php if ($current_page == 'res_feedback.php') { echo 'active'; } ?>">
                         <i class="nav-icon fas fa-solid fa-comment"></i>
                         <p>Feedback</p>
                     </a>
