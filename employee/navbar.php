@@ -40,7 +40,7 @@
                 <a class="nav-link navb <?php if ($current_nav == 'emp_homepage.php') { echo 'active'; } ?>" aria-current="page" href="emp_homepage.php">About Us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link navb" href="#">Help</a>
+                <a class="nav-link navb <?php if ($current_nav == 'emp_help.php') { echo 'active'; } ?>" aria-current="page" href="emp_help.php">Help</a>
             </li>
             <div class="dropdown d-flex align-items-center ms-lg-3 me-lg-4">
                 <a href="#" class="p-0 d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
