@@ -86,38 +86,45 @@
                     <form action="" method="post">
                         <!-- Name field -->
                         <div class="row d-flex justify-content-between">
-                            <div class="form-outline col-4 mb-3 ps-0">
+                            <div class="form-outline col-4 mb-2 ps-0">
+                                <label for="f-name" class="f-name-label p-0 m-0">First Name</label>
                                 <input type="text" name="f-name" id="f-name" class="form-control border-0 rounded-1" placeholder="First Name" required="required">
                             </div>
-                            <div class="form-outline col-4 mb-3 ps-0">
+                            <div class="form-outline col-4 mb-2 ps-0">
+                                <label for="md-name" class="md-name-label p-0">Middle Name</label>
                                 <input type="text" name="md-name" id="md-name" class="form-control border-0 rounded-1" placeholder="Middle Name">
                             </div>
-                            <div class="form-outline col-4 mb-3 px-0">
+                            <div class="form-outline col-4 mb-2 px-0">
+                                <label for="last-name" class="last-name-label p-0">Last Name</label>
                                 <input type="text" name="l-name" id="l-name" class="form-control border-0 rounded-1" placeholder="Last Name" required="required">
                             </div>
                         </div>
                         <!-- Email field -->
-                        <div class="form-outline row mb-3">
-                            <input type="email" name="email" id="email" class="form-control-md border-0 rounded-1" placeholder="E-mail" required="required">
+                        <div class="form-outline row mb-4">
+                            <label for="email" class="email-label p-0">Email</label>
+                            <input type="email" name="email" id="email" class="form-control-md border-0 rounded-1" placeholder="Enter your existing email" required="required">
                         </div>
                         <!-- Birthdate field -->
-                        <div class="d-flex">
-                            <label for="birthdate" class="bdate-label">Birthdate</label>
-                            <div class="form-outline col-4 mb-3 ms-3">
+                        <div class="row d-flex justify-content-between">
+                            <label for="b-date" class="b-date-label col-3 mb-2 ps-0">Birthdate</label>
+                            <div class="form-outline col-9 mb-2 p-0">
                                 <input type="date" name="birthdate" id="birthdate" class="form-control border-0 rounded-1" required="required">
                             </div>
                         </div>
                         <!-- Address field -->
-                        <div class="form-outline row mb-3">
-                            <input type="text" name="address" id="address" class="form-control-md border-0 rounded-1" placeholder="Address" required="required">
+                        <div class="form-outline row mb-2">
+                            <label for="address" class="address-label p-0">Address</label>
+                            <input type="text" name="address" id="address" class="form-control-md border-0 rounded-1" placeholder="Enter complete address" required="required">
                         </div>
                         <!-- Password field -->
-                        <div class="form-outline row mb-3">
-                            <input type="password" name="password" id="password" class="form-control-md border-0 rounded-1" placeholder="Password" autocomplete="off" required="required">
+                        <div class="form-outline row mb-2">
+                            <label for="password" class="password-label p-0">Password</label>
+                            <input type="password" name="password" id="password" class="form-control-md border-0 rounded-1" placeholder="Enter password" autocomplete="off" required="required">
                         </div>
                         <!-- Password field -->
-                        <div class="form-outline row mb-3">
-                            <input type="password" name="rpassword" id="rpassword" class="form-control-md border-0 rounded-1" placeholder="Repeat Password" autocomplete="off" required="required">
+                        <div class="form-outline row mb-2">
+                            <label for="r-password" class="r-password-label p-0">Repeat Password</label>
+                            <input type="password" name="rpassword" id="rpassword" class="form-control-md border-0 rounded-1" placeholder="Confirm password" autocomplete="off" required="required">
                         </div>
                         <!-- <div class="row">
                             <a href="" class="text-end text-decoration-none forgot-password p-0 mb-3">Forgot Password</a>
