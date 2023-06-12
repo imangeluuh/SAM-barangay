@@ -1,3 +1,4 @@
+<script src="chatbot.js"></script>
 <?php
     // Start session 
     // If a session is not already started, start a new session
@@ -11,6 +12,7 @@
     if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
         session_start();
         session_destroy();
+        //echo "<script>clearChatHistory();</script>";
         header("Location: ../index.php");
         exit();
     }
@@ -52,7 +54,7 @@
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li><a class="dropdown-item" href="#">Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="?logout=true">Sign out</a></li>
+                    <li><a class="dropdown-item" id="sign-out" href="?logout=true" id="sign-out">Sign out</a></li>
                 </ul>
             </div>
         </ul>
