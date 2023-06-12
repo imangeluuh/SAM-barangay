@@ -24,7 +24,7 @@ body{
     height: auto;
 }
 
-.description, .mamamayan-signup, .bdate-label {
+.description, .mamamayan-signup {
     color: #1F7A8C;
 }
 
@@ -50,10 +50,6 @@ body{
     background-color: #053C5E;
     width: 120px;
     font-size: 1rem;
-}
-
-.bdate-label {
-    font-size: 1.2rem;
 }
 
 input {
