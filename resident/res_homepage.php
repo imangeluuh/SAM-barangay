@@ -38,64 +38,81 @@
         ?>
         <div class="content-wrapper">
             <div class="content p-0">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12 p-0 mt-5">
-                            <div class="first-container row mb-5">
-                                <div class="sam-img col-md-5 d-flex justify-content-center justify-content-md-end p-0">
-                                    <img src="../images/SAM.png" alt="" class="sam">
-                                </div>
-                                <div class="first-btn col-md-7 d-flex justify-content-center justify-content-md-start ps-md-5 ">
-                                    <div class="d-flex flex-column justify-content-center align-items-center help-div">
-                                        <span class="concern-txt"><?php echo $lang['q_concern'] ?></span>
-                                        <span class="help-txt text-center"><?php echo $lang['can_help'] ?></span>
-                                        <div class="btn-container d-flex justify-content-center align-items-center">
-                                            <a href="sam_chatbot.php" class="sam-btn text-white fw-semibold text-decoration-none"><?php echo $lang['lead_to_sam'] ?></a>
-                                        </div>
+                <div class="container-fluid p-0">
+                    <div class="row mb-5 mx-5">
+                        <div class="col-sm-6 p-0">
+                            <div class="d-flex justify-content-center justify-content-lg-end pe-md-5">
+                                <div class="talk-bubble tri-right border btm-left-in">
+                                    <div class="talktext text-center">
+                                        <p>I can help you!</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="second-container row py-md-3 px-md-5 m-0 mb-5">
-                                <span class="process-txt fs-5 mb-3 px-md-5"><?php echo $lang['we_process'] ?>:</span>
-                                <div class="services row text-white d-flex justify-content-around px-md-5">
-                                    <div class="col-md-2 col-sm-6 mb-2 d-flex flex-column justify-content-center align-items-center p-4 px-5 mx-1 rounded-3 services-box">
-                                        <p class="pt-2 m-0">Barangay</p>
-                                        <p class="pb-2">ID</p>
-                                    </div>
-                                    <div class="col-md-2 col-sm-6 mb-2 d-flex flex-column justify-content-center align-items-center mx-1 rounded-3 services-box">
-                                        <p class="pt-2 m-0">Barangay</p>
-                                        <p class="pb-2">Clearance</p>
-                                    </div>
-                                    <div class="col-md-2 col-sm-6 mb-2 d-flex flex-column justify-content-center align-items-center mx-1 rounded-3 services-box">
-                                        <p class="pt-2 m-0">Certificate</p>
-                                        <p class="m-0">of</p>
-                                        <p class="pb-2">Indigency</p>
-                                    </div>
-                                    <div class="col-md-2 col-sm-6 mb-2 d-flex flex-column justify-content-center align-items-center mx-1 rounded-3 services-box">
-                                        <p class="pt-2 m-0">Certificate</p>
-                                        <p class="m-0">of</p>
-                                        <p class="pb-2">Residency</p>
-                                    </div>
-                                    <div class="col-md-2 col-sm-6 mb-2 d-flex flex-column justify-content-center align-items-center p-4 px-5 mx-1 rounded-3 services-box">
-                                        <p class="pt-2 m-0">Business</p>
-                                        <p class="pb-2">Permit</p>
-                                    </div>
-                                </div>
+                            <div class="d-flex justify-content-center justify-content-lg-end pe-sm-5 pe-lg-5">
+                                <img src="../images/SAM CHATBOT.png" alt="" class="sam-img">
                             </div>
-                            <div class="third-container row">
-                                <div class="col-md-7 d-flex justify-content-center justify-content-md-end align-items-center">
-                                    <div class="d-flex flex-column pe-md-5">
-                                        <span class="fs-1 fw-semibold"><?php echo $lang['brgy_issues'] ?></span>
-                                        <span class="fs-5 fw-semibold mb-2"><?php echo $lang['we_hear'] ?>.</span>
-                                        <div class="btn-container d-flex justify-content-center align-items-center">
-                                            <a href="sam_chatbot.php" class="sam-btn text-white fw-semibold text-decoration-none"><?php echo $lang['lead_to_sam'] ?></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-5 d-flex justify-content-center justify-content-md-start align-items-center p-0">
-                                    <img src="../images/SAM.png" alt="" class="sam">
-                                </div>
+                        </div>
+                        <div class="col-sm-6 d-flex flex-column justify-content-center align-items-center align-items-lg-start p-0">
+                            <p class="sam mt-5 mb-0">SAM</p>
+                            <div class="p-0">
+                                <p class="sam-subtitle text-center text-lg-left fw-semibold w-md-75">Serbisyong Aagapay sa Mamamayan</p>
+                                <!-- <p class="sam-subtitle text-center text-lg-left fw-semibold">sa Mamamayan</p> -->
                             </div>
+                            <div class="services-btn d-flex justify-content-center align-items-center m-2">
+                                <a href="res_doc_req.php" class="text-light services">Request a Document</a>
+                            </div>
+                            <div class="services-btn d-flex justify-content-center align-items-center m-2">
+                                <a href="res_concern_report.php" class="text-light services">Request a Concern</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row second-container m-0 pb-5">
+                        <p class="fw-bold sam-subtitle text-center mt-3 mb-0">What we offer</p>
+                        <p class="blue-text text-center mt-0 mb-4">Document Request</p>
+                        <div class="row px-5">
+                            <div class="col-lg-3 col-md-6 d-flex flex-column justify-content-center align-items-center docu-col py-5">
+                                <p class="label text-center m-0">Barangay</p>
+                                <p class="label text-center m-0">ID</p>
+                                <img src="../images/brgy-id.svg" alt="" class="docu-img my-2">
+                            </div>
+                            <div class="col-lg-3 col-md-6 d-flex flex-column justify-content-center align-items-center docu-col py-5">
+                                <p class="label text-center m-0">Certificate of</p>
+                                <p class="label text-center m-0">Indigency</p>
+                                <img src="../images/cert-ind.svg" alt="" class="docu-img">
+                            </div>
+                            <div class="col-lg-3 col-md-6 d-flex flex-column justify-content-center align-items-center docu-col py-5">
+                                <p class="label text-center m-0">Barangay</p>
+                                <p class="label text-center m-0">Clearance</p>
+                                <img src="../images/clearance.svg" alt="" class="docu-img">
+                            </div>
+                            <div class="col-lg-3 col-md-6 d-flex flex-column justify-content-center align-items-center last docu-col py-5">
+                                <p class="label text-center m-0">Business</p>
+                                <p class="label text-center m-0">Permit</p>
+                                <img src="../images/permit.svg" alt="" class="docu-img">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mx-3 px-md-5 mx-md-5 pt-5">
+                        <p class="blue-text">Concern Report</p>
+                        <div class="col-md-6">
+                            <ul class="fs-5">
+                                <li>Loud Neighbor</li>
+                                <li>Abusive Barangay Employee</li>
+                                <li>Noisy Karaoke</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="fs-5">
+                                <li>Thief</li>
+                                <li>Pusher</li>
+                                <li>And many others</li>
+                            </ul>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center mt-5 mb-3">
+                            <span class="me-4">Our Social Media Sites</span>
+                            <iconify-icon icon="ic:baseline-facebook" style="color: #053c5e;" class="mx-1 fs-4"></iconify-icon>
+                            <iconify-icon icon="ri:messenger-fill" style="color: #053c5e;" class="mx-1 fs-4"></iconify-icon>
+                            <iconify-icon icon="ri:youtube-fill" style="color: #053c5e;" class="mx-1 fs-4"></iconify-icon>
                         </div>
                     </div>
                 </div>
@@ -108,5 +125,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- AdminLTE JS link -->
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+    <!-- IconifyIcon JS link -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </body>
 </html>

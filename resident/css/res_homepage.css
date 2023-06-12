@@ -6,7 +6,7 @@
 }
 
 .content-wrapper {
-    background-color: #ffffff!important;
+    background-color: #BFDBF7!important;
 }
 
 .content {
@@ -14,58 +14,135 @@
     width: 100%;
 }
 
-.homepage-content {
-    margin-top: 70px;
-}
-
 .sam {
-    width: 15vw;
-    min-width: 150px;
+    font-size: 3.5rem;
 }
 
-.btn-container {
-    background-color: #1F7A8C;
-    width: 350px;
-    height: 50px;
-    border-radius: 5px;
-}
-
-.sam-btn {
+.sam-subtitle {
     font-size: 2rem;
 }
 
-.concern-txt {
+.sam-img {
+    height: 350px;
+}
+
+.services {
     font-size: 1.2rem;
 }
 
-.help-txt {
-    font-size: 3.5rem;
-    /* max-width: 400px; */
-} 
+.services-btn {
+    background-color: #053C5E;
+    width: 320px;
+    height: 50px;
+}
+
+.label {
+    font-size: 1.7rem;
+}
+
+.last.docu-col, .docu-col{
+    border-color: #053C5E;
+}
+
+.last.docu-col {
+    border-style: hidden solid;
+}
+
+.docu-col {
+    border-left-style: solid;
+}
+
+.docu-img {
+    width: 150px;
+}
 
 .second-container {
-    background-color: #BFDBF7;
+    background-color: #ffffff;
     width: 100%;
 }
 
-.services-box {
-    background-color: #053C5E;
-    max-width: 150px;
-    min-width: 150px;
+.blue-text {
+    color: #053C5E;
+    font-size: 1.6rem;
 }
 
-.services-box, .btn-container {
-    box-shadow: 0px 3px 5px #0000005e;
+
+
+/* CSS talk bubble */
+.talk-bubble {
+	margin: 40px;
+    display: inline-block;
+    position: relative;
+	width: 200px;
+	height: auto;
+	background-color: #053C5E;
 }
 
-.process-txt {
-    color: #1F7A8C;
+/*Right triangle, placed bottom left side slightly in*/
+.tri-right.border.btm-left-in:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: 30px;
+    right: auto;
+    top: auto;
+	bottom: -40px;
+}
+.tri-right.btm-left-in:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: 38px;
+    right: auto;
+    top: auto;
+	bottom: -20px;
+	border: 12px solid;
+	border-color: #053C5E transparent transparent #053C5E;
 }
 
-@media(max-width: 1552px) {
-    .help-txt {
-        max-width: 400px;
+/* talk bubble contents */
+.talktext{
+    padding: 1em;
+    text-align: left;
+    line-height: 1.5em;
+    color: #ffffff;
+}
+.talktext p{
+  /* remove webkit p margins */
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+}
+
+@media(max-width: 770px) {
+    .sam-img{
+        height: 280px;
+    }
+
+    .sam {
+        font: 2rem;
+    }
+
+    .sam-subtitle {
+        font-size: 1.5rem;
+    }
+}
+
+@media(max-width: 991.5px) {
+    .docu-col, .last.docu-col {
+        border-style: none;
     } 
+}
+
+@media(max-width: 770px) and (min-width: 576px) {
+    .services-btn {
+        width: 200px;
+    }
+
+    .services {
+        font-size: 1rem;
+    }
 }
 
 
