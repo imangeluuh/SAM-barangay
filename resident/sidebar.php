@@ -12,9 +12,9 @@
 </style>
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4 shadow" style="background:#053c5e !important;">
-    <a href="res_homepage.php" class="brand-link text-decoration-none" style="background:#053c5e !important;">
-        <img src="../images/SAM.png" class="brand-image img-circle elevation-3" style="opacity: .9">
-        <span class="brand-text"><?php echo $lang['title'] ?></span>
+    <a href="res_homepage.php" class="brand-link text-decoration-none d-flex" style="background:#053c5e !important;">
+        <img src="../images/brgy-comm.png" class="brand-image img-circle elevation-3" style="opacity: .9">
+        <span class="brand-text fs-6">Brgy. Commonwealth</span>
     </a>
 
     <div class="sidebar">

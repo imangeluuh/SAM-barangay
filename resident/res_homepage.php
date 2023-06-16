@@ -108,8 +108,11 @@
                                 <li>And many others</li>
                             </ul>
                         </div>
-                        <div class="d-flex justify-content-end align-items-center mt-5 mb-3">
-                            <span class="me-4">Our Social Media Sites</span>
+                    </div>
+                    <hr class="mt-5 mb-2">
+                    <div class="row mx-3 px-md-5 mx-md-5 pb-2">
+                        <div class="col d-flex align-items-center justify-content-end">
+                            <span class="me-4">Our Social Media Sites:</span>
                             <iconify-icon icon="ic:baseline-facebook" style="color: #053c5e;" class="mx-1 fs-4"></iconify-icon>
                             <iconify-icon icon="ri:messenger-fill" style="color: #053c5e;" class="mx-1 fs-4"></iconify-icon>
                             <iconify-icon icon="ri:youtube-fill" style="color: #053c5e;" class="mx-1 fs-4"></iconify-icon>
