@@ -263,7 +263,7 @@
                                             </div>
                                             <div>
                                                 <label for="suggestions" class="form-label">Suggestions, narrative of system issues or problem you encountered, etc.</label>
-                                                <input type="text" class="form-control" name="suggestions" id="suggestions" placeholder="Describe your issue or idea...">
+                                                <textarea class="form-control shadow-sm" name="suggestions" id="suggestions" rows="5"></textarea>
                                             </div>
                                             <!-- Submit button -->
                                             <div class="field-div text-center d-flex pe-md-5 me-md-5 mt-2 p-3">

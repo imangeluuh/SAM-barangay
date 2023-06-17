@@ -20,9 +20,9 @@
 </style>
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4 shadow" style="background:#053c5e !important;">
-    <a href="emp_homepage.php" class="brand-link text-decoration-none" style="background:#053c5e !important;">
-        <img src="../images/SAM.png"  class="brand-image img-circle elevation-3" style="opacity: .9">
-        <span class="brand-text">Talk to SAM now!</span>
+    <a href="admin_dashboard.php" class="brand-link text-decoration-none d-flex" style="background:#053c5e !important;">
+        <img src="../images/brgy-comm.png" class="brand-image img-circle elevation-3" style="opacity: .9">
+        <span class="brand-text fs-6">Brgy. Commonwealth</span>
     </a>
 
     <div class="sidebar">
@@ -41,25 +41,32 @@
                     </a>
                 </li>
                 <li class="nav-item user-panel pt-1">
-                    <a href="" class="d-flex nav-link side <?php if ($current_page == 'emp_homepage.php') { echo 'active'; } ?>">
-                        <span class="nav-icon material-symbols-outlined me-2" style="font-size:25px;">smart_toy</span>
-                        <p>Chatbot</p>
-                    </a>
-                </li>
-                <li class="nav-item user-panel pt-1">
-                     <a href="admin_reports.php" class="nav-link side <?php if ($current_page == 'admin_reports.php') { echo 'active'; } ?>">
-                        <i class="nav-icon fas fa-solid fa-chart-simple"></i>
-                        <p>Reports</p>
+                    <a href="configuration_panel.php" class="d-flex nav-link side <?php if ($current_page == 'configuration_panel.php') { echo 'active'; } ?>">
+                    <iconify-icon icon="fluent-mdl2:chat-bot" class="me-2" style="font-size: 25px;"></iconify-icon>
+                        <p>Chatbot Panel</p>
                     </a>
                 </li>
                 <li class="nav-item user-panel pt-1">
                     <a href="" class="nav-link side <?php if ($current_page == 'emp_homepage.php') { echo 'active'; } ?>">
                         <i class="nav-icon fas fa-solid fa-circle-info"></i>
-                        <p>Information</p>
+                        <p>System Panel</p>
                     </a>
                 </li>
-                
+                <li class="nav-item user-panel pt-1">
+                     <a href="admin_reports.php" class="nav-link side">
+                        <i class="nav-icon fas fa-solid fa-chart-simple"></i>
+                        <p>Reports</p>
+                    </a>
+                </li>
+                <li class="nav-item user-panel pt-1">
+                    <a href="admin_reports.php" class="nav-link side <?php if ($current_page == 'admin_reports.php') { echo 'active'; } ?>">
+                        <i class="nav-icon fas fa-solid fa-comment"></i>
+                        <p>Feedback</p>
+                    </a>
+                </li>                
             </ul>
         </nav>
     </div>
 </aside>
+
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>

@@ -5,6 +5,11 @@
     font-family: 'Lexend', sans-serif;;
 }
 
+html, body {
+    height: 100%;
+    background-color: #F4F6F9;
+}
+
 .dataTables_length label, .dataTables_filter label{
     display: flex;
     font-weight: 500!important;
@@ -38,7 +43,7 @@
     font-size: 14px;
 }
 
-.disabled-input {
+.disabled-input, .suggestion {
     background-color: #ffffff!important;
 }
 
