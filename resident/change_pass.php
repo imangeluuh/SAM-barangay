@@ -105,6 +105,7 @@
                 <iconify-icon icon="material-symbols:warning" class="fs-4 ms-2 me-3"></iconify-icon>
                 New password must be different from current password.
                 </div>
+                <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
     </div>
@@ -126,6 +127,7 @@
                 <iconify-icon icon="material-symbols:error" class="fs-4 ms-2 me-3"></iconify-icon>
                 Incorrect password.
                 </div>
+                <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
     </div>

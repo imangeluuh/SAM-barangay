@@ -66,17 +66,57 @@
         
                     // Check for errors
                     if ($stmt->errno) {
-                        echo "<script>alert('An account with that email already exists. Please try another one.');</script>";
+                        echo '<script>
+                        // Wait for the document to load
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Get the toast element
+                            var toast = document.querySelector(".toast.email");
+                            
+                            // Show the toast
+                            toast.classList.add("show");
+                            
+                            // Hide the toast after 5 seconds
+                            setTimeout(function() {
+                                toast.classList.remove("show");
+                            }, 5000);
+                        });
+                    </script>';
                         die('Failed to call stored procedure: ' . $stmt->error);
                     } else {
                         send_mail($email,"SAM: Account Creation", "Good day!<br><br>Your SAM email account is<br><br>Account Email: ".$email."<br>Password: ".$password."<br><br>Please note that this password is temporary and for security purposes, we require you to change it upon your first login.");
-                        echo "<script>alert('Your account has been created successfully!'); window.location.href = 'admin_accounts.php';</script>";
-                        exit();
+                        echo '<script>
+                        // Wait for the document to load
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Get the toast element
+                            var toast = document.querySelector(".toast.created");
+                            
+                            // Show the toast
+                            toast.classList.add("show");
+                            
+                            // Hide the toast after 5 seconds
+                            setTimeout(function() {
+                                toast.classList.remove("show");
+                            }, 5000);
+                        });
+                    </script>';
                     }
     
                 } catch (mysqli_sql_exception $e) {
-                    echo "<script>alert('An account with that email already exists. Please try another one.');</script>";
-                }
+                    echo '<script>
+                        // Wait for the document to load
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Get the toast element
+                            var toast = document.querySelector(".toast.email");
+                            
+                            // Show the toast
+                            toast.classList.add("show");
+                            
+                            // Hide the toast after 5 seconds
+                            setTimeout(function() {
+                                toast.classList.remove("show");
+                            }, 5000);
+                        });
+                    </script>';}
             }
 
             while($conn->next_result()){
@@ -97,6 +137,27 @@
                 $stmt->execute();
             }
         ?>
+        <!-- Toast notifications -->
+        <div class="toast-container top-0 start-50 translate-middle-x mt-2">
+            <div class="toast created text-bg-success align-items-center py-2 pe-3" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex align-items-centera">
+                    <div class="toast-body d-flex align-items-center">
+                    <iconify-icon icon="mdi:success-bold" class="fs-4 ms-2 me-3"></iconify-icon>
+                    Employee account has been created successfully!
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="toast email text-bg-info align-items-center py-2 pe-3" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex align-items-center">
+                    <div class="toast-body d-flex align-items-center">
+                    <iconify-icon icon="mdi:information" class="fs-4 ms-2 me-3"></iconify-icon>
+                    An account with that email already exists. Please try another one.
+                    </div>
+                    <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
         <div class="content-wrapper mt-0"> 
             <div class="wrapper p-2 mx-md-4 mt-5">
                 <div class="card shadow mt-5">

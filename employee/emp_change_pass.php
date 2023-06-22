@@ -37,7 +37,52 @@
     include('navbar.php');
     include('sidebar.php');
     ?>
-
+    <!-- Toast notifications -->
+    <div class="toast-container position-fixed top-0 start-50 translate-middle-x mt-2">
+        <div class="toast different text-bg-warning align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="material-symbols:warning" class="fs-4 ms-2 me-3"></iconify-icon>
+                New password must be different from current password.
+                </div>
+                <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed top-0 start-50 translate-middle-x mt-2">
+        <div class="toast new-password text-bg-warning align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="material-symbols:warning" class="fs-4 ms-2 me-3"></iconify-icon>
+                New password does not match.
+                </div>
+                <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed position-fixed top-0 start-50 translate-middle-x mt-2">
+        <div class="toast inc-password text-bg-danger align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="material-symbols:error" class="fs-4 ms-2 me-3"></iconify-icon>
+                Incorrect password.
+                </div>
+                <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed top-0 start-50 translate-middle-x mt-2">
+        <div class="toast password-saved text-bg-success align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="mdi:success-bold" class="fs-4 mx-2"></iconify-icon>
+                Your password has been changed successfully!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    
     <div class="content-wrapper">
         <div class="content">
             <div class="container-fluid">
@@ -55,9 +100,37 @@
                             
                             if(password_verify($password, $_SESSION['userData']['password'])){
                                 if($password == $npassword){
-                                    echo "<script>alert('New password must be different from current password.'); window.location.href = 'emp_change_pass.php';</script>";
+                                    echo '<script>
+                                    // Wait for the document to load
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        // Get the toast element
+                                        var toast = document.querySelector(".toast.different");
+                                        
+                                        // Show the toast
+                                        toast.classList.add("show");
+                                        
+                                        // Hide the toast after 5 seconds
+                                        setTimeout(function() {
+                                            toast.classList.remove("show");
+                                        }, 5000);
+                                    });
+                                </script>';
                                 } else if($npassword !== $rpassword){
-                                    echo "<script>alert('New password does not match.'); window.location.href = 'emp_change_pass.php';</script>";
+                                    echo '<script>
+                                        // Wait for the document to load
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            // Get the toast element
+                                            var toast = document.querySelector(".toast.new-password");
+                                            
+                                            // Show the toast
+                                            toast.classList.add("show");
+                                            
+                                            // Hide the toast after 5 seconds
+                                            setTimeout(function() {
+                                                toast.classList.remove("show");
+                                            }, 5000);
+                                        });
+                                    </script>';
                                 } else {
                                     // Call the stored procedure to retrieve user login information from the database
                                     $stmt = $conn->prepare("CALL SP_UPDATE_PASS(?, ?)");
@@ -65,12 +138,38 @@
                                     $stmt->bind_param('ss', $email, $hash);
                                     // Execute the prepared statement
                                     $stmt->execute();
-                                    echo "<script>alert('Your password has been changed successfully!'); window.location.href = 'emp_change_pass.php';</script>";
-                                    exit();
+                                    echo '<script>
+                                        // Wait for the document to load
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            // Get the toast element
+                                            var toast = document.querySelector(".toast.password-saved");
+                                            
+                                            // Show the toast
+                                            toast.classList.add("show");
+                                            
+                                            // Hide the toast after 5 seconds
+                                            setTimeout(function() {
+                                                toast.classList.remove("show");
+                                            }, 5000);
+                                        });
+                                    </script>';
                                 }
                             } else {
-                                echo "<script>alert('Incorrect password.'); window.location.href = 'emp_change_pass.php';</script>";
-                                exit();
+                                echo '<script>
+                                    // Wait for the document to load
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        // Get the toast element
+                                        var toast = document.querySelector(".toast.inc-password");
+                                        
+                                        // Show the toast
+                                        toast.classList.add("show");
+                                        
+                                        // Hide the toast after 5 seconds
+                                        setTimeout(function() {
+                                            toast.classList.remove("show");
+                                        }, 5000);
+                                    });
+                                </script>';
                             }
                         }
                         ?>
@@ -132,5 +231,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <!-- AdminLTE JS link -->
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </body>
 </html>
