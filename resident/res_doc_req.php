@@ -46,7 +46,29 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12 mt-4">
-                            <?php include('docs_list.php') ?>
+                            
+                            <?php 
+                            include('docs_list.php');
+                            if (!count($_GET)) { ?>
+                            <div class="list-group list-group-flush fs-5 w-50">
+                                <a href="res_doc_req.php?barangay-id" class="d-flex justify-content-between list-group-item list-group-item-action">
+                                    Barangay ID
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                                <a href="res_doc_req.php?certificate-of-indigency" class="d-flex justify-content-between list-group-item list-group-item-action">
+                                    Certificate of Indigency
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                                <a href="res_doc_req.php?barangay-clearance" class="d-flex justify-content-between list-group-item list-group-item-action">
+                                    Barangay Clearance
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                                <a href="res_doc_req.php?business-permit" class="d-flex justify-content-between list-group-item list-group-item-action">
+                                    Business Permit
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

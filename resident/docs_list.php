@@ -1,29 +1,3 @@
-<script>
-        function invalidFormat(){
-            // Get the toast element
-            var toast = document.querySelector(".toast.invalid");
-            
-            // Show the toast
-            toast.classList.add("show");
-            
-            // Hide the toast after 5 seconds
-            setTimeout(function() {
-                toast.classList.remove("show");
-            }, 5000);
-        }
-        function largeFile(){
-            // Get the toast element
-            var toast = document.querySelector(".toast.large");
-            
-            // Show the toast
-            toast.classList.add("show");
-            
-            // Hide the toast after 5 seconds
-            setTimeout(function() {
-                toast.classList.remove("show");
-            }, 5000);
-        }
-</script>
 <?php 
     if(!session_id()){
         session_start(); 
@@ -33,94 +7,41 @@
         header("Location: ../index.php");
         exit;
     }
-
     require_once "../language/" . $_SESSION['lang'] . ".php";
-    
-    if(isset($_POST['submit-brgy-id'])) {
-        $name = $_POST['name'];
-        $address = $_POST['address'];
-        $birthdate = $_POST['birthdate'];
-        $birthplace = $_POST['birthplace'];
-        $height = !empty($_POST['height']) ? $_POST['height'] : NULL;
-        $weight = !empty($_POST['weight']) ? $_POST['weight'] : NULL;;
-        $status = $_POST['status'];
-        $religion = $_POST['religion'];
-        $contact_name = $_POST['contact-name'];
-        $contact_no = $_POST['contact-no'];
-        $contact_address = $_POST['contact-address']; 
-        $fileName = basename($_FILES["image"]["name"]); 
-        $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
-        
-        // Allow certain file formats 
-        $allowTypes = array('jpg','png','jpeg'); 
-        if(!in_array($fileType, $allowTypes)){ 
-            echo "<script>document.addEventListener('DOMContentLoaded', function() { invalidFormat(); });</script>";
-        } else {
-            $image = $_FILES['image']['tmp_name']; 
-            $imgContent = file_get_contents($image);
-            try {
-                $stmt = $conn->prepare("CALL SP_ADD_BRGY_ID(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                // bind the input parameters to the prepared statement
-                $stmt->bind_param('ssssssddssssi', $name, $address, $birthdate, $birthplace, $status, $religion, $height, $weight, $contact_name, $contact_address, $contact_no, $imgContent, $_SESSION['userData']['resident_id']);
-                // Execute the prepared statement
-                $stmt->execute();   
-                if ($stmt) {
-                    echo "<script>window.location.href = 'res_services.php?success=true&service=request';</script>";
-                    exit();
-                }
-            } catch (mysqli_sql_exception $e) {
-                echo "<script>document.addEventListener('DOMContentLoaded', function() { largeFile(); });</script></script>";
-            }
+
+    if(isset($_SESSION['error_message'])) {
+        if($_SESSION['error_message'] == 'invalid format') {
+            echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Get the toast element
+                    var toast = document.querySelector(".toast.invalid");
+                    
+                    // Show the toast
+                    toast.classList.add("show");
+                    
+                    // Hide the toast after 5 seconds
+                    setTimeout(function() {
+                        toast.classList.remove("show");
+                    }, 5000);
+                });
+            </script>';
+        }else if($_SESSION['error_message'] == 'large file') {
+            echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Get the toast element
+                    var toast = document.querySelector(".toast.large");
+                    
+                    // Show the toast
+                    toast.classList.add("show");
+                    
+                    // Hide the toast after 5 seconds
+                    setTimeout(function() {
+                        toast.classList.remove("show");
+                    }, 5000);
+                });
+            </script>';
         }
-    }
-
-    if(isset($_POST['submit-coi'])) {
-        $resName = $_POST['res-name'];
-        $resAge = $_POST['res-age']; 
-        $resAddress= $_POST['address'];
-        $purpose = $_POST['purpose'];
-        
-        $stmt = $conn->prepare("CALL SP_ADD_COI(?, ?, ?, ?, ?)");
-        // bind the input parameters to the prepared statement
-        $stmt->bind_param('sissi', $resName, $resAge, $resAddress, $purpose, $_SESSION['userData']['resident_id']);
-        // Execute the prepared statement
-        $stmt->execute();   
-        if ($stmt) {
-            echo "<script>window.location.href = 'res_services.php?success=true';</script>";
-            exit();
-        }
-    }
-
-    if(isset($_POST['submit-clearance'])) {
-        $resName = $_POST['res-name'];
-        $purpose = $_POST['purpose']; 
-        $stmt = $conn->prepare("CALL SP_ADD_CLEARANCE(?, ?, ?)");
-        // bind the input parameters to the prepared statement
-        $stmt->bind_param('ssi', $resName, $purpose, $_SESSION['userData']['resident_id']);
-        // Execute the prepared statement
-        $stmt->execute();   
-
-        if ($stmt) {
-            echo "<script>window.location.href = 'res_services.php?success=true';</script>";
-            exit();
-        }
-    }
-
-    if(isset($_POST['submit-permit'])) {
-        $businessOwner = $_POST['res-name'];
-        $businessName = $_POST['business-name']; 
-        $businessLine = $_POST['business-line']; 
-        $businessAddress = $_POST['business-address']; 
-        $stmt = $conn->prepare("CALL SP_ADD_PERMIT(?, ?, ?, ?, ?)");
-        // bind the input parameters to the prepared statement
-        $stmt->bind_param('ssssi', $businessOwner, $businessName, $businessLine, $businessAddress, $_SESSION['userData']['resident_id']);
-        // Execute the prepared statement
-        $stmt->execute();   
-
-        if ($stmt) {
-            echo "<script>window.location.href = 'res_services.php?success=true';</script>";
-            exit();
-        }
+        unset($_SESSION['error_message']); // Remove the session variable after displaying the message
     }
 ?>
 
@@ -153,7 +74,7 @@
 <?php
         if(isset($_GET['barangay-id'])) { ?>
         <span class="fs-4 ms-4">Barangay ID</span>
-        <form class="row g-3 mx-4 mt-2" method="post" enctype="multipart/form-data">
+        <form action="submit_request.php" method="post" enctype="multipart/form-data" class="row g-3 mx-4 mt-2" >
             <div class="col-md-6">
                 <label for="Name" class="form-label">Name</label>
                 <!-- Hidden input field to store the name value -->
@@ -225,13 +146,14 @@
                     <label id="fileLabel" class="form-control fw-normal rounded-start-0">No file chosen</label>
                 </div>
             </div>
+            <input type="hidden" class="form-control" name="document-type" id="document-type" value="barangay id">
             <div class="col-12">
-                <button type="submit" name="submit-brgy-id" class="btn btn-primary">Submit</button>
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
     <?php } else if(isset($_GET['certificate-of-indigency'])) { ?>
         <span class="fs-4 ms-4">Certificate of Indigency</span>
-        <form class="row g-3 mx-4 mt-2" method="post" enctype="multipart/form-data">
+        <form action="submit_request.php" class="row g-3 mx-4 mt-2" method="post" enctype="multipart/form-data">
             <div class="col-md-9">
                 <label for="Name" class="form-label">Name</label>
                 <!-- Hidden input field to store the name value -->
@@ -278,13 +200,14 @@
                 <label for="purpose" class="form-label">Purpose</label><br>
                 <textarea name="purpose" id="purpose" cols="100" rows="2" required="required"></textarea>
             </div>
+            <input type="hidden" class="form-control" name="document-type" id="document-type" value="certificate of indigency">
             <div class="col-12">
-                <button type="submit" name="submit-coi" class="btn btn-primary">Submit</button>
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
     <?php } else if(isset($_GET['barangay-clearance'])) { ?>
         <span class="fs-4 ms-4">Barangay Clearance</span>
-        <form class="row g-3 mx-4 mt-2" method="post">
+        <form action="submit_request.php" class="row g-3 mx-4 mt-2" method="post">
             <div class="col-md-6 me-md-2">
                 <label for="Name" class="form-label">Name</label>
                 <!-- Hidden input field to store the name value -->
@@ -302,13 +225,14 @@
                 <label for="purpose" class="form-label">Purpose</label>
                 <input type="text" name="purpose" class="form-control" required>
             </div>
+            <input type="hidden" class="form-control" name="document-type" id="document-type" value="barangay clearance">
             <div class="col-12">
-                <button type="submit" name="submit-clearance" class="btn btn-primary">Submit</button>
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
     <?php } else if(isset($_GET['business-permit'])) { ?>
         <span class="fs-4 ms-4">Business Permit</span>
-        <form class="row g-3 mx-4 mt-2" method="post">
+        <form action="submit_request.php" class="row g-3 mx-4 mt-2" method="post">
             <div class="col-md-6 me-md-2">
                 <label for="Name" class="form-label">Business Owner</label>
                 <!-- Hidden input field to store the name value -->
@@ -331,47 +255,28 @@
                 <input type="text" name="business-line" required class="form-control">
             </div>
             <div class="col-12">
-                <label for="business-address" class="form-label">Business Adress</label>
+                <label for="business-address" class="form-label">Business Address</label>
                 <input type="text" name="business-address" required class="form-control">
             </div>
+            <input type="hidden" class="form-control" name="document-type" id="document-type" value="business permit">
             <div class="col-12">
-                <button type="submit" name="submit-permit" class="btn btn-primary">Submit</button>
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
-    <?php } else { ?>
-        <div class="list-group list-group-flush fs-5 w-50">
-            <a href="res_doc_req.php?barangay-id" class="d-flex justify-content-between list-group-item list-group-item-action">
-                Barangay ID
-                <i class="fa-solid fa-angle-right"></i>
-            </a>
-            <a href="res_doc_req.php?certificate-of-indigency" class="d-flex justify-content-between list-group-item list-group-item-action">
-                Certificate of Indigency
-                <i class="fa-solid fa-angle-right"></i>
-            </a>
-            <a href="res_doc_req.php?barangay-clearance" class="d-flex justify-content-between list-group-item list-group-item-action">
-                Barangay Clearance
-                <i class="fa-solid fa-angle-right"></i>
-            </a>
-            <a href="res_doc_req.php?business-permit" class="d-flex justify-content-between list-group-item list-group-item-action">
-                Business Permit
-                <i class="fa-solid fa-angle-right"></i>
-            </a>
-        </div>
-    <?php }
-?>
+    <?php } ?>
 
 <script>
     window.pressed = function(){
-                var a = document.getElementById('image');
-                if(a.value == "")
-                {
-                    fileLabel.innerHTML = "No file chosen";
-                }
-                else
-                {
-                    var theSplit = a.value.split('\\');
-                    fileLabel.innerHTML = theSplit[theSplit.length-1];
-                }
-            };
+        var a = document.getElementById('image');
+        if(a.value == "")
+        {
+            fileLabel.innerHTML = "No file chosen";
+        }
+        else
+        {
+            var theSplit = a.value.split('\\');
+            fileLabel.innerHTML = theSplit[theSplit.length-1];
+        }
+    };
 </script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
