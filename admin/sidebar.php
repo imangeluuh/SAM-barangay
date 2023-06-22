@@ -53,13 +53,13 @@
                     </a>
                 </li>
                 <li class="nav-item user-panel pt-1">
-                     <a href="admin_reports.php" class="nav-link side">
+                     <a href="" class="nav-link side">
                         <i class="nav-icon fas fa-solid fa-chart-simple"></i>
                         <p>Reports</p>
                     </a>
                 </li>
                 <li class="nav-item user-panel pt-1">
-                    <a href="admin_reports.php" class="nav-link side <?php if ($current_page == 'admin_reports.php') { echo 'active'; } ?>">
+                    <a href="admin_feedbacks.php" class="nav-link side <?php if ($current_page == 'admin_reports.php') { echo 'active'; } ?>">
                         <i class="nav-icon fas fa-solid fa-comment"></i>
                         <p>Feedback</p>
                     </a>
