@@ -15,11 +15,12 @@
 }
 
 .sam-help {
-    font-size: 4vw;
+    font-size: 4rem;
 }
 
 .services-box {
     background-color: #053C5E;
+    height: 120px;
 }
 
 .chat-sam {
@@ -30,16 +31,35 @@
     background-color: #A31621;
 }
 
-.resident-button, .officials-button, .user-type {
-    width: 23vw;
+.resident-button, .officials-button{
+    height: 120px;
 }
 
 .services-box, .resident-button, .officials-button {
     box-shadow: 0px 3px 5px #0000005e;
 }
 
+.user-label {
+    font-size: 20px;
+}
+
 @media screen and (min-width: 992px) {
     body {
         overflow: hidden;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .sam-help {
+        font-size: 2.5rem;
+    }
+    .encourage-text, .chat-sam {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1135px) {
+    .user-label {
+        font-size: 12px;
     }
 }

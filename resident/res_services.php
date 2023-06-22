@@ -23,6 +23,27 @@
 <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 </head>
 <body class="sidebar-mini layout-fixed layout-navbar-fixed hold-transition overflow-x-hidden">
+    <!-- toast notification -->
+    <div class="toast-container top-0 end-0 me-4 mt-5 pt-3">
+        <div class="toast request text-bg-success align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="mdi:success-bold" class="fs-4 ms-2 me-3"></iconify-icon>
+                Thank you for submitting your request. Your request has been successfully received and is being processed.
+                </div>
+                <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="toast concern text-bg-success align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="mdi:success-bold" class="fs-4 ms-2 me-3"></iconify-icon>
+                Thank you for submitting your concern. Our team will review your report and take the necessary actions. We appreciate your cooperation in helping us improve our community.
+                </div>
+                <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
     <div class="wrapper">
         <?php 
             ob_start();
@@ -49,11 +70,37 @@
             // Execute the prepared statement
             $stmt->execute();
 
+            if (isset($_GET['success']) && $_GET['success'] == true) {
+                if ($_GET['service'] == 'document') {
+                    echo '<script>// Get the toast element
+                    var toast = document.querySelector(".toast.request");
+                    
+                    // Show the toast
+                    toast.classList.add("show");
+                    
+                    // Hide the toast after 10 seconds
+                    setTimeout(function() {
+                        toast.classList.remove("show");
+                    }, 10000);</script>';
+                } else {
+                    echo '<script>// Get the toast element
+                    var toast = document.querySelector(".toast.concern");
+                    
+                    // Show the toast
+                    toast.classList.add("show");
+                    
+                    // Hide the toast after 10 seconds
+                    setTimeout(function() {
+                        toast.classList.remove("show");
+                    }, 10000);</script>';
+                }
+            };
         ?>
         <div class="content-wrapper">
             <div class="content">
                 <div class="container-fluid">
                     <div class="row d-flex justify-content-center">
+                        
                         <div class="col-lg-2 mx-5 text-center">
                             <a type="button" href="res_doc_req.php" class="btn btn-primary mt-5 border-0" style="padding:60px;border-radius:25px; width:230px; background:#004368;">
                                 <h4 class="font-weight-bold">Document<br>Request</h4>
@@ -200,3 +247,4 @@
     </script>
 </body>
 </html>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>

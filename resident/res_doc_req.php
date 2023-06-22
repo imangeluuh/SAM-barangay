@@ -45,7 +45,7 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-12 mt-5">
+                        <div class="col-lg-12 mt-4">
                             <?php include('docs_list.php') ?>
                         </div>
                     </div>

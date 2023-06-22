@@ -39,7 +39,6 @@
             include('navbar.php');
             include('sidebar.php');
             include('../dbconfig.php');
-
         ?>
         <div class="content-wrapper">
             <div class="content">
@@ -59,8 +58,21 @@
                             // Allow certain file formats 
                             $allowTypes = array('jpg','png','jpeg','gif'); 
                             if($fileName != NULL && !in_array($fileType, $allowTypes)){ 
-                                echo "<script>alert('Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.');</script>";
-                                exit();
+                                echo '<script>
+                                        // Wait for the document to load
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            // Get the toast element
+                                            var toast = document.querySelector(".toast.invalid");
+                                            
+                                            // Show the toast
+                                            toast.classList.add("show");
+                                            
+                                            // Hide the toast after 5 seconds
+                                            setTimeout(function() {
+                                                toast.classList.remove("show");
+                                            }, 5000);
+                                        });
+                                    </script>';
                             } else {
                                 $image = $_FILES['image']['tmp_name']; 
                                 $imgContent = !empty($_FILES["image"]["name"]) ? file_get_contents($image) : NULL; 
@@ -73,17 +85,52 @@
                                     $stmt->execute();   
             
                                     if ($stmt) {
-                                        echo "<script>alert('Thank you for submitting your concern. Our team will review your report and take the necessary actions. We appreciate your cooperation in helping us improve our community.'); window.location.href = 'res_services.php';</script>";
+                                        echo "<script>window.location.href = 'res_services.php?success=true&service=concern';</script>";
                                         exit();
                                     }
                                 } catch (mysqli_sql_exception $e) {
-                                    echo "<script>alert('File upload failed, please try again.');</script>";
-                                    exit();
+                                    echo '<script>
+                                            // Wait for the document to load
+                                            document.addEventListener("DOMContentLoaded", function() {
+                                                // Get the toast element
+                                                var toast = document.querySelector(".toast.failed");
+                                                
+                                                // Show the toast
+                                                toast.classList.add("show");
+                                                
+                                                // Hide the toast after 5 seconds
+                                                setTimeout(function() {
+                                                    toast.classList.remove("show");
+                                                }, 5000);
+                                            });
+                                        </script>';
                                 }
                             }
                         }
                         
                         ?>
+
+                        <!-- Toast notifications -->
+                        <div class="toast-container top-0 end-0 me-4">
+                            <div class="toast invalid text-bg-warning align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="d-flex align-items-center">
+                                    <div class="toast-body d-flex align-items-center">
+                                    <iconify-icon icon="material-symbols:warning" class="fs-4 ms-2 me-3"></iconify-icon>
+                                    Sorry, only JPG, JPEG, & PNG files are allowed to upload.
+                                    </div>
+                                    <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                            </div>
+                            <div class="toast failed text-bg-danger align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="d-flex align-items-center">
+                                    <div class="toast-body d-flex align-items-center">
+                                    <iconify-icon icon="material-symbols:error" class="fs-4 ms-2 me-3"></iconify-icon>
+                                    File upload failed, please try again.
+                                    </div>
+                                    <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        </div>
 
                         <a href="javascript:history.back()" class="ms-4 d-flex align-items-center text-decoration-none text-secondary">
                         <i class="fa-solid fa-angle-left me-3"></i><?php echo $lang['go_back'] ?>
@@ -142,6 +189,8 @@
     <!-- DataTables JS link -->
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script>
         $(document).ready(function () {
             window.pressed = function(){

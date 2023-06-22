@@ -16,17 +16,51 @@
         $mode = $_GET['mode'];
     }
 
-    if(count($_POST)) {
+    if(count($_POST) ||  isset($_SESSION['redirected'])) {
         switch($mode) {
-            case 'enter_email':
-                $email = $_POST['email'];
-                if(find_email($email)){
-                    $_SESSION['forgot']['email'] = $email;
-                    send_email($email);
-                    header("Location: forgot_pass.php?mode=enter_code");
-                    die;
+            case 'enter_email':  
+                if($_SESSION['redirected']) {
+                    echo '<script>
+                    // Wait for the document to load
+                    document.addEventListener("DOMContentLoaded", function() {
+                        // Get the toast element
+                        var toast = document.querySelector(".toast.expired");
+                        
+                        // Show the toast
+                        toast.classList.add("show");
+                        
+                        // Hide the toast after 5 seconds
+                        setTimeout(function() {
+                            toast.classList.remove("show");
+                        }, 5000);
+                    });
+                    </script>';
+                    unset($_SESSION['redirected']);
                 } else {
-                    echo "<script>alert('The email you entered isn\'t connected to an account.')</script>";
+                    $email = $_POST['email']; 
+                
+                    if(find_email($email)){
+                        $_SESSION['forgot']['email'] = $email;
+                        send_email($email);
+                        header("Location: forgot_pass.php?mode=enter_code");
+                        die;
+                    } else {
+                        echo '<script>
+                                // Wait for the document to load
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    // Get the toast element
+                                    var toast = document.querySelector(".toast.email");
+                                    
+                                    // Show the toast
+                                    toast.classList.add("show");
+                                    
+                                    // Hide the toast after 5 seconds
+                                    setTimeout(function() {
+                                        toast.classList.remove("show");
+                                    }, 5000);
+                                });
+                            </script>';
+                    }
                 }
                 break;
             case 'enter_code':
@@ -37,24 +71,55 @@
                     $_SESSION['forgot']['code'] = $code;
                     header("Location: forgot_pass.php?mode=enter_password");
                     die;
-                } else {
-                    echo "<script>alert('$result'); window.location.href = 'forgot_pass.php?enter_email';</script>";
-                }
+                } else if($result == "The code you entered is incorrect. Please try again."){
+                    echo '<script>
+                    // Wait for the document to load
+                    document.addEventListener("DOMContentLoaded", function() {
+                        // Get the toast element
+                        var toast = document.querySelector(".toast.incorrect");
+                        
+                        // Show the toast
+                        toast.classList.add("show");
+                        
+                        // Hide the toast after 5 seconds
+                        setTimeout(function() {
+                            toast.classList.remove("show");
+                        }, 5000);
+                    });
+                    </script>';
+                } else { 
+                    $_SESSION['redirected'] = true ?>
+                    <script>
+                    window.location.href = "forgot_pass.php?enter_email";
+                    </script>
+                <?php }
                 break;
             case 'enter_password':
                 $password = $_POST['password'];
                 $rpassword = $_POST['rpassword'];
                 if($password !== $rpassword) { 
-                    echo "<script>alert('Passwords do not match');history.go(-1);</script>";
+                    echo '<script>
+                    // Wait for the document to load
+                    document.addEventListener("DOMContentLoaded", function() {
+                        // Get the toast element
+                        var toast = document.querySelector(".toast.not-match");
+                        
+                        // Show the toast
+                        toast.classList.add("show");
+                        
+                        // Hide the toast after 5 seconds
+                        setTimeout(function() {
+                            toast.classList.remove("show");
+                        }, 5000);
+                    });
+                </script>';
                 } elseif(!isset($_SESSION['forgot']['email']) || !isset($_SESSION['forgot']['code']) ) {
                     header("Location: forgot_pass.php");
                     die;
                 } else {
                     save_password($password);
-
                     if(isset($_SESSION['forgot']))
                         unset($_SESSION['forgot']);
-
                     header("Location: res_login.php");
                     die;
                 }
@@ -175,6 +240,45 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Toast notifications -->
+    <div class="toast-container top-0 start-50 translate-middle-x me-4 mt-2">
+        <div class="toast expired text-bg-warning align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="material-symbols:warning" class="fs-4 ms-2 me-3"></iconify-icon>
+                Sorry, the code you entered has expired. Please request a new code.
+                </div>
+                <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="toast incorrect text-bg-danger align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="material-symbols:error" class="fs-4 ms-2 me-3"></iconify-icon>
+                The code you entered is incorrect. Please try again.
+                </div>
+                <button type="button" class="btn-close bnt-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="toast not-match text-bg-warning align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="material-symbols:warning" class="fs-4 ms-2 me-3"></iconify-icon>
+                Passwords do not match
+                </div>
+                <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="toast email text-bg-info align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="mdi:information" class="fs-4 ms-2 me-3"></iconify-icon>
+                The email you've entered isn't connected to an account.
+                </div>
+                <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid d-flex justify-content-center p-0">
         <div class="main-container d-flex align-items-center">
             <div class="login-form row d-flex justify-content-center rounded-4 p-0 m-0">
@@ -196,11 +300,10 @@
                                         <input type="submit" value="Reset Password" name="reset" class="reset-button border-0 rounded-2 text-light py-1">
                                     </div>
                                 </form>
-                                <div class="container p-0 my-5">
-                                    <span class="fw-light create-account  p-0">Don't have an account?</span>
+                                <div class="container p-0 my-4">
+                                    <span class="create-account p-0">Don't have an account?</span>
                                     <a href="./res_signup.php" class="text-decoration-none p-0 sign-up">Sign-up</a>
                                 </div>
-                                
                             </div>
                         <?php    break;
                         case 'enter_code':
@@ -260,6 +363,7 @@
 
     <!-- Bootstrap JS link -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </body>
 </html>

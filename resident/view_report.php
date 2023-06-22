@@ -62,9 +62,9 @@
                 $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
                     
                 // Allow certain file formats 
-                $allowTypes = array('jpg','png','jpeg','gif'); 
+                $allowTypes = array('jpg','png','jpeg'); 
                 if($fileName != NULL && !in_array($fileType, $allowTypes)){ 
-                    echo "<script>alert('Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'); window.location.href = 'view_report.php';</script>";
+                    echo "<script>alert('Sorry, only JPG, JPEG, & PNG files are allowed to upload.');</script>";
                     exit();
                 } else {
                     $image = $_FILES['image']['tmp_name']; 
@@ -79,11 +79,11 @@
                         $stmt->execute();   
 
                         if ($stmt) {
-                            echo "<script>alert('Updates have been successfully saved!');  window.location.href = 'view_report.php';</script>";
+                            echo "<script>alert('Updates have been successfully saved!');</script>";
                             exit();
                         }
                     } catch (mysqli_sql_exception $e) {
-                        echo "<script>alert('File upload failed, please try again.'); window.location.href = 'view_report.php';</script>";
+                        echo "<script>alert('File upload failed, please try again.');</script>s";
                         exit();
                     }
                 }

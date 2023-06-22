@@ -62,7 +62,7 @@
                                 <a href="res_doc_req.php" class="text-light services">Request a Document</a>
                             </div>
                             <div class="services-btn d-flex justify-content-center align-items-center m-2">
-                                <a href="res_concern_report.php" class="text-light services">Request a Concern</a>
+                                <a href="res_concern_report.php" class="text-light services">Report a Concern</a>
                             </div>
                         </div>
                     </div>

@@ -44,7 +44,21 @@
         $age = $diff->y;
         
         if ($age < 18){
-            echo "<script>alert('You must be at least 18 years old to create an account.');</script>";
+            echo '<script>
+                        // Wait for the document to load
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Get the toast element
+                            var toast = document.querySelector(".toast.age");
+                            
+                            // Show the toast
+                            toast.classList.add("show");
+                            
+                            // Hide the toast after 5 seconds
+                            setTimeout(function() {
+                                toast.classList.remove("show");
+                            }, 5000);
+                        });
+                    </script>';
         } else if($password == $rpassword) {
             // Call the stored procedure
             $stmt = $conn->prepare("CALL SP_ADD_RESIDENT(?, ?, ?, ?, ?, ?, ?, ?)");
@@ -54,27 +68,102 @@
     
                 // Check for errors
                 if ($stmt->errno) {
-                    echo "<script>alert('An account with that email already exists. Please try another one.');</script>";
+                    echo '<script>
+                        // Wait for the document to load
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Get the toast element
+                            var toast = document.querySelector(".toast.existing");
+                            
+                            // Show the toast
+                            toast.classList.add("show");
+                            
+                            // Hide the toast after 5 seconds
+                            setTimeout(function() {
+                                toast.classList.remove("show");
+                            }, 5000);
+                        });
+                    </script>';
                     die('Failed to call stored procedure: ' . $stmt->error);
                 } else {
-                    echo "<script>alert('Your account has been created successfully!'); window.location.href = 'res_login.php';</script>";
-                    // header("Location:res_login.php"); 
+                    header("Location:res_login.php?success=true"); 
                     // echo "<script>alert('Your account has been created successfully!');</script>";
                     exit();
                 }
 
             } catch (mysqli_sql_exception $e) {
-                echo "<script>alert('An account with that email already exists. Please try another one.');</script>";
+                echo '<script>
+                        // Wait for the document to load
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Get the toast element
+                            var toast = document.querySelector(".toast.existing");
+                            
+                            // Show the toast
+                            toast.classList.add("show");
+                            
+                            // Hide the toast after 5 seconds
+                            setTimeout(function() {
+                                toast.classList.remove("show");
+                            }, 5000);
+                        });
+                    </script>';
             }
             // Close the statement and the connection
             $stmt->close();
             $conn->close();
         } else {
-            echo "<script>alert('Passwords do not match');history.go(-1);</script>";
+            echo '<script>
+                        // Wait for the document to load
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Get the toast element
+                            var toast = document.querySelector(".toast.password");
+                            
+                            // Show the toast
+                            toast.classList.add("show");
+                            
+                            // Hide the toast after 5 seconds
+                            setTimeout(function() {
+                                toast.classList.remove("show");
+                            }, 5000);
+                        });
+                    </script>';
         }
     }
 
     ?>
+    <!-- Toast notifications -->
+    <div class="toast-container top-0 start-50 translate-middle-x mt-2">
+        <div class="toast age text-bg-warning align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="material-symbols:warning" class="fs-4 ms-2 me-3"></iconify-icon>
+                You must be at least 18 years old to create an account.
+                </div>
+                <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container top-0 start-50 translate-middle-x mt-2">
+        <div class="toast existing text-bg-warning align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="material-symbols:warning" class="fs-4 ms-2 me-3"></iconify-icon>
+                An account with that email already exists. Please try another one.
+                </div>
+                <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container top-0 start-50 translate-middle-x mt-2">
+        <div class="toast password text-bg-warning align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="material-symbols:warning" class="fs-4 ms-2 me-3"></iconify-icon>
+                Passwords do not match
+                </div>
+                <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid d-flex justify-content-center p-0">
         <div class="main-container d-flex align-items-center">
             <div class="signup-form row d-flex justify-content-center rounded-4 p-0 m-0">
@@ -166,6 +255,7 @@
 
     <!-- Bootstrap JS link -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </body>
 </html>

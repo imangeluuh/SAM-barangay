@@ -1,13 +1,3 @@
-<?php 
-    if(!session_id()){
-        session_start(); 
-    } 
-
-    // if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-    //     header("Location: ");
-    //     exit;
-    // }    
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,56 +14,75 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container-fluid p-0">
         <div class="row vh-100">
             <div class="col-md-6 d-flex flex-column justify-content-center align-items-center left-container p-0">
-                <div class="col-12 p-5 d-flex flex-column align-items-center justify-content-center">
-                    <p class="fw-semibold m-0 encourage-text">Need help with processing your</p>
-                    <p class="fw-semibold m-0 encourage-text">Barangay Documents and</p>
-                    <p class="fw-semibold encourage-text m-0">Raising Barangay Issues?</p>
-                    <p class="fw-bold text-light d-flex justify-content-center container mt-0 text-break sam-help p-0">SAM can help!</p>
-                    <p class="encourage-text mb-1">We can process your:</p>
-                    <div class="d-flex fw-bold text-light mb-3 p-0">
-                        <div class="col-md-4 d-flex flex-column justify-content-center align-items-center p-4 px-5 mx-1 rounded-3 services-box">
-                            <p class="pt-2 m-0">Barangay</p>
-                            <p class="pb-2">ID</p>
-                        </div>
-                        <div class="col-md-4 d-flex flex-column justify-content-center align-items-center mx-1 rounded-3 services-box">
-                            <p class="pt-2 m-0">Barangay</p>
-                            <p class="pb-2">Clearance</p>
-                        </div>
-                        <div class="col-md-4 d-flex flex-column justify-content-center align-items-center mx-1 rounded-3 services-box">
-                            <p class="pt-2 m-0">Certificate</p>
-                            <p class="m-0">of</p>
-                            <p class="pb-2">Indigency</p>
+                <div class="row p-5 mx-lg-5 d-flex flex-column align-items-center justify-content-center">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-9">
+                            <p class="fw-semibold m-0 text-center encourage-text">Need help with processing your Barangay Documents and Raising Barangay Issues?</p>
+                            <!-- <p class="fw-semibold m-0 encourage-text">Barangay Documents and</p>
+                            <p class="fw-semibold encourage-text m-0">Raising Barangay Issues?</p> -->
                         </div>
                     </div>
-                    <div class="d-flex fw-bold text-light mb-3 p-0">
-                        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center mx-1 rounded-3 services-box">
-                            <p class="pt-2 m-0">Certificate</p>
-                            <p class="m-0">of</p>
-                            <p class="pb-2">Residency</p>
+                    <div class="row">
+                        <p class="fw-bold text-light mt-0 text-center sam-help p-0">SAM can help!</p>
+                        <p class="ms-md-5 encourage-text mb-1 p-0">We can process your:</p>
+                    </div>
+                    <div class="row d-flex justify-content-center fw-bold text-light p-0">
+                        <div class="col-md-4 d-flex justify-content-center align-items-stretch px-5 mx-3 my-1 mb-3 rounded-3 services-box">
+                            <div class="d-flex flex-column justify-content-center align-items-center">
+                                <p class="m-0">Barangay</p>
+                                <p class="m-0">ID</p>
+                            </div>
                         </div>
-                        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center p-4 px-5 mx-1 rounded-3 services-box">
-                            <p class="pt-2 m-0">Business</p>
-                            <p class="pb-2">Permit</p>
+                        <div class="col-md-4 d-flex justify-content-center align-items-stretch px-5 mx-3 my-1 mb-3 rounded-3 services-box">
+                            <div class="d-flex flex-column justify-content-center align-items-center">
+                                <p class="m-0">Barangay</p>
+                                <p class="m-0">Clearance</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center fw-bold text-light mb-3 p-0">
+                        <div class="col-md-4 d-flex justify-content-center align-items-stretch px-5 mx-3 my-1 mb-3 rounded-3 services-box">
+                            <div class="d-flex flex-column justify-content-center align-items-center">  
+                                <p class="m-0">Certificate</p>
+                                <p class="m-0">of</p>
+                                <p class="m-0">Indigency</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex justify-content-center align-items-stretch px-5 mx-3 my-1 mb-3 rounded-3 services-box">
+                            <div class="d-flex flex-column justify-content-center align-items-center">  
+                                <p class="m-0">Business</p>
+                                <p class="m-0">Permit</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 d-flex flex-column justify-content-center align-items-center p-0 right-container">
-                <p class="fw-semibold fs-2 chat-sam m-0">Try chatting with</p>
-                <p class="fw-semibold fs-2 chat-sam">SAM now!</p>
-                <div class="row d-flex justify-content-start user-type p-0">
+                <div class="row d-flex justify-content-center mx-1 mt-3">
+                    <div class="col-md-8">
+                        <p class="fw-semibold fs-2 text-center chat-sam m-0">Try chatting with SAM now!</p>
+                        <!-- <p class="fw-semibold fs-2 chat-sam">SAM now!</p> -->
+                    </div>
+                </div>
+                <div class="row p-0">
                     <p class="fs-4 chat-sam mt-4 p-0">I am a...</p>
                 </div>
-                <div class="row fs-4 p-1 rounded-1 m-2 resident-button">
-                    <a href="./resident/res_login.php" class="d-flex text-decoration-none text-light justify-content-center px-2">Mamamayan / Resident</a>
-                </div>
-                <div class="row text-light fs-4 p-1 rounded-1 m-2 officials-button">
-                    <a href="./employee/emp_login.php" class="d-flex text-decoration-none text-light justify-content-center">Barangay Employee</a>
+                <div class="row d-flex justify-content-center text-center p-1 rounded-1 m-2">
+                    <div class="col-md-4 d-flex align-items-center justify-content-center resident-button px-3 mx-2 p-0 mb-3">
+                        <a href="./resident/res_login.php" class="d-flex align-items-center justify-content-center text-decoration-none text-light user-label px-3">
+                            <i class="fa-solid fa-users text-light fs-2 pe-3"></i>Mamamayan / Resident</a>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-center justify-content-center officials-button px-3 mx-2 p-0 mb-3">
+                        <a href="./employee/emp_login.php" class="d-flex align-items-center justify-content-center text-decoration-none text-light user-label px-3">
+                            <i class="fa-solid fa-user-tie text-light fs-2"></i>Barangay Employee</a>
+                    </div>
                 </div>
             </div>
         </div>

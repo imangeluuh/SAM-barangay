@@ -37,6 +37,27 @@
             include('navbar.php');
             include('sidebar.php');
         ?>
+                            <!-- Toast notifications -->
+    <div class="toast-container top-0 start-50 translate-middle-x me-4 mt-2">
+        <div class="toast submit text-bg-success align-items-center py-2 pe-3" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="mdi:success-bold" class="fs-4 ms-2 me-3"></iconify-icon>
+                Thank you for taking the time to complete our feedback form. Your input is greatly appreciated and will help us improve our services. We value your opinion and are grateful for your valuable feedback.
+                </div>
+                <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="toast failed text-bg-danger align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="material-symbols:error" class="fs-4 ms-2 me-3"></iconify-icon>
+                Failed to submit feedback.
+                </div>
+                <button type="button" class="btn-close bnt-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
         <div class="content-wrapper">
             <div class="content">
                 <div class="container-fluid">
@@ -60,14 +81,27 @@
                                 $stmt->bind_param('sssssssssss', $question_1, $question_2, $question_3, $question_4, $question_5, $question_6, $question_7, $question_8, $question_9, $question_10, $suggestions);
                                 
                                 if ($stmt->execute()){
-
-                                    echo "<script>alert('Thank you for taking the time to complete our feedback form. Your input is greatly appreciated and will help us improve our services. We value your opinion and are grateful for your valuable feedback.'); window.location.href = 'res_feedback.php';</script>";
-                                    exit(); 
-                                }
-
-                                else {
-                                    echo "<script>alert('Failed to submit feedback.'); window.location.href = 'res_feedback.php';</script>";
-                                    exit();
+                                    echo '<script>// Get the toast element
+                                    var toast = document.querySelector(".toast.submit");
+                                    
+                                    // Show the toast
+                                    toast.classList.add("show");
+                                    
+                                    // Hide the toast after 10 seconds
+                                    setTimeout(function() {
+                                        toast.classList.remove("show");
+                                    }, 10000);</script>';
+                                } else {
+                                    echo '<script>// Get the toast element
+                                    var toast = document.querySelector(".toast.failed");
+                                    
+                                    // Show the toast
+                                    toast.classList.add("show");
+                                    
+                                    // Hide the toast after 10 seconds
+                                    setTimeout(function() {
+                                        toast.classList.remove("show");
+                                    }, 10000);</script>';
                                 }
                             }
                             ?>
@@ -282,5 +316,11 @@
 	
 	 <!-- AdminLTE JS link -->
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <!-- Bootstrap JS link -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    
+
 </body>
 </html>

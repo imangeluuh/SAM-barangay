@@ -54,7 +54,21 @@
 
         // If no rows are returned, display an error message
         if(!$rowcount || $row['role_id'] != 3) {
-            echo "<script>alert('The email you entered isn\'t connected to an account.')</script>";
+            echo '<script>
+                        // Wait for the document to load
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Get the toast element
+                            var toast = document.querySelector(".toast.email");
+                            
+                            // Show the toast
+                            toast.classList.add("show");
+                            
+                            // Hide the toast after 5 seconds
+                            setTimeout(function() {
+                                toast.classList.remove("show");
+                            }, 5000);
+                        });
+                    </script>';
         } else {
             // If a row is returned, verify the password entered by the user with the hashed password stored in the database
             if(password_verify($password, $row['password'])) {
@@ -96,9 +110,23 @@
                 // redirect the user to 'res_language.php'
                 header("Location: ./res_language.php");
                 exit();
-            } else {
-                // If the password is incorrect, display an error message
-                echo "<script>alert('The password you\'ve entered is incorrect.')</script>";
+            } else { 
+                // <!-- If the password is incorrect, display an error message -->
+                echo '<script>
+                        // Wait for the document to load
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Get the toast element
+                            var toast = document.querySelector(".toast.password");
+                            
+                            // Show the toast
+                            toast.classList.add("show");
+                            
+                            // Hide the toast after 5 seconds
+                            setTimeout(function() {
+                                toast.classList.remove("show");
+                            }, 5000);
+                        });
+                    </script>';
             }
         }
 
@@ -107,7 +135,60 @@
         $conn->close();
     }
 
+    if(isset($_GET['success']) && $_GET['success'] == true) {
+        echo '<script>
+                        // Wait for the document to load
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Get the toast element
+                            var toast = document.querySelector(".toast.created");
+                            
+                            // Show the toast
+                            toast.classList.add("show");
+                            
+                            // Hide the toast after 5 seconds
+                            setTimeout(function() {
+                                toast.classList.remove("show");
+                            }, 5000);
+                        });
+                    </script>';
+    }
+
     ?>
+    <!-- Toast notifications -->
+    <div class="toast-container top-0 start-50 translate-middle-x mt-2">
+        <div class="toast password text-bg-danger align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-centera">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="material-symbols:error" class="fs-4 ms-2 me-3"></iconify-icon>
+                The password you've entered is incorrect.
+                </div>
+                <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container top-0 start-50 translate-middle-x mt-2">
+        <div class="toast email text-bg-info align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="mdi:information" class="fs-4 ms-2 me-3"></iconify-icon>
+                The email you've entered isn't connected to an account.
+                </div>
+                <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container top-0 start-50 translate-middle-x mt-2">
+        <div class="toast created text-bg-success align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-centera">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="mdi:success-bold" class="fs-4 ms-2 me-3"></iconify-icon>
+                Your account has been created successfully!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
     <div class="container-fluid d-flex justify-content-center p-0">
         <div class="main-container d-flex align-items-center">
             <div class="login-form row d-flex justify-content-center rounded-4 p-0 m-0">
@@ -206,6 +287,7 @@
 
     <!-- Bootstrap JS link -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </body>
 </html>

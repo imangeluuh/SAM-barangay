@@ -30,7 +30,21 @@
         $age = $diff->y;
 
         if ($age < 18){
-            echo "<script>alert('You must be at least 18 years old to create an account.');</script>";
+            echo '<script>
+                        // Wait for the document to load
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Get the toast element
+                            var toast = document.querySelector(".toast.age");
+                            
+                            // Show the toast
+                            toast.classList.add("show");
+                            
+                            // Hide the toast after 5 seconds
+                            setTimeout(function() {
+                                toast.classList.remove("show");
+                            }, 5000);
+                        });
+                    </script>';
         } else{
             // Call the stored procedure
             $stmt = $conn->prepare("CALL SP_UPDATE_RES_INFO(?, ?, ?, ?, ?, ?, ?)");
@@ -42,7 +56,21 @@
                 $stmt->execute();
                 // Check for errors
                 if ($stmt->errno) {
-                    echo "<script>alert('An account with that email already exists. Please try another one.'); window.location.href = 'res_settings.php?update-credentials';</script>";
+                    echo '<script>
+                        // Wait for the document to load
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Get the toast element
+                            var toast = document.querySelector(".toast.existing");
+                            
+                            // Show the toast
+                            toast.classList.add("show");
+                            
+                            // Hide the toast after 5 seconds
+                            setTimeout(function() {
+                                toast.classList.remove("show");
+                            }, 5000);
+                        });
+                    </script>';
                     die('Failed to call stored procedure: ' . $stmt->error);
                 } else {
                     $_SESSION['userData']['email'] = $email;
@@ -52,19 +80,80 @@
                     $_SESSION['userData']['birthdate'] = $birthdate; 
                     $_SESSION['userData']['address'] = $address; 
 
-                    echo "<script>alert('Your profile information has been updated successfully!'); window.location.href = 'res_settings.php?update-credentials';</script>";
+                    echo '<script>
+                        // Wait for the document to load
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Get the toast element
+                            var toast = document.querySelector(".toast.success");
+                            
+                            // Show the toast
+                            toast.classList.add("show");
+                            
+                            // Hide the toast after 5 seconds
+                            setTimeout(function() {
+                                toast.classList.remove("show");
+                            }, 5000);
+                        });
+                    </script>';
                 }
-                exit();
             }
             catch (mysqli_sql_exception $e) {
-                echo "<script>alert('An account with that email already exists. Please try another one.'); window.location.href = 'res_settings.php?update-credentials';</script>";
-                exit();
+                echo '<script>
+                        // Wait for the document to load
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Get the toast element
+                            var toast = document.querySelector(".toast.existing");
+                            
+                            // Show the toast
+                            toast.classList.add("show");
+                            
+                            // Hide the toast after 5 seconds
+                            setTimeout(function() {
+                                toast.classList.remove("show");
+                            }, 5000);
+                        });
+                    </script>';
             }
         }
     }
     
     ?>
-    <h1 class="fw-bold change-label"><?php echo $lang['edit_profile'] ?></h1>
+    <!-- Toast notifications -->
+    <div class="toast-container position-fixed top-0 start-50 translate-middle-x mt-2">
+        <div class="toast existing text-bg-warning align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="material-symbols:warning" class="fs-4 ms-2 me-3"></iconify-icon>
+                An account with that email already exists. Please try another one.
+                </div>
+                <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed top-0 start-50 translate-middle-x mt-2">
+        <div class="toast age text-bg-warning align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="material-symbols:warning" class="fs-4 ms-2 me-3"></iconify-icon>
+                You must be at least 18 years old to continue using the SAM system.
+                </div>
+                <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed top-0 start-50 translate-middle-x mt-2">
+        <div class="toast success text-bg-success align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="mdi:success-bold" class="fs-4 ms-2 me-3"></iconify-icon>
+                Your profile information has been updated successfully!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="fw-bold change-label  mt-5"><?php echo $lang['edit_profile'] ?></h1>
     <div class="m-0 p-0">
         <p class="desc"><?php echo $lang['save_instruction'] ?></p>
     </div>
@@ -144,3 +233,5 @@
             <input type="submit" value="Save Changes" name="change" class="save-button border-0 rounded-3 fw-light text-light p-0 px-2 me-md-4">
         </div>
     </form>
+
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>

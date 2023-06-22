@@ -25,6 +25,27 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 </head>
 <body class="sidebar-mini layout-fixed layout-navbar-fixed hold-transition overflow-x-hidden">
+<script>
+    function confirmChanges(event) {
+        // Prevent the default form submission
+        event.preventDefault();
+        // Get the toast element
+        var toast = document.querySelector(".toast.confirm");
+         // Show the toast
+        toast.classList.add("show");
+    }
+</script>
+<div class="toast-container position-fixed top-0 start-50 translate-middle-x mt-3">
+    <div class="toast confirm" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body fs-6 px-3">
+            Are you sure you want to save these changes?
+            <div class="mt-2 pt-2 d-flex justify-content-end border-top">
+                <button type="button" class="btn btn-primary btn-sm me-1">Save</button>
+                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="toast">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="wrapper">
         <?php 
             ob_start();
@@ -219,9 +240,7 @@
                 while($conn->next_result()) {
                     $conn->store_result();
                 }
-            }   
-
-            
+            }       
         ?>
 
         <div class="content-wrapper">
@@ -236,22 +255,17 @@
                             if($_SESSION['docInfo']['document_type'] == 'Barangay ID') { 
                                 $doc_id = $_SESSION['docInfo']['doc_id'];
                                 $stmt = $conn->prepare("CALL SP_GET_BRGY_ID(?)");
-
                                 // bind the input parameters to the prepared statement
                                 $stmt->bind_param('i', $doc_id);
-
                                 // Execute the prepared statement
                                 $stmt->execute();
-
                                 // retrieve the result set from the executed statement
                                 $result = $stmt->get_result();  
-
                                 // fetch the row from the result set
                                 $row = $result->fetch_assoc();
                             ?>
                                 <span class="fs-4 ms-4">Barangay ID</span>
-                                
-                                <form class="row g-3 mx-4 mt-2" method="post" senctype="multipart/form-data" onSubmit="return confirm('Are you sure you want to save these changes?')">
+                                <form id="brgy-id-form" class="row g-3 mx-4 mt-2" method="post" enctype="multipart/form-data" onSubmit="confirmChanges(event)">
                                     <div class="col-md-4">
                                         <label for="date-requested" class="form-label">Date Requested</label><br>
                                         <span><?php echo $_SESSION['docInfo']['date_requested'] ?></span>

@@ -45,7 +45,7 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row p-0 ms-md-3 me-md-5 pe-md-5">
-                        <div class="col-lg-12 mt-5">
+                        <div class="col-lg-12">
                             <?php 
                                 if(isset($_GET['change-password'])){
                                     include('change_pass.php'); 
