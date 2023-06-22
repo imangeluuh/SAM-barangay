@@ -21,6 +21,27 @@
 <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 </head>
 <body class="sidebar-mini layout-fixed layout-navbar-fixed hold-transition overflow-x-hidden">
+    <!-- Toast notifications -->
+    <div class="toast-container top-0 start-50 translate-middle-x mt-2">
+            <div class="toast created text-bg-success align-items-center py-2 pe-3" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex align-items-centera">
+                    <div class="toast-body d-flex align-items-center">
+                    <iconify-icon icon="mdi:success-bold" class="fs-4 ms-2 me-3"></iconify-icon>
+                    Employee account has been created successfully!
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="toast email text-bg-info align-items-center py-2 pe-3" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex align-items-center">
+                    <div class="toast-body d-flex align-items-center">
+                    <iconify-icon icon="mdi:information" class="fs-4 ms-2 me-3"></iconify-icon>
+                    An account with that email already exists. Please try another one.
+                    </div>
+                    <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
     <div class="wrapper">
         <?php 
             // If a session is not already started, start a new session
@@ -137,27 +158,6 @@
                 $stmt->execute();
             }
         ?>
-        <!-- Toast notifications -->
-        <div class="toast-container top-0 start-50 translate-middle-x mt-2">
-            <div class="toast created text-bg-success align-items-center py-2 pe-3" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex align-items-centera">
-                    <div class="toast-body d-flex align-items-center">
-                    <iconify-icon icon="mdi:success-bold" class="fs-4 ms-2 me-3"></iconify-icon>
-                    Employee account has been created successfully!
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-            </div>
-            <div class="toast email text-bg-info align-items-center py-2 pe-3" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex align-items-center">
-                    <div class="toast-body d-flex align-items-center">
-                    <iconify-icon icon="mdi:information" class="fs-4 ms-2 me-3"></iconify-icon>
-                    An account with that email already exists. Please try another one.
-                    </div>
-                    <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
         <div class="content-wrapper mt-0"> 
             <div class="wrapper p-2 mx-md-4 mt-5">
                 <div class="card shadow mt-5">
