@@ -23,16 +23,14 @@ print_r($_POST);
                 $stmt->execute();  
             } else {
                 $birthplace = $_POST['birthplace'];
-                $height = !empty($_POST['height']) ? $_POST['height'] : NULL;
-                $weight = !empty($_POST['weight']) ? $_POST['weight'] : NULL;;
-                $status = $_POST['status'];
-                $religion = $_POST['religion'];
+                $precinctNo = !empty($_POST['precinct-no']) ? $_POST['precinct-no'] : NULL;
                 $contact_name = $_POST['contact-name'];
+                $relationship = $_POST['relationship'];
                 $contact_no = $_POST['contact-no'];
                 $contact_address = $_POST['contact-address']; 
-                $stmt = $conn->prepare("CALL SP_UPDATE_BRGY_ID(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt = $conn->prepare("CALL SP_UPDATE_BRGY_ID(?, ?, ?, ?, ?, ?, ?)");
                 // bind the input parameters to the prepared statement
-                $stmt->bind_param('isddsssss', $_SESSION['docInfo']['doc_id'], $birthplace, $height, $weight, $status, $religion, $contact_name, $contact_address, $contact_no);
+                $stmt->bind_param('isissss', $_SESSION['docInfo']['doc_id'], $birthplace, $precinctNo, $contact_name, $relationship, $contact_address, $contact_no);
                 // Execute the prepared statement
                 $stmt->execute();    
             }
@@ -51,12 +49,25 @@ print_r($_POST);
                 $stmt->execute();  
                 $_SESSION['docInfo']['schedule'] = $schedule;
             } else {
-                $background_info = trim($_POST['background-info']);
                 $purpose = trim($_POST['purpose']);
-
-                $stmt = $conn->prepare("CALL SP_UPDATE_COI(?, ?, ?)");
+                $imgContent = $_SESSION['docInfo']['requirements'];
+                $fileName = basename($_FILES["image"]["name"]) == NULL ? $_SESSION['docInfo']['file_name'] : basename($_FILES["image"]["name"]) ; 
+                if($fileName != NULL && $fileName != $_SESSION['docInfo']['file_name']){
+                    $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
+                    // Allow certain file formats 
+                    $allowTypes = array('jpg','png','jpeg'); 
+                    if(!in_array($fileType, $allowTypes)){ 
+                        $_SESSION['error_message'] = 'invalid format';
+                        header("Location: {$_SERVER['HTTP_REFERER']}");
+                        exit();
+                    } else {
+                        $image = $_FILES['image']['tmp_name']; 
+                        $imgContent = file_get_contents($image);
+                    }
+                }
+                $stmt = $conn->prepare("CALL SP_UPDATE_COI(?, ?, ?, ?)");
                 // bind the input parameters to the prepared statement
-                $stmt->bind_param('iss', $_SESSION['docInfo']['doc_id'], $background_info, $purpose);
+                $stmt->bind_param('isss', $_SESSION['docInfo']['doc_id'], $purpose, $fileName, $imgContent);
                 // Execute the prepared statement
                 $stmt->execute();  
             }
@@ -75,7 +86,6 @@ print_r($_POST);
                 $stmt->execute();  
                 $_SESSION['docInfo']['schedule'] = $schedule;
             } else {
-                $background_info = trim($_POST['background-info']);
                 $purpose = $_POST['purpose'];
 
                 $stmt = $conn->prepare("CALL SP_UPDATE_CLEARANCE(?, ?)");
@@ -100,12 +110,12 @@ print_r($_POST);
                 $_SESSION['docInfo']['schedule'] = $schedule;
             } else {
                 $businessName = $_POST['business-name']; 
-                $businessLine = $_POST['business-line']; 
                 $businessAddress = $_POST['business-address']; 
+                $plateNo = !empty($_POST['plate-no']) ? $_POST['plate-no'] : NULL; 
 
                 $stmt = $conn->prepare("CALL SP_UPDATE_PERMIT(?, ?, ?, ?)");
                 // bind the input parameters to the prepared statement
-                $stmt->bind_param('isss', $_SESSION['docInfo']['doc_id'], $businessName, $businessLine, $businessAddress);
+                $stmt->bind_param('isss', $_SESSION['docInfo']['doc_id'], $businessName, $businessAddress, $plateNo);
                 // Execute the prepared statement
                 $stmt->execute();  
             }

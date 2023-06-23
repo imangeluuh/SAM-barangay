@@ -49,7 +49,6 @@
                                     , 'image_name' => !empty($_POST['image_name']) ? $_POST['image_name'] : NULL
                                     , 'image' => !empty($_POST['image']) ? $_POST['image'] : NULL
                                     , 'resident_id' => $_POST['resident_id']);
-
                 // Store the user data array in the $_SESSION variable for future use.
                 $_SESSION['reportInfo'] = $reportInfo;
 
@@ -58,7 +57,6 @@
                 $stmt->bind_param('i', $_SESSION['reportInfo']['resident_id']);
                 // Execute the prepared statement
                 $stmt->execute();  
-
                 if($stmt) {
                     // retrieve the result set from the executed statement
                     $result = $stmt->get_result();  
@@ -69,30 +67,26 @@
                     $_SESSION['reportInfo'] = $reportInfo;
                 }
             }
-
-            while($conn->next_result()) {
-                $conn->store_result();
-            }
-            if(isset($_POST['update_report'])) {
-                $status = $_POST['status'];
-                
-                $stmt = $conn->prepare("CALL SP_UPDATE_REPORT_STATUS(?, ?)");
-                // bind the input parameters to the prepared statement
-                $stmt->bind_param('is', $_SESSION['reportInfo']['report_id'], $status);
-                // Execute the prepared statement
-                $stmt->execute();   
-                if ($stmt) {
-                    echo "<script>alert('Updates have been successfully saved!');  window.location.href = 'view_report.php';</script>";
-                    exit();
-                        
-                } 
-            }
         ?>
         <div class="content-wrapper">
             <div class="content">
                 <div class="container-fluid">
                     <div class="row d-flex justify-content-center">
                         <div class="col-lg-12 mx-5 mt-4">
+                            <!-- Submit modal -->
+                            <div class="modal fade" id="confirmationModal" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <p class="mb-0">Are you sure you want to save these changes?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" id="saveButton">Save</button>
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <a href="emp_report_concern.php" class="ms-4 d-flex align-items-center text-decoration-none text-secondary">
                                 <i class="fa-solid fa-angle-left me-3"></i><?php echo $lang['go_back'] ?>
                             </a><br>
@@ -101,20 +95,16 @@
                                     $conn->store_result();
                                 }
                                 $stmt = $conn->prepare("CALL SP_GET_REPORT(?)");
-
                                 // bind the input parameters to the prepared statement
                                 $stmt->bind_param('i', $_SESSION['reportInfo']['report_id']);
-
                                 // Execute the prepared statement
                                 $stmt->execute();
-
                                 // retrieve the result set from the executed statement
                                 $result = $stmt->get_result();  
-
                                 // fetch the row from the result set
                                 $row = $result->fetch_assoc();
                             ?>
-                                <form class="row g-3 mx-4 mt-2" method="post" enctype="multipart/form-data" onSubmit="return confirm('Are you sure you want to save these changes?')">
+                                <div class="row g-3 mx-4 mt-2">
                                     <div class="col-md-12">
                                         <label for="date-requested" class="form-label">Date Reported</label><br>
                                         <span><?php echo $row['date_reported'] ?></span>
@@ -155,35 +145,37 @@
                                         </div>
                                     </div>
                                     <?php if($row['status'] != 'Complete') { ?>
-                                    <div class="col-12">
-                                        <button type="button" class="btn btn-primary mt-2 mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">Update Status</button>
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update Status</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="mb-3">
-                                                        <label for="select-status" class="col-form-label">Select Status</label>
-                                                        <select class="form-select" name="status" required>
-                                                            <option selected disabled value="">Select an option</option>
-                                                            <option value="In Progress">In Progress</option>
-                                                            <option value="Resolved">Resolved</option>
-                                                        </select>
+                                        <div class="col-12">
+                                            <button type="button" class="btn btn-primary mt-2 mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">Update Status</button>
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Update Status</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form id="statusForm" action="update_report.php" method="post">
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label for="select-status" class="col-form-label">Select Status</label>
+                                                                    <select class="form-select" name="status" required>
+                                                                        <option selected disabled value="">Select an option</option>
+                                                                        <option value="In Progress">In Progress</option>
+                                                                        <option value="Resolved">Resolved</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <input type="submit" name="update" value="Save" class="btn btn-primary save-btn">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <input type="submit" name="update_report" value="Save" class="btn btn-primary save-btn">
-                                                </div>
-                                                </div>
                                             </div>
-                                        </div>
-                                    </div>   
+                                        </div>  
                                 <?php } ?>
-                            </form>
+                                </div>
                             <!-- // popup modal -->
                             <div class="modal fade" id="enlargedModal" tabindex="-1" role="dialog" aria-labelledby="enlargedModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -200,7 +192,6 @@
             </div>
         </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <!-- Bootstrap JS link -->
@@ -210,29 +201,23 @@
     
     <script>
         $(document).ready(function () {
-            $('.edit-btn').on('click', function(){
-                $('.editable').removeAttr('disabled');
-                $(this).addClass('d-none');
-                $('.save-btn').removeClass('d-none');
-            });
-
-            window.pressed = function(){
-                var a = document.getElementById('image');
-                if(a.value == "")
-                {
-                    fileLabel.innerHTML = "No file chosen";
-                }
-                else
-                {
-                    var theSplit = a.value.split('\\');
-                    fileLabel.innerHTML = theSplit[theSplit.length-1];
-                }
-            };
-
             $('.img-thumbnail').on('click', function(){
                 var imgSrc = $(this).attr('src');
                 $('.enlarged-image').attr('src', imgSrc);
                 $('#enlargedModal').modal('show');
+            });
+
+            // Show the confirmation modal when any form is submitted
+            $('#statusForm').on('submit', function(e) {
+                e.preventDefault(); // Prevent default form submission
+                $('#exampleModal').modal('hide');
+                $('#confirmationModal').modal('show');
+            });
+
+            // Handle the click event of the Save button in the modal
+            $('#saveButton').on('click', function() { 
+                $('#confirmationModal').modal('hide');
+                $('#statusForm').off('submit').submit();
             });
 
         });

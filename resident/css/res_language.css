@@ -5,11 +5,6 @@
     font-family: 'Lexend', sans-serif;
 }
 
-/* header{
-  width: 100%;
-  height: 100vh;
-} */
-
 body{
     background-color: #fff;
 }
@@ -31,12 +26,6 @@ nav .logo{
   color: white; /* set text color */
 }
 
-/* nav .nav.item{
-  width: 40%;
-  display: flex;
-  justify-content: space-around;
-} */
-
 nav .nav-item a {
   text-decoration: none;
   color: white ;
@@ -45,14 +34,12 @@ nav .nav-item a {
 }
 
 .content {
-  /* width: 100%;
-  height: 100vh; */
   margin-top: 100px;
 }
 
 .preferred {
   text-align: center;
-  font-size: 150%;
+  font-size: 24px;
   font-weight: 500;
 }
 
@@ -68,6 +55,26 @@ nav .nav-item a {
   text-align: center;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
   width: 400px;
+}
+
+.sam-img {
+  width: 400px;
+}
+
+@media(max-width: 1050px) {
+  .button {
+    width: 250px;
+    font-size: 20px;
+  }
+}
+
+@media(max-width: 890px) {
+  .sam-img {
+    width: 300px;
+  }
+  .preferred {
+    font-size: 20px;
+  }
 }
 
 

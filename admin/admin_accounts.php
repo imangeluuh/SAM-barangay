@@ -51,7 +51,7 @@
 
             if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                 header("Location: admin_login.php");
-                exit;
+                exit();
             }
 
             include('navbar.php');
@@ -62,12 +62,10 @@
             function generateRandomLetters() {
                 $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                 $result = '';
-            
                 for ($i = 0; $i < 6; $i++) {
                     $randomIndex = rand(0, strlen($letters) - 1);
                     $result .= $letters[$randomIndex];
                 }
-            
                 return $result;
             }
 
@@ -84,7 +82,6 @@
                 $stmt->bind_param('ssiss', $email, $hash, $role_id, $firstname, $lastname);
                 try{ 
                     $stmt->execute();
-        
                     // Check for errors
                     if ($stmt->errno) {
                         echo '<script>
@@ -121,7 +118,6 @@
                         });
                     </script>';
                     }
-    
                 } catch (mysqli_sql_exception $e) {
                     echo '<script>
                         // Wait for the document to load
@@ -139,7 +135,6 @@
                         });
                     </script>';}
             }
-
             while($conn->next_result()){
                 $conn->store_result();
             }
@@ -158,6 +153,20 @@
                 $stmt->execute();
             }
         ?>
+        <!-- Submit modal -->
+        <div class="modal fade" id="confirmationModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p id="confirmationMessage"class="mb-0"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="saveButton"></button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="content-wrapper mt-0"> 
             <div class="wrapper p-2 mx-md-4 mt-5">
                 <div class="card shadow mt-5">
@@ -275,14 +284,16 @@
                                                         </div>
                                                     <?php
                                                         if($row['status'] != 'deactivated') { ?>
-                                                        <form method="post"  onSubmit="return confirm('Are you sure you want to update the status?')">
+                                                        <form method="post">
                                                             <input type="hidden" name="login_id" value="<?php echo $row['login_id'] ?>">
-                                                            <input type="submit" name="deactivate" class="btn btn-danger p-1" value="Deactivate" confirm="Are you sure you want to deactivate this account?"/>
+                                                            <input type="hidden" name="deactivate" value="Deactivate"/>
+                                                            <input type="submit" name="deactivate" class="btn btn-danger p-1" value="Deactivate"/>
                                                         </form>
                                                     <?php } else { ?>
-                                                        <form method="post" onSubmit="return confirm('Are you sure you want to update the status?')">
+                                                        <form method="post">
                                                             <input type="hidden" name="login_id" value="<?php echo $row['login_id'] ?>">
-                                                            <input type="submit" name="reactivate" class="btn btn-success p-1" value="Reactivate" confirm="Are you sure you want to reactivate this account?"/>
+                                                            <input type="hidden" name="reactivate" value="Reactivate"/>
+                                                            <input type="submit" name="reactivate" class="btn btn-success p-1" value="Reactivate"/>
                                                         </form>
                                                     <?php } ?>
                                                     </div>
@@ -392,15 +403,17 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    <?php
+                                                        <?php
                                                         if($row['status'] != 'deactivated') { ?>
-                                                        <form method="post" onSubmit="return confirm('Are you sure you want to update the status?')">
+                                                        <form method="post">
                                                             <input type="hidden" name="login_id" value="<?php echo $row['login_id'] ?>">
-                                                            <input type="submit" name="deactivate" class="btn btn-danger  p-1" value="Deactivate"/>
+                                                            <input type="hidden" name="deactivate" value="Deactivate"/>
+                                                            <input type="submit" name="deactivate" class="btn btn-danger p-1" value="Deactivate"/>
                                                         </form>
                                                     <?php } else { ?>
-                                                        <form method="post" onSubmit="return confirm('Are you sure you want to update the status?')">
+                                                        <form method="post">
                                                             <input type="hidden" name="login_id" value="<?php echo $row['login_id'] ?>">
+                                                            <input type="hidden" name="reactivate" value="Reactivate"/>
                                                             <input type="submit" name="reactivate" class="btn btn-success p-1" value="Reactivate"/>
                                                         </form>
                                                     <?php } ?>
@@ -432,6 +445,35 @@
             $('#employee').DataTable({
             });
             $('#residents').DataTable({
+            });
+
+            var formToSubmit;
+            $('form').on('submit', function(e) {
+                e.preventDefault(); // Prevent default form submission
+                formToSubmit = $(this); // Store the form that was submitted
+                // Retrieve the value of the submit button that triggered the form submission
+                var submitButton = event.submitter;
+                var submitValue = submitButton.value;
+                // Get the appropriate confirmation message based on the action
+                var confirmationMessage;
+                if (submitValue === 'Deactivate') {
+                    confirmationMessage = "Are you sure you want to deactivate this account?";
+                } else if (submitValue === 'Reactivate') {
+                    confirmationMessage = "Are you sure you want to reactivate this account?";
+                }
+                // Set the confirmation message in the modal
+                var confirmationMessageElement = document.getElementById("confirmationMessage");
+                confirmationMessageElement.textContent = confirmationMessage;
+                // Set the saveButton value in the modal
+                var saveButton = document.getElementById("saveButton");
+                saveButton.textContent = submitValue;
+                // Display the modal
+                $('#confirmationModal').modal('show');
+            });
+            // Handle the click event of the Save button in the modal
+            $('#saveButton').on('click', function() {
+                $('#confirmationModal').modal('hide');
+                formToSubmit.off('submit').submit();
             });
         });
     </script>

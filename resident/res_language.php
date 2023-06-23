@@ -57,8 +57,8 @@
             </div>
         </nav>
         <div class="content row d-flex">
-            <div class="col-md-6 d-flex flex-column justify-content-center alignt-items-center align-items-md-end pe-md-4">
-                <div class="d-flex flex-column align-items center">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-4 d-flex flex-column justify-content-center p-0">
                     <p class="preferred">Before we get started, What is your <br> preferred language?</p>
                     <p class="fst-italic preferred">Bago tayo magsimula, ano ang wika <br> na nais mong gamitin? </p>
                     <form action="../language/lang_config.php" method="post">
@@ -68,9 +68,9 @@
                         </div>
                     </form>
                 </div>
-            </div>
-            <div class="col-md-6 justify-content-center justify-content-md-start align-items-center">
-                <img src="../images/SAM CHATBOT.png" alt="" class="justify-content-sm-center w-50">
+                <div class="col-md-3 d-flex justify-content-center justify-content-md-start align-items-center p-0">
+                    <img src="../images/SAM CHATBOT.png" alt="" class="justify-content-sm-center sam-img">
+                </div>
             </div>
             <!-- Button trigger modal -->
             <button type="button" class="btn border-0 mb-5 text-center mt-5 fs-5 text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
