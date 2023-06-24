@@ -94,30 +94,24 @@
                             ?>
                                 <span class="fs-4 ms-4">Barangay ID</span>                                
                                 <div class="row g-3 mx-4 mt-2">
-                                    <div class="col-md-4">
-                                        <label for="date-requested" class="form-label">Date Requested</label><br>
-                                        <span><?php echo $_SESSION['docInfo']['date_requested'] ?></span>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="date-completed" class="form-label">Date Completed</label><br>
-                                        <span><?php echo $_SESSION['docInfo']['date_completed'] ?></span>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="date-completed" class="form-label">Status</label><br>
-                                        <span><?php echo $_SESSION['docInfo']['status'] ?></span>
-                                    </div>
+                                    <?php displayDocInfo(); ?>
                                     <div class="col-md-4">
                                         <label for="date-issued" class="form-label">Date Issued</label><br>
                                         <span><?php echo $row['date_issued'] == NULL ? 'N/A' : $row['date_issued'] ?></span>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-8">
                                         <label for="expiry-date" class="form-label">Expiry Date</label><br>
                                         <span><?php echo $row['expiry_date'] == NULL ? 'N/A' : $row['expiry_date'] ?></span>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <label for="Name" class="form-label">Name</label>
                                         <input type="text" class="form-control" id="name" disabled required
                                             value="<?php echo $row['res_name']?>">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="Age" class="form-label">Age</label>
+                                        <input type="text" class="form-control" disabled 
+                                            value="<?php echo $row['res_age']  ?>">
                                     </div>
                                     <div class="col-md-3">
                                         <label for="Birthdate" class="form-label">Birthdate</label>
@@ -129,57 +123,32 @@
                                         <input type="text" class="form-control editable" id="birthplace" name="birthplace" disabled required="required"
                                             value="<?php echo $row['res_birthplace']?>">
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-md-9">
                                         <label for="Address" class="form-label">Address</label>
                                         <input type="text" class="form-control" id="address" disabled required value="<?php echo $row['res_address'] ?>">
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="Height" class="form-label">Height</label>
-                                        <input type="text" class="form-control editable" id="height" name="height" disabled value="<?php echo $row['res_height']?>">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="Weight" class="form-label">Weight</label>
-                                        <input type="text" class="form-control editable" id="weight" name="weight" disabled value="<?php echo $row['res_weight']?>">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="Status" class="form-label">Status</label>
-                                        <input type="text" class="form-control editable" disabled required="required" value="<?php echo $row['res_status']?>">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label for="Religion" class="form-label">Religion</label>
-                                        <input type="text" class="form-control editable" id="religion" name="religion" disabled required value="<?php echo $row['res_religion']?>">
+                                        <label for="precinct-no" class="form-label">Precinct No.</label>
+                                        <input type="text" name="precinct-no" class="form-control editable" disabled value="<?php echo $row['precinct_no']?>">
                                     </div>
                                     <div class="col-12 mt-4">
                                         <span class="text-danger fw-semibold">In case of emergency, please notify:</span>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <label for="emergency-contact" class="form-label">Name</label>
                                         <input type="text" class="form-control editable" id="contact-name" name="contact-name" required="required" disabled value="<?php echo $row['contact_name']?>">
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="contact-telephone" class="form-label">Telephone</label>
+                                    <div class="col-md-4">
+                                        <label for="relationship" class="form-label">Relationship</label>
+                                        <input type="text" class="form-control editable" name="relationship" id="relationship" value="<?php echo $row['relationship']; ?>" disabled required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="contact-telephone" class="form-label">Contact Number</label>
                                         <input type="text" class="form-control editable" id="contact-no" name="contact-no" disabled required="required" value="<?php echo $row['contact_no']?>">
                                     </div>
                                     <div class="col-12">
                                         <label for="Address" class="form-label">Address</label>
                                         <input type="text" class="form-control editable" id="contact-address" name="contact-address" disabled required="required"  value="<?php echo $row['contact_address']?>">
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="image" class="form-label">Valid ID</label><br>
-                                        <div class="img-box">
-                                        <?php  echo '<img src="data:image/jpeg;base64,'.base64_encode($row['valid_id']).'" class="img-thumbnail"/>';
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <!-- // popup modal -->
-                                    <div class="modal fade" id="enlargedModal" tabindex="-1" role="dialog" aria-labelledby="enlargedModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                            <div class="modal-content">
-                                            <div class="modal-body">
-                                                <img src="" class="enlarged-image w-100" alt="Enlarged Image">
-                                            </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <?php if ($_SESSION['docInfo']['schedule'] != NULL) { ?>
                                         <div class="col-md-4 mt-4">
@@ -204,18 +173,7 @@
                             ?>
                                 <span class="fs-4 ms-4">Certificate of Indigency</span>
                                 <div class="row g-3 mx-4 mt-2">
-                                <div class="col-md-4">
-                                        <label for="date-requested" class="form-label">Date Requested</label><br>
-                                        <span><?php echo $_SESSION['docInfo']['date_requested'] ?></span>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="date-completed" class="form-label">Date Completed</label><br>
-                                        <span><?php echo $_SESSION['docInfo']['date_completed'] ?></span>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="date-completed" class="form-label">Status</label><br>
-                                        <span><?php echo $_SESSION['docInfo']['status'] ?></span>
-                                    </div>
+                                    <?php displayDocInfo(); ?>
                                     <div class="col-md-6">
                                         <label for="Name" class="form-label">Name</label>
                                         <input type="text" class="form-control" id="name" disabled
@@ -234,7 +192,14 @@
                                         <label for="purpose" class="form-label">Purpose</label><br>
                                         <textarea class="editable" name="purpose" id="purpose" cols="100" rows="2" disabled required="required"><?php
                                             echo $row['purpose']
-                                        ?></textarea> 
+                                        ?></textarea>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="image" class="form-label fw-normal fst-italic">*For burial purpose, please upload death certificate</label><br>
+                                        <div class="d-flex">
+                                            <input type='file' name="image" id="image" class="form-control rounded-end-0 editable" disabled onchange="pressed()">
+                                            <label id="fileLabel" class="form-control fw-normal rounded-start-0"><?php echo $row['file_name'] ?></label>
+                                        </div>
                                     </div>
                                     <?php if ($_SESSION['docInfo']['schedule'] != NULL) { ?>
                                         <div class="col-md-4 mt-4">
@@ -259,27 +224,26 @@
                             ?>
                                 <span class="fs-4 ms-4">Barangay Clearance</span>
                                 <div class="row g-3 mx-4 mt-2">
-                                    <div class="col-md-4">
-                                        <label for="date-requested" class="form-label">Date Requested</label><br>
-                                        <span><?php echo $_SESSION['docInfo']['date_requested'] ?></span>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="date-completed" class="form-label">Date Completed</label><br>
-                                        <span><?php echo $_SESSION['docInfo']['date_completed'] ?></span>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="date-completed" class="form-label">Status</label><br>
-                                        <span><?php echo $_SESSION['docInfo']['status'] ?></span>
-                                    </div>
-                                    <div class="col-md-6 me-md-2 ">
+                                    <?php displayDocInfo(); ?>
+                                    <div class="col-md-6">
                                         <label for="Name" class="form-label">Name</label>
                                         <input type="text" class="form-control" id="name" disabled
                                             value="<?php echo $row['res_name']?>">
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-2">
+                                        <label for="Age" class="form-label">Age</label>
+                                        <input type="text" class="form-control" id="age" disabled
+                                            value="<?php echo $row['res_age'] ?>">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="Address" class="form-label">Address</label>
+                                        <input type="text" class="form-control" id="address" disabled value="<?php echo $row['res_address'] ?>">
+                                    </div>
+                                    <div class="col-12">
                                         <label for="purpose" class="form-label">Purpose</label><br>
-                                        <input type="text" class="form-control editable" name="purpose" id="purpose" disabled
-                                            value="<?php echo $row['purpose']?>">
+                                        <textarea name="purpose" id="purpose" cols="100" rows="2" disabled><?php
+                                            echo $row['purpose']
+                                        ?></textarea>
                                     </div>
                                     <?php if ($_SESSION['docInfo']['schedule'] != NULL) { ?>
                                         <div class="col-md-4 mt-4">
@@ -304,17 +268,10 @@
                             ?>
                                 <span class="fs-4 ms-4">Business Permit</span>
                                 <div class="row g-3 mx-4 mt-2">
-                                    <div class="col-md-4">
-                                        <label for="date-requested" class="form-label">Date Requested</label><br>
-                                        <span><?php echo $_SESSION['docInfo']['date_requested'] ?></span>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="date-completed" class="form-label">Date Completed</label><br>
-                                        <span><?php echo $_SESSION['docInfo']['date_completed'] ?></span>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="date-completed" class="form-label">Status</label><br>
-                                        <span><?php echo $_SESSION['docInfo']['status'] ?></span>
+                                    <?php displayDocInfo(); ?>
+                                    <div class="col-12">
+                                        <label for="status">For:</label>
+                                        <span><?php echo $row['status']?></span>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="Name" class="form-label">Business Owner</label>
@@ -323,18 +280,18 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="business-name" class="form-label">Business Name</label>
-                                        <input type="text" name="business-name" class="form-control editable" disabled
+                                        <input type="text" name="business-name" class="form-control" disabled
                                             value="<?php echo $row['business_name']?>" >
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="business-line" class="form-label">Business Line</label>
-                                        <input type="text" name="business-line" class="form-control editable" disabled
-                                            value="<?php echo $row['business_line']?>">
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="business-address" class="form-label">Business Address</label>
-                                        <input type="text" name="business-address" class="form-control editable" disabled
+                                    <div class="col-md-10">
+                                        <label for="business-address" class="form-label">Business Adress</label>
+                                        <input type="text" name="business-address" class="form-control" disabled
                                             value="<?php echo $row['business_address']?>">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="plate-no" class="form-label">Plate No.</label>
+                                        <input type="text" name="plate-no" class="form-control" disabled
+                                            value="<?php echo $row['plate_no']?>">
                                     </div>
                                     <?php if ($_SESSION['docInfo']['schedule'] != NULL) { ?>
                                         <div class="col-md-4 mt-4">
@@ -384,8 +341,21 @@ function displayStatusModal() { ?>
     </div>
 </div>
 </div> 
+<?php } 
+function displayDocInfo() { ?>
+<div class="col-md-4">
+    <label for="date-requested" class="form-label">Date Requested</label><br>
+    <span><?php echo $_SESSION['docInfo']['date_requested'] ?></span>
+</div>
+<div class="col-md-4">
+    <label for="date-completed" class="form-label">Date Completed</label><br>
+    <span><?php echo $_SESSION['docInfo']['date_completed'] ?></span>
+</div>
+<div class="col-md-4">
+    <label for="date-completed" class="form-label">Status</label><br>
+    <span><?php echo $_SESSION['docInfo']['status'] ?></span>
+</div>
 <?php } ?>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <!-- Bootstrap JS link -->
