@@ -10,7 +10,7 @@ if(!session_id()){
 function generateRandomLetters() {
     $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $result = '';
-    for ($i = 0; $i < 6; $i++) {
+    for ($i = 0; $i < 8; $i++) {
         $randomIndex = rand(0, strlen($letters) - 1);
         $result .= $letters[$randomIndex];
     }

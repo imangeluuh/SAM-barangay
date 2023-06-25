@@ -167,7 +167,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-outline mb-3">
-                            <input type="password" name="npassword" id="npassword" size="45" class="form-control border-1 rounded-3 border-dark-subtle" autocomplete="off" required="required">
+                            <input type="password" name="npassword" id="npassword" size="45" class="form-control border-1 rounded-3 border-dark-subtle" autocomplete="off"
+                                pattern=.{8,} title="Password must contain 8 or more characters" required>
                         </div>
                     </div>
                 </div>
@@ -178,7 +179,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-outline mb-3">
-                            <input type="password" name="rpassword" id="rpassword" size="45" class="form-control border-1 rounded-3 border-dark-subtle" autocomplete="off" required="required">
+                            <input type="password" name="rpassword" id="rpassword" size="45" class="form-control border-1 rounded-3 border-dark-subtle" autocomplete="off"
+                                pattern=.{8,} title="Password must contain 8 or more characters" required>
                         </div>
                     </div>
                 </div>

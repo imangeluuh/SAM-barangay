@@ -203,12 +203,14 @@
                         <!-- Password field -->
                         <div class="form-outline row mb-2">
                             <label for="password" class="password-label p-0">Password</label>
-                            <input type="password" name="password" id="password" class="form-control-md border-0 rounded-1" placeholder="Enter password" autocomplete="off" required="required">
+                            <input type="password" name="password" id="password" class="form-control-md border-0 rounded-1" placeholder="Enter password" autocomplete="off"
+                                pattern=.{8,} title="Password must contain 8 or more characters" required>
                         </div>
                         <!-- Password field -->
                         <div class="form-outline row mb-2">
                             <label for="r-password" class="r-password-label p-0">Repeat Password</label>
-                            <input type="password" name="rpassword" id="rpassword" class="form-control-md border-0 rounded-1" placeholder="Confirm password" autocomplete="off" required="required">
+                            <input type="password" name="rpassword" id="rpassword" class="form-control-md border-0 rounded-1" placeholder="Confirm password" autocomplete="off"
+                                pattern=.{8,} title="Password must contain 8 or more characters" required>
                         </div>
                         <!-- <div class="row">
                             <a href="" class="text-end text-decoration-none forgot-password p-0 mb-3">Forgot Password</a>

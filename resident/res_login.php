@@ -30,25 +30,19 @@
         // Get the input data
         $email = $_POST['email'];
         $password = $_POST['password'];
-
         // Hash the password using bcrypt algorithm
         $hash = password_hash($password, PASSWORD_BCRYPT);
 
         // Call the stored procedure to retrieve user login information from the database
         $stmt = $conn->prepare("CALL SP_FIND_LOGIN(?)");
-
         // bind the input parameters to the prepared statement
         $stmt->bind_param('s', $email);
-
         // Execute the prepared statement
         $stmt->execute();
-
         // retrieve the result set from the executed statement
         $result = $stmt->get_result();  
-
         // fetch the row from the result set
         $row = $result->fetch_assoc();
-
         // Execute the prepared statement
         $rowcount = mysqli_num_rows($result);
 
@@ -83,16 +77,12 @@
 
                 // Call the stored procedure to retrieve user information from the database
                 $stmt = $conn->prepare("CALL SP_GET_RES_INFO(?)");
-
                 // bind the input parameters to the prepared statement
                 $stmt->bind_param('s', $email);
-
                 // Execute the prepared statement
                 $stmt->execute();
-
                 // retrieve the result set from the executed statement
                 $result = $stmt->get_result();  
-
                 // fetch the row from the result set
                 $row = $result->fetch_assoc();
 
@@ -204,7 +194,8 @@
                         <!-- Password field -->
                         <div class="form-outline row mb-3">
                             <label for="password" class="password-label p-0">Password</label>
-                            <input type="password" name="password" id="password" class="form-control-md border-0 rounded-3 border-dark-subtle" placeholder="Enter your password" autocomplete="off" required="required">
+                            <input type="password" name="password" id="password" class="form-control-md border-0 rounded-3 border-dark-subtle" placeholder="Enter your password" autocomplete="off"
+                                pattern=.{8,} title="Password must contain 8 or more characters" required=>
                         </div>
                         <div class="row justify-content-end mb-3">
                             <div class="col-auto">

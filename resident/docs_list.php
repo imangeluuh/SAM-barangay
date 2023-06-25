@@ -135,7 +135,7 @@
             </div>
             <div class="col-md-4">
                 <label for="contact-telephone" class="form-label">Contact Number</label>
-                <input type="text" class="form-control" name="contact-no" id="contact-no" required>
+                <input type="text" class="form-control" name="contact-no" id="contact-no" pattern="^09\d{9}$" title="Enter a Phone Number (Format: 09XXXXXXXXX)" required>
             </div>
             <div class="col-12">
                 <label for="Address" class="form-label">Address</label>

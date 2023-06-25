@@ -163,7 +163,8 @@
                         <!-- Password field -->
                         <div class="form-outline row mb-3">
                             <label for="password" class="password-label p-0">Password</label>
-                            <input type="password" name="password" id="password" class="form-control-md rounded-3 border-dark-subtle" placeholder="Enter your password" autocomplete="off" required="required">
+                            <input type="password" name="password" id="password" class="form-control-md rounded-3 border-dark-subtle" placeholder="Enter your password" autocomplete="off"
+                                pattern=.{8,} title="Password must contain 8 or more characters" required>
                         </div>
                         <!-- Submit button -->
                         <div class="text-center row justify-content-end mb-5">
