@@ -80,21 +80,17 @@
                         $conn->store_result();
                     }
 
+                    if($row['status'] == "active") {
                     // Call the stored procedure to retrieve user information from the database
                     $stmt = $conn->prepare("CALL SP_GET_EMP_INFO(?)");
-
                     // bind the input parameters to the prepared statement
                     $stmt->bind_param('s', $email);
-
                     // Execute the prepared statement
                     $stmt->execute();
-
                     // retrieve the result set from the executed statement
                     $result = $stmt->get_result();  
-
                     // fetch the row from the result set
                     $row = $result->fetch_assoc();
-
                     $userData += array('employee_id' => $row['employee_id']
                                         , 'emp_firstname' => $row['emp_firstname']
                                         , 'emp_lastname' => $row['emp_lastname']);
@@ -103,6 +99,23 @@
                     $_SESSION['loggedin'] = true;
                     header("Location: ./emp_homepage.php");
                     exit();
+                    } else {
+                        echo '<script>
+                    // Wait for the document to load
+                    document.addEventListener("DOMContentLoaded", function() {
+                        // Get the toast element
+                        var toast = document.querySelector(".toast.deactivated");
+                        
+                        // Show the toast
+                        toast.classList.add("show");
+                        
+                        // Hide the toast after 5 seconds
+                        setTimeout(function() {
+                            toast.classList.remove("show");
+                        }, 5000);
+                    });
+                </script>';
+                    } 
                 } else {
                     echo '<script>
                     // Wait for the document to load
@@ -144,6 +157,15 @@
                 The email you've entered isn't connected to an account.
                 </div>
                 <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="toast deactivated text-bg-danger align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-centera">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="material-symbols:error" class="fs-4 ms-2 me-3"></iconify-icon>
+                We're sorry, but you are unable to log in at the moment. Your account has been deactivated.
+                </div>
+                <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
     </div>

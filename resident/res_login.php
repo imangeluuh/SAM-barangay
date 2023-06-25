@@ -75,6 +75,7 @@
                     $conn->store_result();
                 }
 
+                if($row['status'] == "active") {
                 // Call the stored procedure to retrieve user information from the database
                 $stmt = $conn->prepare("CALL SP_GET_RES_INFO(?)");
                 // bind the input parameters to the prepared statement
@@ -96,10 +97,26 @@
                 // Store the user data array in the $_SESSION variable for future use.
                 $_SESSION['userData'] = $userData;
                 $_SESSION['loggedin'] = true;
-
                 // redirect the user to 'res_language.php'
                 header("Location: ./res_language.php");
                 exit();
+                } else {
+                    echo '<script>
+                    // Wait for the document to load
+                    document.addEventListener("DOMContentLoaded", function() {
+                        // Get the toast element
+                        var toast = document.querySelector(".toast.deactivated");
+                        
+                        // Show the toast
+                        toast.classList.add("show");
+                        
+                        // Hide the toast after 5 seconds
+                        setTimeout(function() {
+                            toast.classList.remove("show");
+                        }, 5000);
+                    });
+                </script>';
+                }
             } else { 
                 // <!-- If the password is incorrect, display an error message -->
                 echo '<script>
@@ -173,6 +190,17 @@
                 <div class="toast-body d-flex align-items-center">
                 <iconify-icon icon="mdi:success-bold" class="fs-4 ms-2 me-3"></iconify-icon>
                 Your account has been created successfully!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container top-0 start-50 translate-middle-x mt-2">
+        <div class="toast deactivated text-bg-danger align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex align-items-centera">
+                <div class="toast-body d-flex align-items-center">
+                <iconify-icon icon="material-symbols:error" class="fs-4 ms-2 me-3"></iconify-icon>
+                We're sorry, but you are unable to log in at the moment. Your account has been deactivated.
                 </div>
                 <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
