@@ -156,11 +156,13 @@
                     <form action="" method="post">
                         <!-- Work Email field -->
                         <div class="form-outline row mb-3">
-                            <input type="email" name="work-email" id="work-email" class="form-control-md rounded-3 border-0 border-dark-subtle" placeholder="Work Email" required="required">
+                            <label for="email" class="email-label p-0">Email</label>
+                            <input type="email" name="work-email" id="work-email" class="form-control-md rounded-3 border-0 border-dark-subtle" placeholder="Enter your work email" required="required">
                         </div>
                         <!-- Password field -->
                         <div class="form-outline row mb-3">
-                            <input type="password" name="password" id="password" class="form-control-md rounded-3 border-0 border-dark-subtle" placeholder="Password" autocomplete="off" required="required">
+                            <label for="password" class="password-label p-0">Password</label>
+                            <input type="password" name="password" id="password" class="form-control-md rounded-3 border-0 border-dark-subtle" placeholder="Enter your password" autocomplete="off" required="required">
                         </div>
                         <!-- Submit button -->
                         <div class="text-center row justify-content-end mb-5">
