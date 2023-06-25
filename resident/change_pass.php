@@ -54,12 +54,11 @@
             } else {
                 // Call the stored procedure to retrieve user login information from the database
                 $stmt = $conn->prepare("CALL SP_UPDATE_PASS(?, ?)");
-
                 // bind the input parameters to the prepared statement
                 $stmt->bind_param('ss', $email, $hash);
-
                 // Execute the prepared statement
                 $stmt->execute();
+                $_SESSION['userData']['password'] = $npassword;
                 echo '<script>
                         // Wait for the document to load
                         document.addEventListener("DOMContentLoaded", function() {

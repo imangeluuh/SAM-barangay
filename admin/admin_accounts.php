@@ -57,87 +57,6 @@
             include('navbar.php');
             include('sidebar.php');
             include('../dbconfig.php');
-            require "../mail.php";
-
-            function generateRandomLetters() {
-                $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $result = '';
-                for ($i = 0; $i < 6; $i++) {
-                    $randomIndex = rand(0, strlen($letters) - 1);
-                    $result .= $letters[$randomIndex];
-                }
-                return $result;
-            }
-
-            if(isset($_POST['add-account'])) {
-                
-                $email = $_POST['email'];
-                $role_id = 2;
-                $password = generateRandomLetters();
-                $hash = password_hash($password, PASSWORD_BCRYPT);
-                $firstname = $_POST['f-name'];
-                $lastname = $_POST['l-name'];
-
-                $stmt = $conn->prepare("CALL SP_ADD_EMPLOYEE(?, ?, ?, ?, ?)");
-                $stmt->bind_param('ssiss', $email, $hash, $role_id, $firstname, $lastname);
-                try{ 
-                    $stmt->execute();
-                    // Check for errors
-                    if ($stmt->errno) {
-                        echo '<script>
-                        // Wait for the document to load
-                        document.addEventListener("DOMContentLoaded", function() {
-                            // Get the toast element
-                            var toast = document.querySelector(".toast.email");
-                            
-                            // Show the toast
-                            toast.classList.add("show");
-                            
-                            // Hide the toast after 5 seconds
-                            setTimeout(function() {
-                                toast.classList.remove("show");
-                            }, 5000);
-                        });
-                    </script>';
-                        die('Failed to call stored procedure: ' . $stmt->error);
-                    } else {
-                        send_mail($email,"SAM: Account Creation", "Good day!<br><br>Your SAM email account is<br><br>Account Email: ".$email."<br>Password: ".$password."<br><br>Please note that this password is temporary and for security purposes, we require you to change it upon your first login.");
-                        echo '<script>
-                        // Wait for the document to load
-                        document.addEventListener("DOMContentLoaded", function() {
-                            // Get the toast element
-                            var toast = document.querySelector(".toast.created");
-                            
-                            // Show the toast
-                            toast.classList.add("show");
-                            
-                            // Hide the toast after 5 seconds
-                            setTimeout(function() {
-                                toast.classList.remove("show");
-                            }, 5000);
-                        });
-                    </script>';
-                    }
-                } catch (mysqli_sql_exception $e) {
-                    echo '<script>
-                        // Wait for the document to load
-                        document.addEventListener("DOMContentLoaded", function() {
-                            // Get the toast element
-                            var toast = document.querySelector(".toast.email");
-                            
-                            // Show the toast
-                            toast.classList.add("show");
-                            
-                            // Hide the toast after 5 seconds
-                            setTimeout(function() {
-                                toast.classList.remove("show");
-                            }, 5000);
-                        });
-                    </script>';}
-            }
-            while($conn->next_result()){
-                $conn->store_result();
-            }
 
             if(isset($_POST['deactivate']) || isset($_POST['reactivate']) ) {
                 
@@ -146,11 +65,47 @@
                 } if(isset($_POST['reactivate'])) {
                     $status = 'active';
                 }
-
                 $loginId = $_POST['login_id'];
                 $stmt = $conn->prepare("CALL SP_UPDATE_USER_STATUS(?, ?)");
-                $stmt->bind_param('is', $loginId, $status);
+                $stmt->bind_param('ss', $loginId, $status);
                 $stmt->execute();
+            }
+
+            if(isset($_SESSION['successMessage'])) {
+                echo '<script>
+                    // Wait for the document to load
+                    document.addEventListener("DOMContentLoaded", function() {
+                        // Get the toast element
+                        var toast = document.querySelector(".toast.created");
+                        
+                        // Show the toast
+                        toast.classList.add("show");
+                        
+                        // Hide the toast after 5 seconds
+                        setTimeout(function() {
+                            toast.classList.remove("show");
+                        }, 5000);
+                    });
+                </script>';
+                unset($_SESSION['successMessage']);
+            }
+            if(isset($_SESSION['errorMessage'])) {
+                echo '<script>
+                    // Wait for the document to load
+                    document.addEventListener("DOMContentLoaded", function() {
+                        // Get the toast element
+                        var toast = document.querySelector(".toast.email");
+                        
+                        // Show the toast
+                        toast.classList.add("show");
+                        
+                        // Hide the toast after 5 seconds
+                        setTimeout(function() {
+                            toast.classList.remove("show");
+                        }, 5000);
+                    });
+                </script>';
+                unset($_SESSION['errorMessage']);
             }
         ?>
         <!-- Submit modal -->
@@ -174,20 +129,20 @@
                         <span class="fs-4 flex-grow-1">Employee Accounts</span>
                         <!-- Button trigger modal -->
                         <div>
-                            <button type="button" class="btn border-0 add-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button type="button" class="btn border-0 add-btn" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">
                                 <span class="add-employee"><i class="fa-solid fa-user-plus"></i> Add Employee Account</span>
                             </button>
                         </div>
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title text-dark fs-5" id="exampleModalLabel">Add Employee Account</h1>
+                                        <h1 class="modal-title text-dark fs-5" id="addEmployeeModalLabel">Add Employee Account</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                 <div class="modal-body text-dark">
-                                    <form class="row" action="" method="post">
+                                    <form class="row" action="add_employee.php" method="post">
                                         <!-- Name field -->
                                         <div class="col-md-6">
                                             <label for="Name" class="form-label">First Name</label>
@@ -353,32 +308,37 @@
                                                         </button>
                                                         <!-- Modal -->
                                                         <div class="modal fade" id="resident-details-<?php echo $row['resident_id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-dialog modal-dialog-centered modal-lg">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
                                                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Resident Details</h1>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
                                                                     <div class="modal-body row">
-                                                                        <div class="col-md-4 mb-3">
+                                                                        <div class="col-md-6 mb-3">
                                                                             <label for="resident-id" class="form-label">Resident ID</label><br>
                                                                             <span><?php echo $row['resident_id']?></span>
                                                                         </div>
-                                                                        <div class="col-md-4 mb-3">
+                                                                        <div class="col-md-3 mb-3">
                                                                             <label for="status" class="form-label">Status</label><br>
                                                                             <span><?php echo $row['status']?></span>
                                                                         </div>
-                                                                        <div class="col-md-4 mb-3">
+                                                                        <div class="col-md-3 mb-3">
                                                                             <label for="date-registered" class="form-label">Date Registered</label><br>
                                                                             <span><?php echo $row['date_registered']?></span>
                                                                         </div>
                                                                         <!-- Name field -->
-                                                                        <div class="col-md-6">
+                                                                        <div class="col-md-4">
                                                                             <label for="Name" class="form-label">First Name</label>
                                                                             <input type="text" class="form-control disabled-input" name="f-name" id="f-name" disabled required
                                                                                 value="<?php echo $row['res_firstname']?>">
                                                                         </div>
-                                                                        <div class="col-md-6 mb-3">
+                                                                        <div class="col-md-4 mb-3">
+                                                                            <label for="Name" class="form-label">Middle Name</label>
+                                                                            <input type="text" class="form-control disabled-input" name="m-name" id="m-name" disabled required
+                                                                                value="<?php echo $row['res_middlename']?>"/>
+                                                                        </div>
+                                                                        <div class="col-md-4 mb-3">
                                                                             <label for="Name" class="form-label">Last Name</label>
                                                                             <input type="text" class="form-control disabled-input" name="l-name" id="l-name" disabled required
                                                                                 value="<?php echo $row['res_lastname']?>"/>
@@ -460,6 +420,8 @@
                     confirmationMessage = "Are you sure you want to deactivate this account?";
                 } else if (submitValue === 'Reactivate') {
                     confirmationMessage = "Are you sure you want to reactivate this account?";
+                } else if (submitValue === 'Add Account') {
+                    confirmationMessage = "Are you sure you want to add this account?";
                 }
                 // Set the confirmation message in the modal
                 var confirmationMessageElement = document.getElementById("confirmationMessage");
@@ -468,6 +430,7 @@
                 var saveButton = document.getElementById("saveButton");
                 saveButton.textContent = submitValue;
                 // Display the modal
+                $('#addEmployeeModal').modal('hide');
                 $('#confirmationModal').modal('show');
             });
             // Handle the click event of the Save button in the modal

@@ -100,16 +100,12 @@
                             </a><br>
                             <?php
                                 $stmt = $conn->prepare("CALL SP_GET_REPORT(?)");
-
                                 // bind the input parameters to the prepared statement
                                 $stmt->bind_param('i', $_SESSION['reportInfo']['report_id']);
-
                                 // Execute the prepared statement
                                 $stmt->execute();
-
                                 // retrieve the result set from the executed statement
                                 $result = $stmt->get_result();  
-
                                 // fetch the row from the result set
                                 $row = $result->fetch_assoc();
                             ?>

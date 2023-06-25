@@ -191,8 +191,7 @@
                             ?>
                                 <span class="fs-4 ms-4">Certificate of Indigency</span>
                                 <form action="edit_request.php" class="row g-3 mx-4 mt-2" method="post" enctype="multipart/form-data">
-                                <div class="col-md-4">
-                                <?php displayDocInfo(); ?>
+                                    <?php displayDocInfo(); ?>
                                     <div class="col-md-6">
                                         <label for="Name" class="form-label">Name</label>
                                         <input type="text" class="form-control" id="name" disabled

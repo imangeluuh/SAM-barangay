@@ -29,17 +29,13 @@
         $res_lastname = $_POST['l-name'];
         $birthdate = $_POST['birthdate'];
         $address = $_POST['address'];
-
         
         // create a DateTime object from the birthdate string
         $birthday = new DateTime($birthdate);
-
         // get the current date
         $today = new DateTime(date('m.d.y'));
-
         // calculate the difference between the birthdate and the current date
         $diff = $today->diff($birthday);
-
         // get the age in years
         $age = $diff->y;
         
@@ -65,7 +61,6 @@
             $stmt->bind_param('ssisssss', $email, $hash, $role_id, $res_firstname, $res_middlename, $res_lastname, $birthdate, $address);
             try{ 
                 $stmt->execute();
-    
                 // Check for errors
                 if ($stmt->errno) {
                     echo '<script>
@@ -83,10 +78,10 @@
                             }, 5000);
                         });
                     </script>';
+                    echo '<script>alert($stmt->errno);</script>';
                     die('Failed to call stored procedure: ' . $stmt->error);
                 } else {
                     header("Location:res_login.php?success=true"); 
-                    // echo "<script>alert('Your account has been created successfully!');</script>";
                     exit();
                 }
 

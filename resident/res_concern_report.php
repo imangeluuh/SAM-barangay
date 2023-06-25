@@ -80,7 +80,7 @@
                                 try {
                                     $stmt = $conn->prepare("CALL SP_ADD_REPORT(?, ?, ?, ?, ?, ?)");
                                     // bind the input parameters to the prepared statement
-                                    $stmt->bind_param('sssssi', $reportType, $report_details, $report_loc, $fileName, $imgContent, $_SESSION['userData']['resident_id'],);
+                                    $stmt->bind_param('ssssss', $reportType, $report_details, $report_loc, $fileName, $imgContent, $_SESSION['userData']['resident_id'],);
                                     // Execute the prepared statement
                                     $stmt->execute();   
             

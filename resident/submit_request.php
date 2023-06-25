@@ -18,7 +18,7 @@ if(isset($_POST['submit'])) {
         
         $stmt = $conn->prepare("CALL SP_ADD_BRGY_ID(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         // bind the input parameters to the prepared statement
-        $stmt->bind_param('ssssiissssi', $name, $address, $birthdate, $birthplace, $age, $precinctNo, $contact_name, $relationship, $contact_address, $contact_no, $_SESSION['userData']['resident_id']);
+        $stmt->bind_param('ssssiisssss', $name, $address, $birthdate, $birthplace, $age, $precinctNo, $contact_name, $relationship, $contact_address, $contact_no, $_SESSION['userData']['resident_id']);
         // Execute the prepared statement
         $stmt->execute();   
         if ($stmt) {
@@ -49,7 +49,7 @@ if(isset($_POST['submit'])) {
         try {
             $stmt = $conn->prepare("CALL SP_ADD_COI(?, ?, ?, ?, ?, ?, ?)");
             // bind the input parameters to the prepared statement
-            $stmt->bind_param('sissssi', $resName, $resAge, $resAddress, $purpose, $fileName, $imgContent, $_SESSION['userData']['resident_id']);
+            $stmt->bind_param('sisssss', $resName, $resAge, $resAddress, $purpose, $fileName, $imgContent, $_SESSION['userData']['resident_id']);
             // Execute the prepared statement
             $stmt->execute();    
             if ($stmt) {
@@ -66,7 +66,7 @@ if(isset($_POST['submit'])) {
         $purpose = $_POST['purpose'];
         $stmt = $conn->prepare("CALL SP_ADD_CLEARANCE(?, ?, ?, ?, ?)");
         // bind the input parameters to the prepared statement
-        $stmt->bind_param('sissi', $resName, $resAge, $resAddress, $purpose, $_SESSION['userData']['resident_id']);
+        $stmt->bind_param('sisss', $resName, $resAge, $resAddress, $purpose, $_SESSION['userData']['resident_id']);
         // Execute the prepared statement
         $stmt->execute();   
 
@@ -82,7 +82,7 @@ if(isset($_POST['submit'])) {
         $status = $_POST['status']; 
         $stmt = $conn->prepare("CALL SP_ADD_PERMIT(?, ?, ?, ?, ?, ?)");
         // bind the input parameters to the prepared statement
-        $stmt->bind_param('sssssi', $businessOwner, $businessName, $businessAddress, $plateNo, $status, $_SESSION['userData']['resident_id']);
+        $stmt->bind_param('ssssss', $businessOwner, $businessName, $businessAddress, $plateNo, $status, $_SESSION['userData']['resident_id']);
         // Execute the prepared statement
         $stmt->execute();   
 

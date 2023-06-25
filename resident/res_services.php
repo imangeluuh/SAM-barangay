@@ -61,14 +61,6 @@
             include('navbar.php');
             include('sidebar.php');
             include('../dbconfig.php');
-            
-            $stmt = $conn->prepare("CALL SP_GET_REQUEST(?)");
-
-            // bind the input parameters to the prepared statement
-            $stmt->bind_param('i', $_SESSION['userData']['resident_id']);
-
-            // Execute the prepared statement
-            $stmt->execute();
 
             if (isset($_GET['success']) && $_GET['success'] == true) {
                 if ($_GET['service'] == 'document') {
@@ -134,6 +126,11 @@
                                 </thead>
                                 <tbody>
                                     <?php
+                                        $stmt = $conn->prepare("CALL SP_GET_REQUEST(?)");
+                                        // bind the input parameters to the prepared statement
+                                        $stmt->bind_param('s', $_SESSION['userData']['resident_id']);
+                                        // Execute the prepared statement
+                                        $stmt->execute();
                                         if($stmt) {
                                             // retrieve the result set from the executed statement
                                             $result = $stmt->get_result();  
@@ -192,7 +189,7 @@
                                         }
                                         $stmt = $conn->prepare("CALL SP_GET_RES_REPORT(?)");
                                         // bind the input parameters to the prepared statement
-                                        $stmt->bind_param('i', $_SESSION['userData']['resident_id']);                
+                                        $stmt->bind_param('s', $_SESSION['userData']['resident_id']);                
                                         // Execute the prepared statement
                                         $stmt->execute();
                                         if($stmt) {

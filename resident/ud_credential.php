@@ -49,7 +49,7 @@
             // Call the stored procedure
             $stmt = $conn->prepare("CALL SP_UPDATE_RES_INFO(?, ?, ?, ?, ?, ?, ?)");
             // bind the input parameters to the prepared statement
-            $stmt->bind_param('ssssssi', $fname, $mname, $lname, $birthdate, $address, $email, $resident_id);
+            $stmt->bind_param('sssssss', $fname, $mname, $lname, $birthdate, $address, $email, $resident_id);
             
             try {
                 // Execute the prepared statement
