@@ -102,7 +102,7 @@
             <div class="d-flex">
                 <div class="toast-body d-flex align-items-center">
                 <iconify-icon icon="material-symbols:warning" class="fs-4 ms-2 me-3"></iconify-icon>
-                New password must be different from current password.
+                <?= $lang['notifMessages']['same_pass'] ?>
                 </div>
                 <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
@@ -113,7 +113,7 @@
             <div class="d-flex">
                 <div class="toast-body d-flex align-items-center">
                 <iconify-icon icon="material-symbols:warning" class="fs-4 ms-2 me-3"></iconify-icon>
-                New password does not match.
+                <?= $lang['notifMessages']['pass_not_match'] ?>
                 </div>
                 <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
@@ -124,7 +124,7 @@
             <div class="d-flex">
                 <div class="toast-body d-flex align-items-center">
                 <iconify-icon icon="material-symbols:error" class="fs-4 ms-2 me-3"></iconify-icon>
-                Incorrect password.
+                <?= $lang['notifMessages']['incorrect_pass'] ?>
                 </div>
                 <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
@@ -135,7 +135,7 @@
             <div class="d-flex">
                 <div class="toast-body d-flex align-items-center">
                 <iconify-icon icon="mdi:success-bold" class="fs-4 mx-2"></iconify-icon>
-                Your password has been changed successfully!
+                <?= $lang['change_success'] ?>
                 </div>
                 <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>

@@ -44,7 +44,7 @@
                             <div class="d-flex justify-content-center justify-content-lg-end pe-md-5">
                                 <div class="talk-bubble tri-right border btm-left-in">
                                     <div class="talktext text-center">
-                                        <p>I can help you!</p>
+                                        <p><?= $lang['can_help']?></p>
                                     </div>
                                 </div>
                             </div>
@@ -59,16 +59,16 @@
                                 <!-- <p class="sam-subtitle text-center text-lg-left fw-semibold">sa Mamamayan</p> -->
                             </div>
                             <div class="services-btn d-flex justify-content-center align-items-center m-2">
-                                <a href="res_doc_req.php" class="text-light services">Request a Document</a>
+                                <a href="res_doc_req.php" class="text-light services"><?= $lang['request_doc'] ?></a>
                             </div>
                             <div class="services-btn d-flex justify-content-center align-items-center m-2">
-                                <a href="res_concern_report.php" class="text-light services">Report a Concern</a>
+                                <a href="res_concern_report.php" class="text-light services"><?= $lang['report_concern'] ?></a>
                             </div>
                         </div>
                     </div>
                     <div class="row second-container m-0 pb-5">
-                        <p class="fw-bold sam-subtitle text-center mt-3 mb-0">What we offer</p>
-                        <p class="blue-text text-center mt-0 mb-4">Document Request</p>
+                        <p class="fw-bold sam-subtitle text-center mt-3 mb-0"><?= $lang['we_offer'] ?></p>
+                        <p class="blue-text text-center mt-0 mb-4"><?= $lang['request_doc'] ?></p>
                         <div class="row px-5">
                             <div class="col-lg-3 col-md-6 d-flex flex-column justify-content-center align-items-center docu-col py-5">
                                 <p class="label text-center m-0">Barangay</p>
@@ -92,27 +92,76 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mx-3 px-md-5 mx-md-5 pt-5">
-                        <p class="blue-text">Concern Report</p>
-                        <div class="col-md-6">
-                            <ul class="fs-5">
-                                <li>Loud Neighbor</li>
-                                <li>Abusive Barangay Employee</li>
-                                <li>Noisy Karaoke</li>
-                            </ul>
+                    <div class="row d-flex justify-content-center px-4 pt-5">
+                        <h3 class="text-center mb-4"><?= $lang['report_concern'] ?></h3>
+                        <div class="col-md-3 w-100 mx-4 d-flex align-items-stretch p-0">
+                            <div class="card shadow text-bg-light mb-3 w-100">
+                                <div class="card-body d-flex justify-content-center align-items-center">
+                                    <h5 class="text-center"><?= $lang['concernType']['neighbor'] ?></h5>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <ul class="fs-5">
-                                <li>Thief</li>
-                                <li>Pusher</li>
-                                <li>And many others</li>
-                            </ul>
+                        <div class="col-md-3 w-100 mx-4 d-flex align-items-stretch p-0">
+                            <div class="card shadow text-bg-light mb-3 w-100">
+                                <div class="card-body d-flex justify-content-center align-items-center">
+                                    <h5 class="text-center"><?= $lang['concernType']['abusive_employee'] ?></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 w-100 mx-4 d-flex align-items-stretch p-0">
+                            <div class="card shadow text-bg-light mb-3 w-100">
+                                <div class="card-body d-flex justify-content-center align-items-center">
+                                    <h5 class="text-center"><?= $lang['concernType']['doesnt_follow'] ?></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 w-100 mx-4 d-flex align-items-stretch p-0">
+                            <div class="card shadow text-bg-light mb-3 w-100">
+                                <div class="card-body d-flex justify-content-center align-items-center">
+                                    <h5 class="text-center"><?= $lang['concernType']['loud_videoke'] ?></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 w-100 mx-4 d-flex align-items-stretch p-0">
+                            <div class="card shadow text-bg-light mb-3 w-100">
+                                <div class="card-body d-flex justify-content-center align-items-center">
+                                    <h5 class="text-center"><?= $lang['concernType']['thief'] ?></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 w-100 mx-4 d-flex align-items-stretch p-0">
+                            <div class="card shadow text-bg-light mb-3 w-100">
+                                <div class="card-body d-flex justify-content-center align-items-center">
+                                    <h5 class="text-center"><?= $lang['concernType']['pickpocket'] ?></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 w-100 mx-4 d-flex align-items-stretch p-0">
+                            <div class="card shadow text-bg-light mb-3 w-100">
+                                <div class="card-body d-flex justify-content-center align-items-center">
+                                    <h5 class="text-center"><?= $lang['concernType']['addict'] ?></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 w-100 mx-4 d-flex align-items-stretch p-0">
+                            <div class="card shadow text-bg-light mb-3 w-100">
+                                <div class="card-body d-flex justify-content-center align-items-center">
+                                    <h5 class="text-center">Pusher</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 w-100 mx-4 d-flex align-items-stretch p-0">
+                            <div class="card shadow text-bg-light mb-3 w-100">
+                                <div class="card-body d-flex justify-content-center align-items-center">
+                                    <h5 class="text-center"><?= $lang['concernType']['more'] ?></h5>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <hr class="mt-5 mb-2">
                     <div class="row mx-3 px-md-5 mx-md-5 pb-2">
                         <div class="col d-flex align-items-center justify-content-end">
-                            <span class="me-4">Our Social Media Sites:</span>
+                            <span class="me-4"><?= $lang['soc_med']?></span>
                             <iconify-icon icon="ic:baseline-facebook" style="color: #053c5e;" class="mx-1 fs-4"></iconify-icon>
                             <iconify-icon icon="ri:messenger-fill" style="color: #053c5e;" class="mx-1 fs-4"></iconify-icon>
                             <iconify-icon icon="ri:youtube-fill" style="color: #053c5e;" class="mx-1 fs-4"></iconify-icon>

@@ -92,15 +92,14 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row d-flex justify-content-center">
-                        
-                        <div class="col-lg-2 mx-5 text-center">
-                            <a type="button" href="res_doc_req.php" class="btn btn-primary mt-5 border-0" style="padding:60px;border-radius:25px; width:230px; background:#004368;">
-                                <h4 class="font-weight-bold">Document<br>Request</h4>
+                        <div class="col-lg-3 mx-2 text-center d-flex justify-content-center align-items-stretch">
+                            <a type="button" href="res_doc_req.php" class="btn btn-primary btn-block d-flex align-items-center mt-5 border-0" style="padding:40px;border-radius:25px; width: 250px; background:#004368;">
+                                <h4 class="font-weight-bold"><?= $lang['request_doc'] ?></h4>
                             </a>
                         </div>
-                        <div class="col-lg-2 mx-5 text-center">
-                            <a type="button" href="res_concern_report.php" class="btn btn-primary mt-5 border-0" style="padding:60px;border-radius:25px; width:230px; background:#004368;">
-                                <h4 class="font-weight-bold">Report<br>Concern</h4>
+                        <div class="col-lg-3 mx-2 text-center d-flex justify-content-center align-items-stretch">
+                            <a type="button" href="res_concern_report.php" class="btn btn-primary btn-block d-flex align-items-center mt-5 border-0" style="padding:40px;border-radius:25px; width: 250px; background:#004368;">
+                                <h4 class="font-weight-bold"><?= $lang['report_concern'] ?></h4>
                             </a>
                         </div>
                     </div>

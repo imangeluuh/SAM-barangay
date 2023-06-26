@@ -37,17 +37,14 @@
             include('sidebar.php');
 
             $stmt = $conn->prepare("CALL SP_COUNT_RES_REQUESTS(?)");
-            $stmt->bind_param('i', $_SESSION['userData']['resident_id']);
+            $stmt->bind_param('s', $_SESSION['userData']['resident_id']);
             // Execute the prepared statement
             $stmt->execute();
-
             if($stmt) {
                 // retrieve the result set from the executed statement
                 $result = $stmt->get_result();  
-
                 // fetch the row from the result set
                 $row = $result->fetch_assoc();
-
                 $totalPendingRequest = $row['v_pending'];
                 $totalInProgressRequest = $row['v_in_progress'];
                 $totalCompletedRequest = $row['v_completed'];
@@ -58,17 +55,14 @@
             }
 
             $stmt = $conn->prepare("CALL SP_COUNT_RES_REPORTS(?)");
-            $stmt->bind_param('i', $_SESSION['userData']['resident_id']);
+            $stmt->bind_param('s', $_SESSION['userData']['resident_id']);
             // Execute the prepared statement
             $stmt->execute();
-
             if($stmt) {
                 // retrieve the result set from the executed statement
                 $result = $stmt->get_result();  
-
                 // fetch the row from the result set
                 $row = $result->fetch_assoc();
-
                 $totalPendingReports = $row['v_pending'];
                 $totalInProgressReports = $row['v_in_progress'];
                 $totalCompletedReports = $row['v_completed'];
@@ -151,12 +145,10 @@
         </div>
     </div>
 
-    
     <!-- Bootstrap JS link -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- AdminLTE JS link -->
-    
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment"></script>
@@ -202,7 +194,6 @@
             }, 
         })
     })
-
     </script>
 </body>
 </html>

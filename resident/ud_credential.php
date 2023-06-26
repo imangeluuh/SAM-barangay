@@ -124,7 +124,7 @@
             <div class="d-flex">
                 <div class="toast-body d-flex align-items-center">
                 <iconify-icon icon="material-symbols:warning" class="fs-4 ms-2 me-3"></iconify-icon>
-                An account with that email already exists. Please try another one.
+                <?= $lang['notifMessages']['email_error'] ?>
                 </div>
                 <button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
@@ -146,7 +146,7 @@
             <div class="d-flex">
                 <div class="toast-body d-flex align-items-center">
                 <iconify-icon icon="mdi:success-bold" class="fs-4 ms-2 me-3"></iconify-icon>
-                Your profile information has been updated successfully!
+                <?= $lang['notifMessages']['edit_success'] ?>
                 </div>
                 <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>

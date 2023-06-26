@@ -109,7 +109,7 @@
                         <div class="col-lg-12 mt-5">
                             <h1 class="fw-bold change-label">Feedback Form</h1>
                             <div class="m-0 p-0">
-                                <p class="desc">Do you have suggestions or found some issues in using SAM Barangay System? Let us know below.</p>
+                                <p class="desc"><?= $lang['feedback'] ?></p>
                             </div>
                             <div class="row p-0 ms-md-3 me-md-5 pe-md-5">
                                 <div class="row p-0 ms-md-3 me-md-5 pe-md-5">

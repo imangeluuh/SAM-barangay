@@ -66,6 +66,10 @@
     font-size: 1.6rem;
 }
 
+.card, .card-body {
+    border-radius: 1rem!important;
+}
+
 
 
 /* CSS talk bubble */
