@@ -26,6 +26,20 @@
         background-color: none!important;
         font-weight: 500;
     }
+    .rw-header, .rw-launcher, .rw-client {
+        background-color: #053C5E!important;
+    }
+    .rw-message .rw-avatar {
+        width: 40px!important;
+        height: 40px;
+    }    
+    .rw-header .rw-avatar {
+        width: 35px!important;
+        height: 35px!important;
+    }
+    .rw-send-icon-ready {
+        color: #053C5E!important;
+    }
 </style>
 
 <nav class="main-header navbar navbar-expand-md border-0 navbar-light">
