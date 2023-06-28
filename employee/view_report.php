@@ -46,6 +46,8 @@
             if(isset($_POST['view'])){
                 // store the selected document data in session
                 $reportInfo = array('report_id' => $_POST['report_id']
+                                    , 'date_resolved' =>  $_POST['date_resolved'] == NULL ? 'N/A' : $_POST['date_resolved']
+                                    , 'status' => $_POST['status']
                                     , 'image_name' => !empty($_POST['image_name']) ? $_POST['image_name'] : NULL
                                     , 'image' => !empty($_POST['image']) ? $_POST['image'] : NULL
                                     , 'resident_id' => $_POST['resident_id']);
@@ -105,9 +107,17 @@
                                 $row = $result->fetch_assoc();
                             ?>
                                 <div class="row g-3 mx-4 mt-2">
-                                    <div class="col-md-12">
-                                        <label for="date-requested" class="form-label">Date Reported</label><br>
-                                        <span><?php echo $row['date_reported'] ?></span>
+                                    <div class="col-md-4">
+                                        <label for="date-reported" class="form-label">Date Reported</label><br>
+                                        <span name="date-reported"><?php echo $row['date_reported'] ?></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="date-resolved" class="form-label">Date Resolved</label><br>
+                                        <span><?php echo $_SESSION['reportInfo']['date_resolved'] ?></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="status" class="form-label">Status</label><br>
+                                        <span><?php echo $_SESSION['reportInfo']['status'] ?></span>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="Name" class="form-label">Name</label>
@@ -144,7 +154,7 @@
                                         endif; ?>
                                         </div>
                                     </div>
-                                    <?php if($row['status'] != 'Complete') { ?>
+                                    <?php if($row['status'] != 'Resolved') { ?>
                                         <div class="col-12">
                                             <button type="button" class="btn btn-primary mt-2 mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">Update Status</button>
                                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -201,6 +211,19 @@
     
     <script>
         $(document).ready(function () {
+            window.pressed = function(){
+                var a = document.getElementById('image');
+                if(a.value == "")
+                {
+                    fileLabel.innerHTML = "No file chosen";
+                }
+                else
+                {
+                    var theSplit = a.value.split('\\');
+                    fileLabel.innerHTML = theSplit[theSplit.length-1];
+                }
+            };
+            
             $('.img-thumbnail').on('click', function(){
                 var imgSrc = $(this).attr('src');
                 $('.enlarged-image').attr('src', imgSrc);

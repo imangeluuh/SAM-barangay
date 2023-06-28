@@ -76,7 +76,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="emp_doc_req.php" class="ms-4 d-flex align-items-center text-decoration-none text-secondary">
+                            <a href="javascript:history.back()" class="ms-4 d-flex align-items-center text-decoration-none text-secondary">
                                 <i class="fa-solid fa-angle-left me-3"></i><?php echo $lang['go_back'] ?>
                             </a><br>
                             <?php
@@ -151,11 +151,20 @@
                                         <input type="text" class="form-control editable" id="contact-address" name="contact-address" disabled required="required"  value="<?php echo $row['contact_address']?>">
                                     </div>
                                     <?php if ($_SESSION['docInfo']['schedule'] != NULL) { ?>
-                                        <div class="col-md-4 mt-4">
+                                        <div class="col-md-4 mt-4 pb-3">
                                         <label for="schedule" class="form-label">Schedule</label><br>
                                             <span><?php echo $_SESSION['docInfo']['schedule']; ?></span>
                                         </div> 
-                                    <?php } else {
+                                        <?php date_default_timezone_set('Asia/Singapore');
+                                        if(strtotime(date("Y-m-d")) >= strtotime(date("Y-m-d", strtotime($_SESSION['docInfo']['schedule']))) && $row['status'] != 'Claimed') { ?>
+                                        <div class="col-12 pb-3">
+                                            <form action="update_request.php" method="post">
+                                                <input type="hidden" name="status" value="Claimed">
+                                                <button type="submit" class="btn btn-primary">Claimed</button>
+                                            </form>
+                                        </div>
+                                        <?php }
+                                        } else {
                                         displayStatusModal();
                                         } ?> 
                                 </div>
@@ -206,7 +215,16 @@
                                         <label for="schedule" class="form-label">Schedule</label><br>
                                             <span><?php echo $_SESSION['docInfo']['schedule']; ?></span>
                                         </div> 
-                                    <?php } else {
+                                        <?php date_default_timezone_set('Asia/Singapore');
+                                        if(strtotime(date("Y-m-d")) >= strtotime(date("Y-m-d", strtotime($_SESSION['docInfo']['schedule']))) && $row['status'] != 'Claimed') { ?>
+                                            <div class="col-12 pb-3">
+                                                <form action="update_request.php" method="post">
+                                                    <input type="hidden" name="status" value="Claimed">
+                                                    <button type="submit" class="btn btn-primary">Claimed</button>
+                                                </form>
+                                            </div>
+                                        <?php }
+                                        } else {
                                         displayStatusModal();
                                         } ?> 
                                 </div>
@@ -250,7 +268,16 @@
                                         <label for="schedule" class="form-label">Schedule</label><br>
                                             <span><?php echo $_SESSION['docInfo']['schedule']; ?></span>
                                         </div> 
-                                    <?php } else {
+                                        <?php date_default_timezone_set('Asia/Singapore');
+                                        if(strtotime(date("Y-m-d")) >= strtotime(date("Y-m-d", strtotime($_SESSION['docInfo']['schedule']))) && $row['status'] != 'Claimed') { ?>
+                                            <div class="col-12 pb-3">
+                                                <form action="update_request.php" method="post">
+                                                    <input type="hidden" name="status" value="Claimed">
+                                                    <button type="submit" class="btn btn-primary">Claimed</button>
+                                                </form>
+                                            </div>
+                                        <?php }
+                                        } else {
                                         displayStatusModal();
                                         } ?> 
                                 </div>
@@ -298,7 +325,16 @@
                                         <label for="schedule" class="form-label">Schedule</label><br>
                                             <span><?php echo $_SESSION['docInfo']['schedule']; ?></span>
                                         </div> 
-                                    <?php } else {
+                                        <?php date_default_timezone_set('Asia/Singapore');
+                                        if(strtotime(date("Y-m-d")) >= strtotime(date("Y-m-d", strtotime($_SESSION['docInfo']['schedule']))) && $row['status'] != 'Claimed') { ?>
+                                            <div class="col-12 pb-3">
+                                                <form action="update_request.php" method="post">
+                                                    <input type="hidden" name="status" value="Claimed">
+                                                    <button type="submit" class="btn btn-primary">Claimed</button>
+                                                </form>
+                                            </div>
+                                        <?php }
+                                        } else {
                                         displayStatusModal();
                                         } ?> 
                                 </div>    

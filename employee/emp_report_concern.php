@@ -133,6 +133,7 @@
                                                         <form action="view_report.php" method="post">
                                                             <input type="hidden" name="report_id" value="<?php echo $row['report_id']; ?>">
                                                             <input type="hidden" name="date_reported" value="<?php echo $row['date_reported']; ?>">
+                                                            <input type="hidden" name="date_resolved" value="<?php echo $row['date_resolved']; ?>">
                                                             <input type="hidden" name="image_name" value="<?php echo $row['image_name']; ?>">
                                                             <input type="hidden" name="image" value="<?php echo htmlspecialchars($row['image']); ?>">
                                                             <input type="hidden" name="resident_id" value="<?php echo $row['resident_id']; ?>">
@@ -190,6 +191,7 @@
                                                         <form action="view_report.php" method="post">
                                                             <input type="hidden" name="report_id" value="<?php echo $row['report_id']; ?>">
                                                             <input type="hidden" name="date_reported" value="<?php echo $row['date_reported']; ?>">
+                                                            <input type="hidden" name="date_resolved" value="<?php echo $row['date_resolved']; ?>">
                                                             <input type="hidden" name="image_name" value="<?php echo $row['image_name']; ?>">
                                                             <input type="hidden" name="image" value="<?php echo htmlspecialchars($row['image']); ?>">
                                                             <input type="hidden" name="resident_id" value="<?php echo $row['resident_id']; ?>">
