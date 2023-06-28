@@ -1,5 +1,6 @@
 <?php 
     include('../dbconfig.php');
+    include('../query.php');
     $stmt = $conn->prepare("CALL SP_GET_AVE_PROCESSING_TIME(?, ?)");
     $stmt->bind_param('ss', $startDate, $endDate);
     // Execute the prepared statement
@@ -133,7 +134,12 @@
                                     </div>
                                     
                                     <h5 class="d-flex justify-content-center pt-3">
-                                        3 seconds
+                                    <?php
+                                        // Call the function to calculate the average response time
+                                        $averageResponseTime = calculateAverageResponseTime();
+                                        // Display the average response time
+                                        echo "$averageResponseTime seconds";
+                                    ?>
                                     </h5>
                                     <div class="d-flex justify-content-center">
                                         <p>Average Response Time</p>
