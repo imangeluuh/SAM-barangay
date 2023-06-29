@@ -1,4 +1,3 @@
-
 <h1 class="fw-bold mx-3 p-3 info-label">Citizen's Charter</h1>
 <div class="c-charter justify-content-center m-0 table-responsive" id="no-more-tables">
 	<?php 
@@ -50,12 +49,60 @@
 			</div>
 		</div>
 	</div>
-</div> 
-<h1 class="fw-bold mt-5 mx-3 px-3 info-label">Who is SAM?</h1>
-<div class="justify-content-center mx-4 mt-1 p-4">
-	<p><?php echo $lang['sam_description']; ?></p>
-</div>
+<?php
+	while($conn->next_result()) {
+		$conn->store_result();
+	}
+	$stmt = $conn->prepare("CALL SP_GET_SYSTEM_DETAILS(@p_1, @p_2, @p_3, @p_4)");
+	$stmt->execute();
+	// Fetch the output parameter value
+    $result = $conn->query("SELECT @p_1, @p_2, @p_3, @p_4");
+    $row = $result->fetch_assoc();
 
+	// Store the OUT parameter values in variables
+	$p1 = $row['@p_1'];
+	$p2 = $row['@p_2'];
+	$p3 = $row['@p_3'];
+	$p4 = $row['@p_4'];
+
+	// Close the database connection
+	$conn->close();
+	?>
+	<h1 class="fw-bold mx-5 p-4 info-label">About SAM</h1>
+	<div class="row d-flex mx-5">
+    	<div class="col-12">
+			<div class="card rounded-3 shadow">
+				<div class="row d-flex mx-2 pt-3">
+					<div class="col-lg-8 col-md-4 pt-3 align-items-stretch">
+						<h2 class="fw-bold mx-4 p-0">Serbisyong Aagapay sa Mamamayan (SAM)</h2>
+						<h4 class="card-title mx-4 p-0"><?php echo $p4 ?></h4>
+						<button class="blue-button" data-toggle="modal" data-target="#myModal">Read More</button>
+						<!-- Modal -->
+						<div id="myModal" class="about_us_modal">
+							<div class="modal_content">
+								<span class="close">&times;</span>
+								<p><?php echo $p1 ?></p>
+								<p><?php echo $p2 ?></p>
+								<p><?php echo $p3 ?></p>
+							</div>
+						</div>
+						<p class = "mx-4 pt-4">Visit our social media sites:</p>
+						<div class="social-icons mx-4 p-0">
+							<a href="#" target="_blank" style="color: #053c5e;"><i class="fab fa-facebook-messenger fa-lg m-1"></i></a>
+							<a href="#" target="_blank" style="color: #053c5e;"><i class="fab fa-facebook fa-lg m-1"></i></a>
+							<a href="#" target="_blank" style="color: #053c5e;"><i class="fab fa-youtube fa-lg m-1"></i></a>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-8 d-flex align-items-stretch">
+						<div class="card-body">
+							<img src="../images/SAM CHATBOT.png" width="300" height="300">
+						</div>
+					</div>
+				</div>
+			</div>
+    	</div>
+    </div>
+</div>
 <div class="row justify-content-center">    
 	<!-- Button trigger modal -->
 	<button type="button" class="btn border-0 mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -132,5 +179,21 @@ $(document).ready(function() {
     	$('.enlarged-image').attr('src', imgSrc);
     	$('#enlargedModal').modal('show');
     });
+	// Open modal when the button is clicked
+	document.querySelector(".blue-button").addEventListener("click", function() {
+    	document.getElementById("myModal").style.display = "block";
+ 	 });
+
+  // Close modal when the close button or outside the modal is clicked
+	document.querySelector(".close").addEventListener("click", function() {
+		document.getElementById("myModal").style.display = "none";
+	});
+
+	window.addEventListener("click", function(event) {
+		var modal = document.getElementById("myModal");
+		if (event.target == modal) {
+		modal.style.display = "none";
+		}
+	});
 });
 </script>

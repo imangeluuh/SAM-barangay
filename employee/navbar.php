@@ -40,7 +40,7 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link navb <?php if ($current_nav == 'emp_homepage.php') { echo 'active'; } ?>" aria-current="page" href="emp_homepage.php">About Us</a>
+                <a class="nav-link navb <?php if ($current_nav == 'emp_about_us.php') { echo 'active'; } ?>" aria-current="page" href="emp_about_us.php">About Us</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link navb <?php if ($current_nav == 'emp_help.php') { echo 'active'; } ?>" aria-current="page" href="emp_help.php">Help</a>
