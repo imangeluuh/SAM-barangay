@@ -110,9 +110,17 @@
                                 $row = $result->fetch_assoc();
                             ?>
                                 <form class="row g-3 mx-4 mt-2" method="post" enctype="multipart/form-data" onSubmit="return confirm('Are you sure you want to save these changes?')">
-                                    <div class="col-md-12">
+                                    <div class="col-md-4">
                                         <label for="date-requested" class="form-label">Date Reported</label><br>
                                         <span><?php echo $row['date_reported'] ?></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="date-resolved" class="form-label">Date Resolved</label><br>
+                                        <span><?php echo $row['date_resolved'] ?></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="status" class="form-label">Status</label><br>
+                                        <span><?php echo $row['status'] ?></span>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="Name" class="form-label">Name</label>

@@ -38,7 +38,6 @@
                 exit;
             }
 
-            require_once "../language/" . $_SESSION['lang'] . ".php";
             include('navbar.php');
             include('sidebar.php');
             include('../dbconfig.php');
@@ -56,7 +55,7 @@
 
                 $stmt = $conn->prepare("CALL SP_GET_RESIDENT(?)");
                 // bind the input parameters to the prepared statement
-                $stmt->bind_param('i', $_SESSION['reportInfo']['resident_id']);
+                $stmt->bind_param('s', $_SESSION['reportInfo']['resident_id']);
                 // Execute the prepared statement
                 $stmt->execute();  
                 if($stmt) {
@@ -90,7 +89,7 @@
                                 </div>
                             </div>
                             <a href="emp_report_concern.php" class="ms-4 d-flex align-items-center text-decoration-none text-secondary">
-                                <i class="fa-solid fa-angle-left me-3"></i><?php echo $lang['go_back'] ?>
+                                <i class="fa-solid fa-angle-left me-3"></i>Go Back
                             </a><br>
                             <?php
                                 while($conn->next_result()) {
