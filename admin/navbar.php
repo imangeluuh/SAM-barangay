@@ -23,6 +23,9 @@
         background-color: none!important;
         font-weight: 500;
     }
+    .role {
+        font-size: 14px;
+    }
 </style>
 
 <nav class="main-header navbar navbar-expand-md border-0 navbar-white">
@@ -40,6 +43,7 @@
                 <a href="#" class="p-0 d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                     <span class="mx-md-2">
                         <p class="d-flex m-0 name"><?php echo $_SESSION['userData']['admin_firstname']." ".$_SESSION['userData']['admin_lastname']; ?></p>
+                        <p class="d-flex justify-content-end fst-italic m-0 role">Barangay Admin</p>
                     </span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
