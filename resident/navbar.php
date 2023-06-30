@@ -9,21 +9,12 @@
     include('../dbconfig.php');
     require_once "../language/" . $_SESSION['lang'] . ".php";
 
-    if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
-        session_start();
-        session_destroy();
-        //echo "<script>clearChatHistory();</script>";
-        header("Location: ../index.php");
-        exit();
-    }
-
     $current_nav = $_SERVER['PHP_SELF'];
     $current_nav = basename(parse_url($_SERVER['PHP_SELF'], PHP_URL_PATH));
 ?>
-
 <style>
     .navb.active {
-        background-color: none!important;
+        background-color: transparent!important;
         font-weight: 500;
     }
     .rw-header, .rw-launcher, .rw-client {
@@ -68,9 +59,40 @@
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li><a class="dropdown-item" href="#">Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" id="sign-out" href="?logout=true" id="sign-out">Sign out</a></li>
+                    <li><a class="dropdown-item" id="sign-out" href="?logout=true" id="sign-out" data-bs-toggle="modal" data-bs-target="#exampleModal">Sign out</a></li>
                 </ul>
             </div>
         </ul>
     </div>
 </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p class="fs-semibold">Before you leave.. If you have interacted with our SAM chatbot,  please rate its accuracy on a scale of 1 to 10, with 1 being extremely inaccurate and 10 being highly accurate. Your feedback matters to us. Thank you!</p>
+        <form action="signout_form.php" method="post">
+        <select name="rate" class="form-select" aria-label="Default select example">
+            <option selected disabled>Select a number</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-danger" id="close-btn" href="signout_form.php">Sign out</a>
+        <button type="submit" name="submit" class="btn btn-primary">Submit Rate</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
