@@ -47,13 +47,13 @@
                     </a>
                 </li>
                 <li class="nav-item user-panel pt-1">
-                    <a href="" class="nav-link side <?php if ($current_page == 'emp_homepage.php') { echo 'active'; } ?>">
+                    <a href="content_management.php" class="nav-link side <?php if ($current_page == 'content_management.php') { echo 'active'; } ?>">
                         <i class="nav-icon fas fa-solid fa-circle-info"></i>
                         <p>System Panel</p>
                     </a>
                 </li>
                 <li class="nav-item user-panel pt-1">
-                     <a href="admin_reports.php" class="nav-link side">
+                    <a href="admin_reports.php" class="nav-link side <?php if ($current_page == 'admin_reports.php') { echo 'active'; } ?>">
                         <i class="nav-icon fas fa-solid fa-chart-simple"></i>
                         <p>Reports</p>
                     </a>

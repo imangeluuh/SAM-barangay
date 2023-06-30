@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lexend', sans-serif;;
+}
+
+html, body {
+    height: 100%;
+}
+
+.dataTables_length label, .dataTables_filter label{
+    display: flex;
+    font-weight: 500!important;
+}
+
+.form-select.form-select-sm {
+    width: 60px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.form-control.form-control-sm {
+    margin-left: 0.5rem!important;
+}
+
+textarea {
+    width: 100%;
+}
+
+@media only screen and (max-width:800px) {
+    #no-more-tables tbody,
+    #no-more-tables tr,
+    #no-more-tables td {
+        display: block;
+    }
+    #no-more-tables thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    #no-more-tables td {
+        position: relative;
+        padding-left: 50%;
+        border: none;
+        border-bottom: 1px solid #eee;
+    }
+    #no-more-tables td:before {
+        content: attr(data-title);
+        position: absolute;
+        left: 6px;
+        font-weight: bold;
+    }
+    #no-more-tables tr {
+        border-bottom: 1px solid #ccc;
+    }
+}
