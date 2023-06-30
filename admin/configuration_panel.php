@@ -67,28 +67,28 @@
                                 <!-- Intents -->
                                 <div class="form-group mt-2">
                                     <label for="intents">Intents:</label>
-                                    <textarea class="form-control" id="intents" name="intents" rows="50"><?php echo file_get_contents('../../sam-nlp-chatbot/data/nlu.yml'); ?></textarea>
+                                    <textarea class="form-control" id="intents" name="intents" rows="50"><?php echo file_get_contents('../../demo/sam-nlp-chatbot/data/nlu.yml'); ?></textarea>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab">
                                 <!-- Domain -->
                                 <div class="form-group mt-2">
                                     <label for="domain">Domain:</label>
-                                    <textarea class="form-control" id="domain" name="domain" rows="50"><?php echo file_get_contents('../../sam-nlp-chatbot/domain.yml'); ?></textarea>
+                                    <textarea class="form-control" id="domain" name="domain" rows="50"><?php echo file_get_contents('../../demo/sam-nlp-chatbot/domain.yml'); ?></textarea>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab">
                                 <!-- Stories -->
                                 <div class="form-group mt-2">
                                     <label for="stories">Stories:</label>
-                                    <textarea class="form-control" id="stories" name="stories" rows="50"><?php echo file_get_contents('../../sam-nlp-chatbot/data/stories.yml'); ?></textarea>
+                                    <textarea class="form-control" id="stories" name="stories" rows="50"><?php echo file_get_contents('../../demo/sam-nlp-chatbot/data/stories.yml'); ?></textarea>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab">
                                 <!-- Actions -->
                                 <div class="form-group mt-2">
                                     <label for="actions">Actions:</label>
-                                    <textarea class="form-control" id="actions" name="actions" rows="50"><?php echo file_get_contents('../../sam-nlp-chatbot/actions/actions.py'); ?></textarea>
+                                    <textarea class="form-control" id="actions" name="actions" rows="50"><?php echo file_get_contents('../../demo/sam-nlp-chatbot/actions/actions.py'); ?></textarea>
                                 </div>
                             </div>
                         </div>

@@ -155,7 +155,7 @@
                             <h4 class="card-title fw-semibold">Average Processing and Response Time</h4>
                         </div>
                         <div class="card-body ">
-                            <canvas id="docAveChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%; display: block;" height="500" class="doc-ave-chart"></canvas>
+                            <canvas id="docAveChart" style="min-height: 300px; height: 300px; max-height: 350px; max-width: 100%; display: block;" height="500" class="doc-ave-chart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -163,7 +163,9 @@
         </div>
     </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment"></script>
 <script>  
 $(function () {
     const aveData = <?php echo $jsonDataDocAve; ?>;

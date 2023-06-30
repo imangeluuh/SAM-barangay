@@ -189,7 +189,7 @@
                     <div class=" col-12 small-box rounded-3 shadow bg-white">
                         <div class="inner">
                             <h3><?php echo $totalCompletedReports ?></h3>
-                            <p>Completed Reports</p>
+                            <p>Resolved Reports</p>
                         </div>
                     </div>
                 </div>
