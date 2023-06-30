@@ -1,5 +1,4 @@
 <?php
-print_r($_POST);
     include('../dbconfig.php');
 
     if(!session_id()){

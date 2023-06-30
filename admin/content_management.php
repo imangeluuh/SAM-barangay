@@ -1,3 +1,14 @@
+<?php
+// If a session is not already started, start a new session
+if(!session_id()){
+    session_start(); 
+} 
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header("Location: admin_login.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,16 +36,6 @@
 <body class="sidebar-mini layout-fixed layout-navbar-fixed hold-transition overflow-x-hidden">
     <div class="wrapper">
         <?php 
-            // If a session is not already started, start a new session
-            if(!session_id()){
-                session_start(); 
-            } 
-
-            if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-                header("Location: admin_login.php");
-                exit;
-            }
-
             include('navbar.php');
             include('sidebar.php');
         ?>
@@ -178,8 +179,12 @@
                                                             <input type="text" class="form-control" name="detail-name" id="detail-name" required>
                                                         </div>
                                                         <div class="col-12 mb-3">
-                                                            <label for="Name" class="form-label">Details</label><br>
+                                                            <label for="Name" class="form-label">Details (in English)</label><br>
                                                             <textarea name="details" id="details" rows="6" required></textarea>
+                                                        </div>
+                                                        <div class="col-12 mb-3">
+                                                            <label for="Name" class="form-label">Details Translation (in Filipino)</label><br>
+                                                            <textarea name="f_details" id="f_details" rows="6" required></textarea>
                                                         </div>
                                                 </div>
                                                     <div class="modal-footer">
@@ -238,9 +243,15 @@
                                                                                                     value="<?php echo $row['detail_name']?>">
                                                                                             </div>
                                                                                             <div class="col-12 mb-3">
-                                                                                                <label for="Name" class="form-label">Details</label><br>
+                                                                                                <label for="Name" class="form-label">Details (in English)</label><br>
                                                                                                 <textarea name="details" id="details" rows="6" required><?php
                                                                                                     echo $row['details'];
+                                                                                                ?></textarea>
+                                                                                            </div>
+                                                                                            <div class="col-12 mb-3">
+                                                                                                <label for="Name" class="form-label">Details Translation (in Filipino)</label><br>
+                                                                                                <textarea name="f_details" id="f_details" rows="6" required><?php
+                                                                                                    echo $row['f_details'];
                                                                                                 ?></textarea>
                                                                                             </div>
                                                                                             <div class="col-12">

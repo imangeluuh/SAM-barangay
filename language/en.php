@@ -24,8 +24,12 @@
         , "request_doc" => "Request a Document"
         , "report_concern" => "Report a Concern"
         , "we_offer" => "What we Offer"
-        , "soc_med" => "Our Social Media Sites:"
         , "feedback" => "Do you have suggestions or found some issues in using SAM Barangay System? Let us know below."
+        , "faq_question" => "question"
+        , "faq_answer" => "answer"
+        , "details" => "details"
+        , "socmed" => "Visit our social media accounts:"
+        , "read" => "Read More"
     );
 
     $lang['notifMessages'] = array(

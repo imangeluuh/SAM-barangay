@@ -4,8 +4,9 @@
     if(isset($_POST['save'])) {
         $detail_name = $_POST['detail-name'];
         $details = $_POST['details'];
-        $stmt = $conn->prepare("CALL SP_ADD_SYSTEM_DETAILS(?, ?)");
-        $stmt->bind_param("ss", $detail_name, $details);
+        $f_details = $_POST['f_details'];
+        $stmt = $conn->prepare("CALL SP_ADD_SYSTEM_DETAILS(?, ?, ?)");
+        $stmt->bind_param("sss", $detail_name, $details, $f_details);
         $stmt->execute();
     }
 
@@ -13,8 +14,9 @@
         $detail_id = $_POST['detail_id'];
         $detail_name = $_POST['detail-name'];
         $details = $_POST['details'];
-        $stmt = $conn->prepare("CALL SP_UPDATE_SYSTEM_DETAILS(?, ?, ?)");
-        $stmt->bind_param("iss", $detail_id, $detail_name, $details);
+        $f_details = $_POST['f_details'];
+        $stmt = $conn->prepare("CALL SP_UPDATE_SYSTEM_DETAILS(?, ?, ?, ?)");
+        $stmt->bind_param("isss", $detail_id, $detail_name, $details, $f_details);
         $stmt->execute();
     }
 

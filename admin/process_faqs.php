@@ -4,8 +4,10 @@
     if(isset($_POST['save'])) {
         $question = $_POST['question'];
         $answer = $_POST['answer'];
-        $stmt = $conn->prepare("CALL SP_ADD_FAQ(?, ?)");
-        $stmt->bind_param("ss", $question, $answer);
+        $f_question = $_POST['f_question'];
+        $f_answer = $_POST['f_answer'];
+        $stmt = $conn->prepare("CALL SP_ADD_FAQ(?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $question, $answer, $f_question, $f_answer);
         $stmt->execute();
     }
 
@@ -13,8 +15,10 @@
         $faq_id = $_POST['faq_id'];
         $question = $_POST['question'];
         $answer = $_POST['answer'];
-        $stmt = $conn->prepare("CALL SP_UPDATE_FAQ(?, ?, ?)");
-        $stmt->bind_param("iss", $faq_id, $question, $answer);
+        $f_question = $_POST['f_question'];
+        $f_answer = $_POST['f_answer'];
+        $stmt = $conn->prepare("CALL SP_UPDATE_FAQ(?, ?, ?, ?, ?)");
+        $stmt->bind_param("issss", $faq_id, $question, $answer, $f_question, $f_answer);
         $stmt->execute();
     }
 

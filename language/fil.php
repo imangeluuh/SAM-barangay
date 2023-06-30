@@ -24,8 +24,12 @@
         , "request_doc" => "Mag Request ng Dokumento"
         , "report_concern" => "Mag Report ng Concern"
         , "we_offer" => "Ang aming Iniaalok"
-        , "soc_med" => "Ang Aming Mga Social Media Site:"
         , "feedback" => "Mayroon ka bang mga mungkahi o natagpuang mga isyu sa paggamit ng Sistema ng SAM Barangay? Sabihin ito sa ibaba."
+        , "faq_question" => "f_question"
+        , "faq_answer" => "f_answer"
+        , "details" => "f_details"
+        , "socmed" => "Bisitahin ang aming social media accounts:"
+        , "read" => "Magbasa Pa"
     );
 
     $lang['notifMessages'] = array(

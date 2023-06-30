@@ -21,12 +21,20 @@
             <div class="modal-body text-dark">
                 <form action="process_faqs.php" method="post">
                     <div class="col-12 mb-3">
-                        <label for="question" class="form-label">Question</label>
+                        <label for="question" class="form-label">Question (in English)</label>
                         <input type="text" class="form-control" name="question" id="question" required>
                     </div>
                     <div class="col-12 mb-3">
-                        <label for="answer" class="form-label">Answer</label>
+                        <label for="answer" class="form-label">Answer (in English)</label>
                         <input type="text" class="form-control" name="answer" id="answer" required>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label for="f_question" class="form-label">Question Translation (in Filipino)</label>
+                        <input type="text" class="form-control" name="f_question" id="f_question" required>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label for="f_answer" class="form-label">Answer Translation (in Filipino)</label>
+                        <input type="text" class="form-control" name="f_answer" id="f_answer" required>
                     </div>
             </div>
                 <div class="modal-footer">
@@ -76,14 +84,24 @@
                                                                 <span><?php echo $row['faq_id']?></span>
                                                             </div>
                                                             <div class="col-12 mb-3">
-                                                                <label for="question" class="form-label">Question</label>
+                                                                <label for="question" class="form-label">Question (in English)</label>
                                                                 <input type="text" class="form-control" name="question" id="question" required
                                                                     value="<?php echo $row['question']?>">
                                                             </div>
                                                             <div class="col-12 mb-3">
-                                                                <label for="answer" class="form-label">Answer</label>
+                                                                <label for="answer" class="form-label">Answer (in English)</label>
                                                                 <input type="text" class="form-control" name="answer" id="answer" required
                                                                     value="<?php echo $row['answer']?>">
+                                                            </div>
+                                                            <div class="col-12 mb-3">
+                                                                <label for="f_question" class="form-label">Question Translation (in Filipino)</label>
+                                                                <input type="text" class="form-control" name="f_question" id="f_question" required
+                                                                    value="<?php echo $row['f_question']?>">
+                                                            </div>
+                                                            <div class="col-12 mb-3">
+                                                                <label for="f_answer" class="form-label">Answer Translation (in Filipino)</label>
+                                                                <input type="text" class="form-control" name="f_answer" id="f-answer" required
+                                                                    value="<?php echo $row['f_answer']?>">
                                                             </div>
                                                             <div class="col-12">
                                                                 <input type="submit" name="edit" value="Save" class="btn btn-primary">

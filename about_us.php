@@ -53,7 +53,8 @@
 	while($conn->next_result()) {
 		$conn->store_result();
 	}
-	$stmt = $conn->prepare("CALL SP_GET_SYSTEM_DETAILS(@p_1, @p_2, @p_3, @p_4)");
+	$stmt = $conn->prepare("CALL SP_GET_SYSTEM_DETAILS(?, @p_1, @p_2, @p_3, @p_4)");
+	$stmt->bind_param("s", $lang['details']);
 	$stmt->execute();
 	// Fetch the output parameter value
     $result = $conn->query("SELECT @p_1, @p_2, @p_3, @p_4");
@@ -76,7 +77,7 @@
 					<div class="col-lg-8 col-md-4 pt-3 align-items-stretch">
 						<h2 class="fw-bold mx-4 p-0">Serbisyong Aagapay sa Mamamayan (SAM)</h2>
 						<h4 class="card-title mx-4 p-0"><?php echo $p4 ?></h4>
-						<button class="blue-button" data-toggle="modal" data-target="#myModal">Read More</button>
+						<button class="blue-button" data-toggle="modal" data-target="#myModal"><?php echo $lang['read'] ?></button>
 						<!-- Modal -->
 						<div id="myModal" class="about_us_modal">
 							<div class="modal_content">
@@ -86,7 +87,7 @@
 								<p><?php echo $p3 ?></p>
 							</div>
 						</div>
-						<p class = "mx-4 pt-4">Visit our social media sites:</p>
+						<p class = "mx-4 pt-4"><?php echo $lang['socmed'] ?></p>
 						<div class="social-icons mx-4 p-0">
 							<a href="#" target="_blank" style="color: #053c5e;"><i class="fab fa-facebook-messenger fa-lg m-1"></i></a>
 							<a href="#" target="_blank" style="color: #053c5e;"><i class="fab fa-facebook fa-lg m-1"></i></a>
