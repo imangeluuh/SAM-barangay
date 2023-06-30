@@ -1,3 +1,12 @@
+<?php include('../dbconfig.php'); 
+    $stmt = $conn->prepare("CALL SP_GET_ACCURACY");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    if($stmt) {
+        $chatbotAccuracy = $row['accuracy_percentage'];
+    }
+?>
 <div class="row mx-4 pt-3">
     <div class="col-md-6">
         <div class="card rounded-3 shadow">
@@ -29,7 +38,7 @@
             <div class="card-body pt-2 pb-0">
                 <h5 class="d-flex justify-content-center">
                 <?php
-                    echo "97.8%";
+                    echo $chatbotAccuracy . "%";
                 ?>
                 </h5>
                 <div class="d-flex justify-content-center">
