@@ -44,7 +44,7 @@ function getChatbotFaqs() {
         
         $query = "SELECT intent_name, COUNT(*) as count
                   FROM events
-                  WHERE intent_name IS NOT NULL AND intent_name NOT IN ('greet', 'thanks' , 'nlu_fallback', 'deny')
+                  WHERE intent_name IS NOT NULL AND intent_name NOT IN ('greet', 'thanks' , 'nlu_fallback', 'deny', 'goodbye')
                   GROUP BY intent_name
                   ORDER BY count DESC
                   LIMIT 5";

@@ -105,7 +105,7 @@
                     $registeredUsers[] = $totalRegisteredUsers;
                     $totalActiveUsers += (int)$row['active_users'];
                     $activeUsers[] = $totalActiveUsers;
-                    $newUsers[] = (int)$row['new_users'];
+                    $newUsers[] = (int)$row['total_users'];
                 }
 
                 // Pass the data to JavaScript
