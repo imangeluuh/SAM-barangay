@@ -172,7 +172,6 @@
                             <table id="employee" class="table table-hover" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Email</th>
@@ -191,7 +190,6 @@
                                         // fetch the row from the result set
                                         while($row = $result->fetch_assoc()) { ?>
                                             <tr>
-                                                <td data-title="ID"><?php echo $row['employee_id']; ?></td>
                                                 <td data-title="First Name"><?php echo $row['emp_firstname']; ?></td>
                                                 <td data-title="Last Name"><?php echo $row['emp_lastname']; ?></td>
                                                 <td data-title="Email"><?php echo $row['email']; ?></td>
@@ -272,7 +270,6 @@
                             <table id="residents" class="table table-hover" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Email</th>
@@ -295,7 +292,6 @@
                                         // fetch the row from the result set
                                         while($row = $result->fetch_assoc()) { ?>
                                             <tr>
-                                                <td data-title="ID"><?php echo $row['resident_id']; ?></td>
                                                 <td data-title="First Name"><?php echo $row['res_firstname']; ?></td>
                                                 <td data-title="Last Name"><?php echo $row['res_lastname']; ?></td>
                                                 <td data-title="Email"><?php echo $row['email']; ?></td>
