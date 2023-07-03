@@ -1,21 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <!-- Bootstrap CSS link -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <!-- CSS link -->
-    <link rel="stylesheet" href="css/res_login.css">
-    <!-- Google Fonts API link -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-</head>
-<body>
-    <?php
+<?php
     // Start session 
     // If a session is not already started, start a new session
     if(!session_id()){
@@ -97,8 +80,14 @@
                 // Store the user data array in the $_SESSION variable for future use.
                 $_SESSION['userData'] = $userData;
                 $_SESSION['loggedin'] = true;
-                // redirect the user to 'res_language.php'
-                header("Location: ./res_language.php");
+                
+                if(isset($_COOKIE['preferredLanguage'])) {
+                    $_SESSION['lang'] = $_COOKIE['preferredLanguage'];
+                    header("Location: ./res_homepage.php");
+                } else {
+                    header("Location: ./res_language.php");
+                }
+                
                 exit();
                 } else {
                     echo '<script>
@@ -161,6 +150,23 @@
     }
 
     ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Bootstrap CSS link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <!-- CSS link -->
+    <link rel="stylesheet" href="css/res_login.css">
+    <!-- Google Fonts API link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
     <!-- Toast notifications -->
     <div class="toast-container top-0 start-50 translate-middle-x mt-2">
         <div class="toast password text-bg-danger align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">

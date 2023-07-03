@@ -1,3 +1,21 @@
+<?php
+        // If a session is not already started, start a new session
+        if(!session_id()){
+            session_start(); 
+        } 
+
+        if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+            header("Location: ../index.php");
+            exit;
+        }
+
+        if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
+            session_start();
+            session_destroy();
+            header("Location: ../index.php");
+            exit();
+        }
+    ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,31 +33,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <?php
-        // If a session is not already started, start a new session
-        if(!session_id()){
-            session_start(); 
-        } 
-
-        if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-            header("Location: ../index.php");
-            exit;
-        }
-
-        if(array_key_exists('en_button', $_POST)) {
-            $_SESSION['lang'] = 'en';
-        }
-        else if(array_key_exists('fil_button', $_POST)) {
-            $_SESSION['lang'] = 'fil';
-        } 
-
-        if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
-            session_start();
-            session_destroy();
-            header("Location: ../index.php");
-            exit();
-        }
-    ?>
     <div class="main-container overflow-hidden">
         <nav class="navbar navbar-expand-md navbar-light">
             <div class="container-fluid">
@@ -65,6 +58,12 @@
                         <div class="d-flex flex-column align-items-center">
                             <input type="submit" name="en_button" value="English"class="button">
                             <input type="submit" name="fil_button" value="Filipino" class="button">
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" name="language" type="checkbox" value="yes" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Save my preferred language <i>(I-save ang aking piniling wika)</i>
+                                </label>
+                            </div>
                         </div>
                     </form>
                 </div>
