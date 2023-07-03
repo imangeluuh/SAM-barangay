@@ -106,11 +106,11 @@
 </div>
 <div class="row justify-content-center">    
 	<!-- Button trigger modal -->
-	<button type="button" class="btn border-0 mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+	<button type="button" class="btn border-0 mb-5" data-bs-toggle="modal" data-bs-target="#tncModal">
 	Terms and Conditions
 	</button>
 	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="tncModal" tabindex="-1" aria-labelledby="tncModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">

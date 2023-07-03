@@ -76,7 +76,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="javascript:history.back()" class="ms-4 d-flex align-items-center text-decoration-none text-secondary">
+                            <a href="./emp_doc_req.php" class="ms-4 d-flex align-items-center text-decoration-none text-secondary">
                                 <i class="fa-solid fa-angle-left me-3"></i><?php echo $lang['go_back'] ?>
                             </a><br>
                             <?php
