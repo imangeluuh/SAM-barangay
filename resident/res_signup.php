@@ -1,3 +1,61 @@
+<?php
+    if(!session_id()) {
+        session_start();
+    }
+
+    if(isset($_SESSION['status']) && $_SESSION['status'] == 'existing email') {
+        echo '<script>
+            // Wait for the document to load
+            document.addEventListener("DOMContentLoaded", function() {
+                // Get the toast element
+                var toast = document.querySelector(".toast.existing");
+                
+                // Show the toast
+                toast.classList.add("show");
+                
+                // Hide the toast after 5 seconds
+                setTimeout(function() {
+                    toast.classList.remove("show");
+                }, 5000);
+            });
+        </script>';
+        unset($_SESSION['status']);
+    } else if(isset($_SESSION['status']) && $_SESSION['status'] == 'unmatched password'){
+        echo '<script>
+            // Wait for the document to load
+            document.addEventListener("DOMContentLoaded", function() {
+                // Get the toast element
+                var toast = document.querySelector(".toast.password");
+                
+                // Show the toast
+                toast.classList.add("show");
+                
+                // Hide the toast after 5 seconds
+                setTimeout(function() {
+                    toast.classList.remove("show");
+                }, 5000);
+            });
+        </script>';
+        unset($_SESSION['status']);
+    } else if(isset($_SESSION['status']) && $_SESSION['status'] == 'invalid age') {
+        echo '<script>
+            // Wait for the document to load
+            document.addEventListener("DOMContentLoaded", function() {
+                // Get the toast element
+                var toast = document.querySelector(".toast.age");
+                
+                // Show the toast
+                toast.classList.add("show");
+                
+                // Hide the toast after 5 seconds
+                setTimeout(function() {
+                    toast.classList.remove("show");
+                }, 5000);
+            });
+        </script>';
+        unset($_SESSION['status']);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,116 +73,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <?php
-    include('../dbconfig.php');
-
-    if(isset($_POST['sign-up'])){
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $rpassword = $_POST['rpassword'];
-        $role_id = 3;
-        $hash = password_hash($password, PASSWORD_BCRYPT);
-        $res_firstname = $_POST['f-name'];
-        $res_middlename = !empty($_POST['md-name']) ? $_POST['md-name'] : NULL;
-        $res_lastname = $_POST['l-name'];
-        $birthdate = $_POST['birthdate'];
-        $address = $_POST['address'];
-        
-        // create a DateTime object from the birthdate string
-        $birthday = new DateTime($birthdate);
-        // get the current date
-        $today = new DateTime(date('m.d.y'));
-        // calculate the difference between the birthdate and the current date
-        $diff = $today->diff($birthday);
-        // get the age in years
-        $age = $diff->y;
-        
-        if ($age < 18){
-            echo '<script>
-                        // Wait for the document to load
-                        document.addEventListener("DOMContentLoaded", function() {
-                            // Get the toast element
-                            var toast = document.querySelector(".toast.age");
-                            
-                            // Show the toast
-                            toast.classList.add("show");
-                            
-                            // Hide the toast after 5 seconds
-                            setTimeout(function() {
-                                toast.classList.remove("show");
-                            }, 5000);
-                        });
-                    </script>';
-        } else if($password == $rpassword) {
-            // Call the stored procedure
-            $stmt = $conn->prepare("CALL SP_ADD_RESIDENT(?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param('ssisssss', $email, $hash, $role_id, $res_firstname, $res_middlename, $res_lastname, $birthdate, $address);
-            try{ 
-                $stmt->execute();
-                // Check for errors
-                if ($stmt->errno) {
-                    echo '<script>
-                        // Wait for the document to load
-                        document.addEventListener("DOMContentLoaded", function() {
-                            // Get the toast element
-                            var toast = document.querySelector(".toast.existing");
-                            
-                            // Show the toast
-                            toast.classList.add("show");
-                            
-                            // Hide the toast after 5 seconds
-                            setTimeout(function() {
-                                toast.classList.remove("show");
-                            }, 5000);
-                        });
-                    </script>';
-                    echo '<script>alert($stmt->errno);</script>';
-                    die('Failed to call stored procedure: ' . $stmt->error);
-                } else {
-                    header("Location:res_login.php?success=true"); 
-                    exit();
-                }
-
-            } catch (mysqli_sql_exception $e) {
-                echo '<script>
-                        // Wait for the document to load
-                        document.addEventListener("DOMContentLoaded", function() {
-                            // Get the toast element
-                            var toast = document.querySelector(".toast.existing");
-                            
-                            // Show the toast
-                            toast.classList.add("show");
-                            
-                            // Hide the toast after 5 seconds
-                            setTimeout(function() {
-                                toast.classList.remove("show");
-                            }, 5000);
-                        });
-                    </script>';
-            }
-            // Close the statement and the connection
-            $stmt->close();
-            $conn->close();
-        } else {
-            echo '<script>
-                        // Wait for the document to load
-                        document.addEventListener("DOMContentLoaded", function() {
-                            // Get the toast element
-                            var toast = document.querySelector(".toast.password");
-                            
-                            // Show the toast
-                            toast.classList.add("show");
-                            
-                            // Hide the toast after 5 seconds
-                            setTimeout(function() {
-                                toast.classList.remove("show");
-                            }, 5000);
-                        });
-                    </script>';
-        }
-    }
-
-    ?>
     <!-- Toast notifications -->
     <div class="toast-container top-0 start-50 translate-middle-x mt-2">
         <div class="toast age text-bg-warning align-items-center py-2" role="alert" aria-live="assertive" aria-atomic="true">
@@ -159,15 +107,16 @@
             </div>
         </div>
     </div>
+
     <div class="container-fluid d-flex justify-content-center p-0">
         <div class="main-container d-flex align-items-center">
             <div class="signup-form row d-flex justify-content-center rounded-4 p-0 m-0">
-                <span class="mt-5 d-flex justify-content-center text-center fw-light description">To chat with SAM, you need to make an account first. Fill up</span>
+                <span class="mt-5 d-flex justify-content-center text-center fw-light description">To chat with SAM, you need to make an account first. Fill out</span>
                 <span class="d-flex justify-content-center text-center fw-light description">this Sign-up form to get started.</span>
                 <h1 class="fw-bold d-flex justify-content-center sam-title mt-2 p-0">SAM</h1>
                 <h2 class="fw-semibold d-flex justify-content-center text-center mamamayan-signup mb-3 p-0">Mamamayan Sign-up</h2>
                 <div class="col-9 p-0">
-                    <form action="" method="post">
+                    <form id="signupForm" action="signup_form.php" method="post">
                         <!-- Name field -->
                         <div class="row d-flex justify-content-between">
                             <div class="form-outline col-4 mb-2 ps-0">
@@ -212,12 +161,50 @@
                             <input type="password" name="rpassword" id="rpassword" class="form-control-md border-0 rounded-1" placeholder="Confirm password" autocomplete="off"
                                 pattern=.{8,} title="Password must contain 8 or more characters" required>
                         </div>
-                        <!-- <div class="row">
-                            <a href="" class="text-end text-decoration-none forgot-password p-0 mb-3">Forgot Password</a>
-                        </div> -->
                         <!-- Submit button -->
                         <div class="text-center row justify-content-end mb-4">
                             <input type="submit" value="Sign-up" name="sign-up" class="login-button border-0 rounded-3 fw-light text-light p-0">
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="reviewModal" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <p>Kindly review all the information you have provided.</p>
+                                            <div class="col-md-4">
+                                                <label for="reviewFirstName">First Name</label>
+                                                <p id="reviewFirstName"></p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="reviewMiddleName">Middle Name</label>
+                                                <p id="reviewMiddleName"></p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="reviewLastName">Last Name</label>
+                                                <p id="reviewLastName"></p>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label for="reviewEmail">Email</label>
+                                                <p id="reviewEmail"></p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="reviewBirthdate">Birthdate</label>
+                                                <p id="reviewBirthdate"></p>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="reviewAddress">Address</label>
+                                                <p id="reviewAddress"></p>
+                                            </div>
+                                        </div>
+                                        <p class="fst-italic mb-0 mt-2" style="font-size: 14px;">I hereby certify that all the information provided in this registration form is correct and true.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" id="saveButton" class="btn btn-primary">Sign-up</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                     <div class="container p-0 mb-3">
@@ -249,10 +236,40 @@
             </div> 
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS link -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <!-- Iconify -->
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Show the confirmation modal when any form is submitted
+            $('#signupForm').on('submit', function(e) {
+                e.preventDefault(); // Prevent default form submission
+                const firstName = $('#f-name').val();
+                const middleName = $('#md-name').val();
+                const lastName = $('#l-name').val();
+                const email = $('#email').val();
+                const birthdate = $('#birthdate').val();
+                const address = $('#address').val();
+
+                // Display the inputted values in the modal
+                $('#reviewFirstName').text(firstName);
+                $('#reviewMiddleName').text(middleName);
+                $('#reviewLastName').text(lastName);
+                $('#reviewEmail').text(email);
+                $('#reviewBirthdate').text(birthdate);
+                $('#reviewAddress').text(address);
+                $('#reviewModal').modal('show');
+            });
+
+            // Handle the click event of the Save button in the modal
+            $('#saveButton').on('click', function() { 
+                $('#reviewModal').modal('hide');
+                $('#signupForm').off('submit').submit();
+            });
+        });
+
+    </script>
 </body>
 </html>
