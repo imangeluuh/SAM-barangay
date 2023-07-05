@@ -84,6 +84,7 @@
                                                             <input type="hidden" name="status" value="<?php echo $row['status']; ?>">
                                                             <input type="hidden" name="doc_id" value="<?php echo $row['doc_id']; ?>">
                                                             <input type="hidden" name="schedule" value="<?php echo $row['schedule']; ?>">
+                                                            <input type="hidden" name="resident_id" value="<?php echo $row['resident_id']; ?>">
                                                             <input type="submit" name="view"
                                                                     class="btn text-primary p-0" value="View" />
                                                         </form> 
@@ -146,6 +147,7 @@
                                                             <input type="hidden" name="status" value="<?php echo $row['status']; ?>">
                                                             <input type="hidden" name="doc_id" value="<?php echo $row['doc_id']; ?>">
                                                             <input type="hidden" name="schedule" value="<?php echo $row['schedule']; ?>">
+                                                            <input type="hidden" name="resident_id" value="<?php echo $row['resident_id']; ?>">
                                                             <input type="submit" name="view"
                                                                     class="btn text-primary p-0" value="View" />
                                                         </form> 

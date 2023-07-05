@@ -51,7 +51,8 @@
                                             , 'date_completed' =>  $_POST['date_completed'] == NULL ? 'N/A' : $_POST['date_completed']
                                             , 'status' => $_POST['status']
                                             , 'doc_id' => $_POST['doc_id']
-                                            , 'schedule' => $_POST['schedule']);
+                                            , 'schedule' => $_POST['schedule']
+                                            , 'resident_id' => $_POST['resident_id']);
 
                 // Store the user data array in the $_SESSION variable for future use.
                 $_SESSION['docInfo'] = $docInfo;
