@@ -85,11 +85,13 @@
                 $stmt->execute();  
                 $_SESSION['docInfo']['schedule'] = $schedule;
             } else {
+                $civilStatus = $_POST['civil-status'];
+                $nationality = $_POST['nationality'];
                 $purpose = $_POST['purpose'];
 
-                $stmt = $conn->prepare("CALL SP_UPDATE_CLEARANCE(?, ?)");
+                $stmt = $conn->prepare("CALL SP_UPDATE_CLEARANCE(?, ?, ?, ?)");
                 // bind the input parameters to the prepared statement
-                $stmt->bind_param('is', $_SESSION['docInfo']['doc_id'], $purpose);
+                $stmt->bind_param('isss', $_SESSION['docInfo']['doc_id'], $civilStatus, $nationality, $purpose);
                 // Execute the prepared statement
                 $stmt->execute();  
             }
@@ -110,11 +112,10 @@
             } else {
                 $businessName = $_POST['business-name']; 
                 $businessAddress = $_POST['business-address']; 
-                $plateNo = !empty($_POST['plate-no']) ? $_POST['plate-no'] : NULL; 
 
-                $stmt = $conn->prepare("CALL SP_UPDATE_PERMIT(?, ?, ?, ?)");
+                $stmt = $conn->prepare("CALL SP_UPDATE_PERMIT(?, ?, ?)");
                 // bind the input parameters to the prepared statement
-                $stmt->bind_param('isss', $_SESSION['docInfo']['doc_id'], $businessName, $businessAddress, $plateNo);
+                $stmt->bind_param('iss', $_SESSION['docInfo']['doc_id'], $businessName, $businessAddress);
                 // Execute the prepared statement
                 $stmt->execute();  
             }

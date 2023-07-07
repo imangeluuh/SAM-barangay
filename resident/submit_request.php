@@ -5,7 +5,9 @@ if(!session_id()){
 } 
 if(isset($_POST['submit'])) {
     if($_POST['document-type'] == 'barangay id') {
-        $name = $_POST['name'];
+        $firstName = $_POST['first-name'];
+        $middleInitial = $_POST['middle-initial'];
+        $lastName = $_POST['last-name'];
         $address = $_POST['address'];
         $birthdate = $_POST['birthdate'];
         $birthplace = $_POST['birthplace'];
@@ -16,9 +18,9 @@ if(isset($_POST['submit'])) {
         $contact_no = $_POST['contact-no'];
         $contact_address = $_POST['contact-address']; 
         
-        $stmt = $conn->prepare("CALL SP_ADD_BRGY_ID(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("CALL SP_ADD_BRGY_ID(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         // bind the input parameters to the prepared statement
-        $stmt->bind_param('ssssiisssss', $name, $address, $birthdate, $birthplace, $age, $precinctNo, $contact_name, $relationship, $contact_address, $contact_no, $_SESSION['userData']['resident_id']);
+        $stmt->bind_param('ssssssiisssss', $firstName, $middleInitial, $lastName, $address, $birthdate, $birthplace, $age, $precinctNo, $contact_name, $relationship, $contact_address, $contact_no, $_SESSION['userData']['resident_id']);
         // Execute the prepared statement
         $stmt->execute();   
         if ($stmt) {
@@ -63,10 +65,12 @@ if(isset($_POST['submit'])) {
         $resName = $_POST['res-name'];
         $resAge = $_POST['res-age']; 
         $resAddress= $_POST['address'];
+        $civilStatus = $_POST['civil-status'];
+        $nationality = $_POST['nationality'];
         $purpose = $_POST['purpose'];
-        $stmt = $conn->prepare("CALL SP_ADD_CLEARANCE(?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("CALL SP_ADD_CLEARANCE(?, ?, ?, ?, ?, ?, ?)");
         // bind the input parameters to the prepared statement
-        $stmt->bind_param('sisss', $resName, $resAge, $resAddress, $purpose, $_SESSION['userData']['resident_id']);
+        $stmt->bind_param('sisssss', $resName, $resAge, $resAddress, $civilStatus, $nationality, $purpose, $_SESSION['userData']['resident_id']);
         // Execute the prepared statement
         $stmt->execute();   
 
@@ -78,11 +82,10 @@ if(isset($_POST['submit'])) {
         $businessOwner = $_POST['res-name'];
         $businessName = $_POST['business-name']; 
         $businessAddress = $_POST['business-address']; 
-        $plateNo = !empty($_POST['plate-no']) ? $_POST['plate-no'] : NULL; 
         $status = $_POST['status']; 
-        $stmt = $conn->prepare("CALL SP_ADD_PERMIT(?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("CALL SP_ADD_PERMIT(?, ?, ?, ?, ?)");
         // bind the input parameters to the prepared statement
-        $stmt->bind_param('ssssss', $businessOwner, $businessName, $businessAddress, $plateNo, $status, $_SESSION['userData']['resident_id']);
+        $stmt->bind_param('sssss', $businessOwner, $businessName, $businessAddress, $status, $_SESSION['userData']['resident_id']);
         // Execute the prepared statement
         $stmt->execute();   
 

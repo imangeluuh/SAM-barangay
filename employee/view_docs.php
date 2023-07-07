@@ -92,22 +92,33 @@
                                 $result = $stmt->get_result();  
                                 // fetch the row from the result set
                                 $row = $result->fetch_assoc();
+                                $_SESSION['docInfo']['expiry_date'] = !empty($row['expiry_date']) ? $row['expiry_date']: "N/A";
+                                $_SESSION['brgy-id'] = array('id' => $row['id_no']
+                                                        , 'lastName' => $row['last_name']
+                                                        , 'firstName' => $row['first_name']
+                                                        , 'middleInitial' => !empty($row['middle_initial']) ? $row['middle_initial'] : NULL 
+                                                        , 'address' => $row['res_address']
+                                                        , 'birthdate' => $row['res_birthdate']
+                                                        , 'birthplace' => $row['res_birthplace']
+                                                        , 'precinctNo' => !empty($row['precinct_no']) ? $row['precinct_no'] : NULL
+                                                        , 'contactName' => $row['contact_name']
+                                                        , 'contactAddress' => $row['contact_address']
+                                                        , 'contactNo' => $row['contact_no']
+                                                        , 'dateIssued' => $row['date_issued']
+                                                        , 'expiryDate' => $row['expiry_date']);
                             ?>
-                                <span class="fs-4 ms-4">Barangay ID</span>                                
+                                <div class="row d-flex justify-content-between">
+                                    <span class="fs-4 ms-4" style="width: fit-content">Barangay ID</span>
+                                    <?php printButton(); ?>      
+                                </div>                          
                                 <div class="row g-3 mx-4 mt-2">
                                     <?php displayDocInfo(); ?>
                                     <div class="col-md-4">
-                                        <label for="date-issued" class="form-label">Date Issued</label><br>
-                                        <span><?php echo $row['date_issued'] == NULL ? 'N/A' : $row['date_issued'] ?></span>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <label for="expiry-date" class="form-label">Expiry Date</label><br>
-                                        <span><?php echo $row['expiry_date'] == NULL ? 'N/A' : $row['expiry_date'] ?></span>
-                                    </div>
-                                    <div class="col-md-4">
                                         <label for="Name" class="form-label">Name</label>
                                         <input type="text" class="form-control" id="name" disabled required
-                                            value="<?php echo $row['res_name']?>">
+                                            value="<?php echo $row['first_name'] . " ";
+                                                if (!empty($row['middle_initial'])) { echo $row['middle_initial'] . '. ';}
+                                                echo $row['last_name']?>">
                                     </div>
                                     <div class="col-md-2">
                                         <label for="Age" class="form-label">Age</label>
@@ -180,8 +191,15 @@
                                 $result = $stmt->get_result();  
                                 // fetch the row from the result set
                                 $row = $result->fetch_assoc();
+                                $_SESSION['docInfo']['expiry_date'] = !empty($row['expiry_date']) ? $row['expiry_date'] : "N/A";
+                                $_SESSION['certificate'] = array('id' => $row['indigency_id']
+                                                                , 'name' => $row['res_name']
+                                                                , 'age' => $row['res_age']);
                             ?>
-                                <span class="fs-4 ms-4">Certificate of Indigency</span>
+                                <div class="row d-flex justify-content-between">
+                                    <span class="fs-4 ms-4" style="width: fit-content">Certificate of Indigency</span>
+                                    <?php printButton(); ?>
+                                </div>
                                 <div class="row g-3 mx-4 mt-2">
                                     <?php displayDocInfo(); ?>
                                     <div class="col-md-6">
@@ -205,10 +223,11 @@
                                         ?></textarea>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="image" class="form-label fw-normal fst-italic">*For burial purpose, please upload death certificate</label><br>
-                                        <div class="d-flex">
-                                            <input type='file' name="image" id="image" class="form-control rounded-end-0 editable" disabled onchange="pressed()">
-                                            <label id="fileLabel" class="form-control fw-normal rounded-start-0"><?php echo $row['file_name'] ?></label>
+                                        <label for="image" class="form-label fw-normal fst-italic">Attachment</label><br>
+                                        <div class="img-box">
+                                        <?php if ($row['requirements'] != NULL): 
+                                            echo '<img src="data:image/jpeg;base64,'.base64_encode($row['requirements']).'" class="img-thumbnail"/>';
+                                        endif; ?>
                                         </div>
                                     </div>
                                     <?php if ($_SESSION['docInfo']['schedule'] != NULL) { ?>
@@ -240,8 +259,19 @@
                                 $result = $stmt->get_result();  
                                 // fetch the row from the result set
                                 $row = $result->fetch_assoc();
+                                $_SESSION['docInfo']['expiry_date'] = !empty($row['expiry_date']) ? $row['expiry_date']: "N/A";
+                                $_SESSION['clearance'] = array('id' => $row['clearance_id']
+                                                            , 'name' => $row['res_name']
+                                                            , 'res_age' => $row['res_age']
+                                                            , 'address' => $row['res_address']
+                                                            , 'civil_status' => $row['civil_status']
+                                                            , 'nationality' => $row['nationality']
+                                                            , 'purpose' => $row['purpose']);
                             ?>
-                                <span class="fs-4 ms-4">Barangay Clearance</span>
+                                <div class="row d-flex justify-content-between">
+                                    <span class="fs-4 ms-4" style="width: fit-content">Barangay Clearance</span>
+                                    <?php printButton(); ?>
+                                </div>
                                 <div class="row g-3 mx-4 mt-2">
                                     <?php displayDocInfo(); ?>
                                     <div class="col-md-6">
@@ -249,7 +279,7 @@
                                         <input type="text" class="form-control" id="name" disabled
                                             value="<?php echo $row['res_name']?>">
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-6">
                                         <label for="Age" class="form-label">Age</label>
                                         <input type="text" class="form-control" id="age" disabled
                                             value="<?php echo $row['res_age'] ?>">
@@ -257,6 +287,14 @@
                                     <div class="col-12">
                                         <label for="Address" class="form-label">Address</label>
                                         <input type="text" class="form-control" id="address" disabled value="<?php echo $row['res_address'] ?>">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="civil-status" class="form-label">Civil Status</label>
+                                        <input type="text" name="civil-status" class="form-control" disabled required value="<?php echo $row['civil_status']?>">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="nationality" class="form-label">Nationality</label>
+                                        <input type="text" name="nationality" class="form-control" disabled required value="<?php echo $row['nationality']?>">
                                     </div>
                                     <div class="col-12">
                                         <label for="purpose" class="form-label">Purpose</label><br>
@@ -293,8 +331,17 @@
                                 $result = $stmt->get_result();  
                                 // fetch the row from the result set
                                 $row = $result->fetch_assoc();
+                                $_SESSION['docInfo']['expiry_date'] = !empty($row['expiry_date']) ? $row['expiry_date']: "N/A";
+                                $_SESSION['permit'] = array('id' => $row['permit_id']
+                                                            , 'name' => $row['business_owner']
+                                                            , 'business-name' => $row['business_name']
+                                                            , 'address' => $row['business_address']
+                                                            , 'expiry_date' => $row['expiry_date']);
                             ?>
-                                <span class="fs-4 ms-4">Business Permit</span>
+                                <div class="row d-flex justify-content-between">
+                                    <span class="fs-4 ms-4" style="width: fit-content">Business Permit</span>
+                                    <?php printButton(); ?>
+                                </div>
                                 <div class="row g-3 mx-4 mt-2">
                                     <?php displayDocInfo(); ?>
                                     <div class="col-12">
@@ -311,15 +358,10 @@
                                         <input type="text" name="business-name" class="form-control" disabled
                                             value="<?php echo $row['business_name']?>" >
                                     </div>
-                                    <div class="col-md-10">
+                                    <div class="col-md-12">
                                         <label for="business-address" class="form-label">Business Adress</label>
                                         <input type="text" name="business-address" class="form-control" disabled
                                             value="<?php echo $row['business_address']?>">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label for="plate-no" class="form-label">Plate No.</label>
-                                        <input type="text" name="plate-no" class="form-control" disabled
-                                            value="<?php echo $row['plate_no']?>">
                                     </div>
                                     <?php if ($_SESSION['docInfo']['schedule'] != NULL) { ?>
                                         <div class="col-md-4 mt-4">
@@ -380,19 +422,42 @@ function displayStatusModal() { ?>
 </div> 
 <?php } 
 function displayDocInfo() { ?>
-<div class="col-md-4">
+<div class="col-md-3">
     <label for="date-requested" class="form-label">Date Requested</label><br>
     <span><?php echo $_SESSION['docInfo']['date_requested'] ?></span>
 </div>
-<div class="col-md-4">
+<div class="col-md-3">
     <label for="date-completed" class="form-label">Date Completed</label><br>
     <span><?php echo $_SESSION['docInfo']['date_completed'] ?></span>
 </div>
-<div class="col-md-4">
+<div class="col-md-3">
+    <label for="date-completed" class="form-label">Expiry Date</label><br>
+    <span><?php echo $_SESSION{'docInfo'}['expiry_date'] ?></span>
+</div>
+<div class="col-md-3">
     <label for="date-completed" class="form-label">Status</label><br>
     <span><?php echo $_SESSION['docInfo']['status'] ?></span>
 </div>
-<?php } ?>
+<?php }
+function printButton() {
+    switch ($_SESSION['docInfo']['document_type']) {
+        case 'Barangay ID':
+            $documentType = 'id';
+            break;
+        case 'Certificate of Indigency':
+            $documentType = 'certificate';
+            break;
+        case 'Barangay Clearance':
+            $documentType = 'clearance';
+            break;
+        case 'Business Permit':
+            $documentType = 'permit';
+            break;
+    }
+    if($_SESSION['docInfo']['status'] == 'Ready for pick-up' || $_SESSION['docInfo']['status'] == 'Claimed') { ?>
+        <a href="fill_<?= $documentType ?>_form.php" target="_blank" class="btn btn-success me-5 px-4"style="width: fit-content">Print</a>
+    <?php }
+}?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <!-- Bootstrap JS link -->

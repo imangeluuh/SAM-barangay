@@ -6,7 +6,7 @@ function displaySchedulePicker() { ?>
     <!-- Datepicker -->
     <div class="col-md-6">
         <input type="text" class="form-control schedule" id="datepicker" name="datepicker" disabled required="required" autocomplete="off"
-            value="<?php if(!empty($_SESSION['docInfo']['schedule'])) {echo $_SESSION['docInfo']['schedule'];}?>">
+            value="<?php if(!empty($_SESSION['docInfo']['schedule'])) {echo $_SESSION['docInfo']['schedule'];}?>" autofill="off">
         <div class="row option mt-4 d-none">
             <div class="col-md-6">
                 <input type="radio" name="time" value="08:00:00"><label class="ms-1 fw-semibold">8:00AM - 9:00AM</label>

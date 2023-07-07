@@ -102,22 +102,17 @@
                                 $result = $stmt->get_result();
                                 // fetch the row from the result set
                                 $row = $result->fetch_assoc();
+                                $_SESSION['docInfo']['expiry_date'] = !empty($row['expiry_date']) ? $row['expiry_date'] : "N/A";
                             ?>
                                 <span class="fs-4 ms-4">Barangay ID</span>
                                 <form id="id-form" action="edit_request.php" method="post" enctype="multipart/form-data" class="row g-3 mx-4 mt-2">
                                     <?php displayDocInfo(); ?>
                                     <div class="col-md-4">
-                                        <label for="date-issued" class="form-label">Date Issued</label><br>
-                                        <span><?php echo $row['date_issued'] == NULL ? 'N/A' : $row['date_issued'] ?></span>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <label for="expiry-date" class="form-label">Expiry Date</label><br>
-                                        <span><?php echo $row['expiry_date'] == NULL ? 'N/A' : $row['expiry_date'] ?></span>
-                                    </div>
-                                    <div class="col-md-4">
                                         <label for="Name" class="form-label">Name</label>
                                         <input type="text" class="form-control" id="name" disabled required
-                                            value="<?php echo $row['res_name']?>">
+                                            value="<?php echo $row['first_name'] . " ";
+                                                if (!empty($row['middle_initial'])) { echo $row['middle_initial'] . '. ';}
+                                                echo $row['last_name']?>">
                                     </div>
                                     <div class="col-md-2">
                                         <label for="Age" class="form-label">Age</label>
@@ -188,6 +183,7 @@
                                 // store requirement to session
                                 $_SESSION['docInfo']['file_name'] = $row['file_name'] == NULL ? NULL : $row['file_name'];
                                 $_SESSION['docInfo']['requirements'] = $row['requirements'] == NULL ? NULL : $row['requirements'];
+                                $_SESSION['docInfo']['expiry_date'] = !empty($row['expiry_date']) ? $row['expiry_date'] : "N/A";
                             ?>
                                 <span class="fs-4 ms-4">Certificate of Indigency</span>
                                 <form action="edit_request.php" class="row g-3 mx-4 mt-2" method="post" enctype="multipart/form-data">
@@ -243,6 +239,7 @@
                                 $result = $stmt->get_result();
                                 // fetch the row from the result set
                                 $row = $result->fetch_assoc();
+                                $_SESSION['docInfo']['expiry_date'] = !empty($row['expiry_date']) ? $row['expiry_date'] : "N/A";
                             ?>
                                 <span class="fs-4 ms-4">Barangay Clearance</span>
                                 <form action="edit_request.php" class="row g-3 mx-4 mt-2" method="post">
@@ -252,7 +249,7 @@
                                         <input type="text" class="form-control" id="name" disabled
                                             value="<?php echo $row['res_name']?>">
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-6">
                                         <label for="Age" class="form-label">Age</label>
                                         <input type="text" class="form-control" id="age" disabled
                                             value="<?php echo $row['res_age'] ?>">
@@ -260,6 +257,14 @@
                                     <div class="col-12">
                                         <label for="Address" class="form-label">Address</label>
                                         <input type="text" class="form-control" id="address" disabled required value="<?php echo $row['res_address'] ?>">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="civil-status" class="form-label">Civil Status</label>
+                                        <input type="text" name="civil-status" class="form-control editable" disabled required value="<?php echo $row['civil_status']?>">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="nationality" class="form-label">Nationality</label>
+                                        <input type="text" name="nationality" class="form-control editable" disabled required value="<?php echo $row['nationality']?>">
                                     </div>
                                     <div class="col-12">
                                         <label for="purpose" class="form-label">Purpose</label><br>
@@ -291,6 +296,7 @@
                                 $result = $stmt->get_result();
                                 // fetch the row from the result set
                                 $row = $result->fetch_assoc();
+                                $_SESSION['docInfo']['expiry_date'] = !empty($row['expiry_date']) ? $row['expiry_date']: "N/A";
                             ?>
                                 <span class="fs-4 ms-4">Business Permit</span>
                                 <form action="edit_request.php" class="row g-3 mx-4 mt-2" method="post">
@@ -309,15 +315,10 @@
                                     <input type="text" name="business-name" class="form-control editable" disabled required
                                         value="<?php echo $row['business_name']?>" >
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-12">
                                     <label for="business-address" class="form-label">Business Adress</label>
                                     <input type="text" name="business-address" class="form-control editable" disabled required
                                         value="<?php echo $row['business_address']?>">
-                                </div>
-                                <div class="col-md-2">
-                                    <label for="plate-no" class="form-label">Plate No.</label>
-                                    <input type="text" name="plate-no" class="form-control editable" disabled
-                                        value="<?php echo $row['plate_no']?>">
                                 </div>
                                 <input type="hidden" class="form-control" name="document-type" id="document-type" value="business permit">
                                     <?php if($_SESSION['docInfo']['status'] == 'Ready for pick-up') {
@@ -350,15 +351,19 @@
         </div>
     </div>
 <?php function displayDocInfo() { ?>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <label for="date-requested" class="form-label">Date Requested</label><br>
         <span><?php echo $_SESSION['docInfo']['date_requested'] ?></span>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <label for="date-completed" class="form-label">Date Completed</label><br>
         <span><?php echo $_SESSION['docInfo']['date_completed'] ?></span>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
+        <label for="date-completed" class="form-label">Expiry Date</label><br>
+        <span><?php echo $_SESSION['docInfo']['expiry_date'] ?></span>
+    </div>
+    <div class="col-md-3">
         <label for="date-completed" class="form-label">Status</label><br>
         <span><?php echo $_SESSION['docInfo']['status'] ?></span>
     </div>

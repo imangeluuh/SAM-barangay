@@ -78,10 +78,12 @@
             <div class="col-md-4">
                 <label for="Name" class="form-label">Name</label>
                 <!-- Hidden input field to store the name value -->
-                <input type="hidden" class="form-control" name="name" id="name" 
-                    value="<?php echo $_SESSION['userData']['res_firstname'] . " ";
-                                if (!empty($_SESSION['userData']['res_middlename'])) { echo $_SESSION['userData']['res_middlename'][0] . '. ';}
-                                echo $_SESSION['userData']['res_lastname']?>">
+                <input type="hidden" class="form-control" name="first-name" id="first-name" 
+                    value="<?php echo $_SESSION['userData']['res_firstname'] ?>">
+                <input type="hidden" class="form-control" name="middle-initial" id="middle-initial" 
+                    value="<?php echo !empty($_SESSION['userData']['res_middlename']) ? $_SESSION['userData']['res_middlename'][0] : NULL; ?>">
+                <input type="hidden" class="form-control" name="last-name" id="last-name" 
+                    value="<?php echo $_SESSION['userData']['res_lastname']?>">
                 <!-- Visible input field for display purposes -->
                 <input type="text" class="form-control" disabled
                     value="<?php echo $_SESSION['userData']['res_firstname'] . " ";
@@ -228,6 +230,14 @@
                 <!-- Visible input field for display purposes -->
                 <input type="text" class="form-control"disabled value="<?php echo $_SESSION['userData']['address'] ?>">
             </div>
+            <div class="col-md-6">
+                <label for="civil-status" class="form-label">Civil Status</label>
+                <input type="text" name="civil-status" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label for="nationality" class="form-label">Nationality</label>
+                <input type="text" name="nationality" class="form-control">
+            </div>
             <div class="col-12">
                 <label for="purpose" class="form-label">Purpose</label><br>
                 <textarea name="purpose" id="purpose" cols="100" rows="2" required="required"></textarea>
@@ -272,13 +282,9 @@
                 <label for="business-name" class="form-label">Business Name</label>
                 <input type="text" name="business-name" required class="form-control">
             </div>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <label for="business-address" class="form-label">Business Address</label>
                 <input type="text" name="business-address" required class="form-control">
-            </div>
-            <div class="col-md-2">
-                <label for="plate-no" class="form-label">Plate No.</label>
-                <input type="text" name="plate-no" class="form-control">
             </div>
             <input type="hidden" class="form-control" name="document-type" id="document-type" value="business permit">
             <div class="col-12">
