@@ -1,4 +1,4 @@
-    <?php
+<?php
     // Start session 
     // If a session is not already started, start a new session
     if(!session_id()){
