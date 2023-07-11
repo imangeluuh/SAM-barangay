@@ -35,10 +35,36 @@
                     </a>
                 </li>
                 <li class="nav-item user-panel pt-1">
+                    <a href="admin_reports.php" class="nav-link side <?php if ($current_page == 'admin_reports.php') { echo 'active'; } ?>">
+                        <i class="nav-icon fas fa-solid fa-chart-simple"></i>
+                        <p>Reports</p>
+                    </a>
+                </li>              
+                <li class="nav-item user-panel pt-1">
                     <a href="admin_accounts.php" class="nav-link side <?php if ($current_page == 'admin_accounts.php') { echo 'active'; } ?>">
                         <i class="nav-icon fas fa-sharp fa-solid fa-users"></i>
                         <p>Accounts</p>
                     </a>
+                </li>
+                <li class="nav-item user-panel pt-1 has-treeview">
+                    <a href="#" class="nav-link side">
+                        <i class="nav-icon fas fa-solid fa-file-pen ps-1"></i>
+                        <p>Records<i class="right fas fa-angle-down"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="doc_records.php" class="nav-link side <?php if ($current_page == 'doc_records.php') { echo 'active'; } ?>">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Document Requests</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="concern_records.php" class="nav-link side <?php if ($current_page == 'concern_records.php') { echo 'active'; } ?>">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Concern Reports</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item user-panel pt-1">
                     <a href="configuration_panel.php" class="d-flex nav-link side <?php if ($current_page == 'configuration_panel.php') { echo 'active'; } ?>">
@@ -52,12 +78,6 @@
                         <p>System Panel</p>
                     </a>
                 </li>
-                <li class="nav-item user-panel pt-1">
-                    <a href="admin_reports.php" class="nav-link side <?php if ($current_page == 'admin_reports.php') { echo 'active'; } ?>">
-                        <i class="nav-icon fas fa-solid fa-chart-simple"></i>
-                        <p>Reports</p>
-                    </a>
-                </li>              
             </ul>
         </nav>
     </div>
