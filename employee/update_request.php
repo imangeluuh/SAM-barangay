@@ -56,6 +56,15 @@ if(count($_POST)) {
         while($conn->next_result()) {
             $conn->store_result();
         }                    
+        $stmt = $conn->prepare("CALL SP_EMPLOYEE_PROCESSED(?, ?)");
+        // bind the input parameters to the prepared statement
+        $stmt->bind_param('is', $_SESSION['docInfo']['request_id'], $_SESSION['userData']['employee_id']);
+        // Execute the prepared statement
+        $stmt->execute();
+
+        while($conn->next_result()) {
+            $conn->store_result();
+        }                    
         $stmt = $conn->prepare("CALL SP_GET_EMAIL(?)");
         // bind the input parameters to the prepared statement
         $stmt->bind_param('s', $_SESSION['docInfo']['resident_id']);

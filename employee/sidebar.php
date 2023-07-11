@@ -45,7 +45,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="emp_report_concern.php" class="nav-link side">
+                            <a href="emp_report_concern.php" class="nav-link side  <?php if ($current_page == 'emp_report_concern.php') { echo 'active'; } ?>">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Concern Reports</p>
                             </a>
