@@ -140,7 +140,7 @@
                                                     <td data-title="Date"><?php echo $row['date_requested']; ?></td>
                                                     <td data-title="Details"><?php echo $row['document_type']; ?></td>
                                                     <td data-title="Status"><?php echo $row['status']; ?></td>
-                                                    <td data-title="Schedule"><?php echo $row['schedule']; ?></td>
+                                                    <td data-title="Schedule"><?php echo $row['schedule'] != NULL ? $row['schedule'] : 'N/A'; ?></td>
                                                     <td data-title="Action">
                                                         <form action="view_docs.php" method="post">
                                                             <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">

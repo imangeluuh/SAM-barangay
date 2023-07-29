@@ -47,6 +47,20 @@
         ?>
 
         <div class="content-wrapper" style="background-color: #ffffff!important">
+            <!-- Submit modal -->
+            <div class="modal fade" id="confirmationModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <p class="mb-0">Are you sure you want to save these changes?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="saveButton">Save</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="wrapper p-5 mt-5">
                 <div class="card shadow">
                     <div class="card-header inprogress-header">
@@ -75,6 +89,7 @@
                                                     <td data-title="Document Type"><?php echo $row['document_type']; ?></td>
                                                     <td data-title="Time"><?php echo getTime($row['schedule']); ?></td>
                                                     <td data-title="Action">
+                                                        <div class="d-flex">
                                                         <form action="view_docs.php" method="post">
                                                             <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">
                                                             <input type="hidden" name="document_type" value="<?php echo $row['document_type']; ?>">
@@ -84,9 +99,15 @@
                                                             <input type="hidden" name="doc_id" value="<?php echo $row['doc_id']; ?>">
                                                             <input type="hidden" name="schedule" value="<?php echo $row['schedule']; ?>">
                                                             <input type="submit" name="view"
-                                                                    class="btn text-primary p-0" value="View" />
-                                                        </form> 
+                                                                    class="btn btn-primary p-0 px-1 me-1" value="View" />
+                                                        </form>
+                                                        <form id="claimForm" action="claim_docs.php" method="post">
+                                                            <input type="hidden" name="request_id" value="<?php echo $row['request_id']; ?>">
+                                                            <input type="hidden" name="status" value="Claimed">
+                                                            <input type="submit" name="claimed" class="btn btn-success p-0 px-1" value="Claimed"> 
+                                                        </form>
                                                     </td>
+                                                    </div>
                                             </tr>
                                             <?php }
                                         } ?>
@@ -140,7 +161,7 @@
                                                             <input type="hidden" name="doc_id" value="<?php echo $row['doc_id']; ?>">
                                                             <input type="hidden" name="schedule" value="<?php echo $row['schedule']; ?>">
                                                             <input type="submit" name="view"
-                                                                    class="btn text-primary p-0" value="View" />
+                                                                    class="btn btn-primary p-0 px-1" value="View" />
                                                         </form> 
                                                     </td>
                                             </tr>
@@ -184,6 +205,17 @@
 
             $('#schedWeek').DataTable({
                 "order": [[ 2, "asc"]],
+            });
+
+            $('#claimForm').on('submit', function(e) {
+                e.preventDefault(); // Prevent default form submission
+                $('#confirmationModal').modal('show');
+            });
+
+            // Handle the click event of the Save button in the modal
+            $('#saveButton').on('click', function() { 
+                $('#confirmationModal').modal('hide');
+                $('#claimForm').off('submit').submit();
             });
         });
     </script>
